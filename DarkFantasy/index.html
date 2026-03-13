@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VORN — Illustrateur Dark Fantasy</title>
+<title>Francis Dollez— Illustrateur Dark Fantasy</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 
@@ -63,13 +63,15 @@
     opacity: 0.5;
   }
 
-  /* TEXTURE PARCHEMIN MARQUÉE */
+  /* TEXTURE DE GRAIN */
   body::before {
     content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 1000;
-    opacity: 0.6; mix-blend-mode: overlay;
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
   }
 
   /* NAVIGATION */
@@ -122,9 +124,7 @@
   .nav-links a:hover { color: var(--or-pale); }
   .nav-links a:hover::after { width: 100%; }
 
-  /* ═══════════════════════════════════
-     HERO — PLEIN ÉCRAN DRAMATIQUE
-     ═══════════════════════════════════ */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -134,178 +134,85 @@
     overflow: hidden;
   }
 
-  /* Illustration de fond — plein écran */
-  .hero-illustration {
-    position: absolute; inset: 0;
-    background-image: url('images/hero/illustration-principale.jpg');
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    transform: scale(1.05);
-    animation: heroZoom 20s ease-in-out infinite alternate;
-  }
-  @keyframes heroZoom {
-    from { transform: scale(1.05); }
-    to   { transform: scale(1.12); }
-  }
-
-  /* Fallback quand pas d'image — fond atmosphérique */
   .hero-bg {
-    position: absolute; inset: 0;
+    position: absolute;
+    inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 80% at 80% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 70% at 50% 60%, rgba(201,168,76,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(201,168,76,0.03) 0%, transparent 60%),
       var(--noir-profond);
   }
 
-  /* Vignetage puissant sur les bords */
-  .hero-vignette {
-    position: absolute; inset: 0; z-index: 2;
-    background:
-      radial-gradient(ellipse 70% 70% at 50% 40%, transparent 20%, rgba(5,4,3,0.5) 60%, rgba(5,4,3,0.92) 100%);
-  }
-
-  /* Bande sombre en bas pour transition douce */
-  .hero-fade-bottom {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 40%; z-index: 3;
-    background: linear-gradient(to bottom, transparent, var(--noir-profond));
-  }
-
-  /* RAYONS DE LUMIÈRE DORÉE */
-  .hero-rays {
-    position: absolute; inset: 0; z-index: 2;
-    overflow: hidden;
-    pointer-events: none;
-  }
-  .hero-rays::before {
-    content: '';
-    position: absolute;
-    top: -20%; left: 50%;
-    transform: translateX(-50%);
-    width: 140%;
-    height: 120%;
-    background: conic-gradient(
-      from 260deg at 50% 0%,
-      transparent 0deg,
-      rgba(201,168,76,0.03) 5deg,
-      transparent 10deg,
-      transparent 18deg,
-      rgba(201,168,76,0.05) 22deg,
-      transparent 26deg,
-      transparent 36deg,
-      rgba(201,168,76,0.02) 40deg,
-      transparent 44deg,
-      transparent 52deg,
-      rgba(201,168,76,0.06) 55deg,
-      transparent 58deg,
-      transparent 68deg,
-      rgba(201,168,76,0.03) 72deg,
-      transparent 76deg,
-      transparent 84deg
-    );
-    animation: raysRotate 30s linear infinite;
-  }
-  .hero-rays::after {
-    content: '';
-    position: absolute;
-    top: -10%; left: 30%;
-    width: 40%; height: 80%;
-    background: radial-gradient(ellipse at top, rgba(201,168,76,0.08) 0%, transparent 65%);
-    animation: raysPulse 6s ease-in-out infinite;
-  }
-  @keyframes raysRotate {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-  @keyframes raysPulse {
-    0%, 100% { opacity: 0.6; transform: scaleX(1); }
-    50%       { opacity: 1;   transform: scaleX(1.15); }
-  }
-
-  /* Halo central doré */
-  .hero-halo {
-    position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 600px; height: 500px;
-    background: radial-gradient(ellipse at top, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
-    z-index: 3; pointer-events: none;
-    animation: haloPulse 8s ease-in-out infinite;
-  }
-  @keyframes haloPulse {
-    0%, 100% { opacity: 0.7; }
-    50%       { opacity: 1; }
-  }
-
-  /* SVG ornement de fond */
+  /* SVG ornamental background */
   .hero-ornament {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0.05; z-index: 3;
-    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.06;
   }
+
   .hero-ornament svg { width: 80vmin; height: 80vmin; }
 
-  /* CONTENU HERO */
+  /* Vignette */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(5,4,3,0.7) 100%);
+    pointer-events: none;
+  }
+
   .hero-content {
-    position: relative; z-index: 10;
-    text-align: center; padding: 0 20px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
   }
 
   .hero-eyebrow {
     font-family: var(--font-sub);
-    font-size: 0.65rem; letter-spacing: 0.5em;
-    text-transform: uppercase; color: var(--or);
-    margin-bottom: 32px; opacity: 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 32px;
+    opacity: 0;
     animation: fadeUp 1s 0.3s forwards;
   }
 
-  /* TITRE DARK-ART MASSIF */
   .hero-title {
     font-family: var(--font-titre);
-    font-size: clamp(4.5rem, 14vw, 11rem);
+    font-size: clamp(3.5rem, 10vw, 9rem);
     font-weight: 900;
     color: var(--ivoire);
-    line-height: 0.88;
-    letter-spacing: 0.08em;
-    margin-bottom: 0;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
     opacity: 0;
     animation: fadeUp 1.2s 0.5s forwards;
-    text-shadow:
-      0 0 80px rgba(201,168,76,0.25),
-      0 0 160px rgba(201,168,76,0.1),
-      0 2px 4px rgba(0,0,0,0.8);
-    position: relative;
   }
 
-  /* Trait doré sous DARK-ART */
-  .hero-title::after {
-    content: '';
+  .hero-title span {
     display: block;
-    width: 60%; height: 1px;
-    background: linear-gradient(to right, transparent, var(--or), transparent);
-    margin: 20px auto 0;
-    opacity: 0.6;
-  }
-
-  .hero-title-sub {
-    display: block;
-    font-family: var(--font-sub);
-    font-size: 0.2em;
-    letter-spacing: 0.55em;
     color: var(--or);
+    font-size: 0.45em;
+    letter-spacing: 0.15em;
     font-weight: 400;
-    margin-top: 14px;
-    text-shadow: none;
+    margin-top: 8px;
   }
 
   .hero-divider {
-    display: flex; align-items: center; justify-content: center;
-    gap: 20px; margin: 48px auto;
-    opacity: 0; animation: fadeUp 1s 0.8s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
   }
+
   .hero-divider-line {
     width: 80px; height: 1px;
     background: linear-gradient(to right, transparent, var(--or-ombre));
@@ -313,21 +220,30 @@
   .hero-divider-line:last-child {
     background: linear-gradient(to left, transparent, var(--or-ombre));
   }
+
   .hero-divider-gem {
     width: 8px; height: 8px;
-    background: var(--or); transform: rotate(45deg);
+    background: var(--or);
+    transform: rotate(45deg);
   }
 
   .hero-sub {
-    font-family: var(--font-corps); font-style: italic;
-    font-size: 1.15rem; color: var(--ivoire-sombre);
-    max-width: 480px; margin: 0 auto 56px;
-    opacity: 0; animation: fadeUp 1s 1s forwards;
+    font-family: var(--font-corps);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--ivoire-sombre);
+    max-width: 480px;
+    margin: 0 auto 56px;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
   }
 
   .hero-cta {
-    display: inline-flex; align-items: center; gap: 16px;
-    opacity: 0; animation: fadeUp 1s 1.2s forwards;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
   }
 
   .btn-primary {
@@ -1124,30 +1040,255 @@
     100% { background-position: 300% 0%; }
   }
 
-  /* Floating particles — plus visibles */
+  /* =============================
+     SYSTÈME D'IMAGES
+     ============================= */
+  /* Remplacer un placeholder par une vraie image :
+     <img src="images/galerie/nom-oeuvre.jpg" alt="Titre" class="illus-img"> */
+  .illus-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .gallery-item:hover .illus-img { transform: scale(1.04); }
+
+  /* =============================
+     LIGHTBOX AMÉLIORÉE
+     ============================= */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(5,4,3,0.97);
+    z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+  .lightbox.active { opacity: 1; pointer-events: all; }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 90vw; max-height: 90vh;
+    display: flex; flex-direction: column; align-items: center;
+    gap: 24px;
+  }
+  .lightbox-frame {
+    position: relative;
+    border: 1px solid var(--or-ombre);
+  }
+  .lightbox-frame::before, .lightbox-frame::after {
+    content: '';
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--or);
+    border-style: solid;
+  }
+  .lightbox-frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .lightbox-frame::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+  .lightbox-img {
+    max-width: 80vw; max-height: 70vh;
+    display: block; object-fit: contain;
+  }
+  .lightbox-caption {
+    font-family: var(--font-sub);
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--or);
+    text-align: center;
+  }
+  .lightbox-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-sub); font-size: 0.55rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--or-ombre); cursor: none;
+    transition: color 0.3s; padding: 12px;
+  }
+  .lightbox-nav:hover { color: var(--or); }
+  .lightbox-prev { left: -80px; }
+  .lightbox-next { right: -80px; }
+  .lightbox-close {
+    position: absolute; top: -50px; right: 0;
+    font-family: var(--font-sub); font-size: 0.6rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--or); cursor: none; transition: color 0.3s;
+  }
+  .lightbox-close:hover { color: var(--ivoire); }
+
+  /* Indicateur dots lightbox */
+  .lightbox-dots {
+    display: flex; gap: 8px;
+  }
+  .lightbox-dot {
+    width: 4px; height: 4px;
+    background: var(--or-ombre);
+    transform: rotate(45deg);
+    transition: background 0.3s, transform 0.3s;
+    cursor: none;
+  }
+  .lightbox-dot.active { background: var(--or); transform: rotate(45deg) scale(1.4); }
+
+  /* =============================
+     BLOG — CARNETS DE CRÉATION
+     ============================= */
+  .blog-section {
+    background: var(--noir-profond);
+    padding: 140px 60px;
+  }
+  .blog-inner { max-width: 1400px; margin: 0 auto; }
+
+  .blog-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 80px;
+  }
+  .blog-header h2 {
+    font-family: var(--font-titre);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--ivoire);
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 3px;
+  }
+
+  /* Article vedette */
+  .blog-featured {
+    grid-row: span 2;
+    background: var(--noir-encre);
+    position: relative; overflow: hidden;
+    cursor: none;
+    transition: border-color 0.3s;
+    border: 1px solid transparent;
+  }
+  .blog-featured:hover { border-color: rgba(201,168,76,0.2); }
+
+  .blog-featured-img {
+    aspect-ratio: 4/3;
+    background:
+      radial-gradient(ellipse at 40% 40%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      var(--gris-parchemin);
+    position: relative; overflow: hidden;
+  }
+  /* Pour ajouter une image : remplacer le div par <img src="images/blog/nom.jpg" class="illus-img" alt=""> */
+  .blog-featured-img-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 280px;
+  }
+
+  .blog-featured-body { padding: 40px; }
+  .blog-featured-body .blog-cat {
+    font-family: var(--font-sub); font-size: 0.55rem;
+    letter-spacing: 0.35em; text-transform: uppercase;
+    color: var(--or); margin-bottom: 16px; display: block;
+  }
+  .blog-featured-body h3 {
+    font-family: var(--font-titre);
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    color: var(--ivoire); line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .blog-featured-body p {
+    font-size: 0.95rem; color: var(--ivoire-sombre);
+    line-height: 1.7; font-style: italic;
+    margin-bottom: 24px;
+  }
+  .blog-meta {
+    display: flex; align-items: center; gap: 20px;
+    font-family: var(--font-sub); font-size: 0.55rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--or-ombre);
+  }
+  .blog-meta-sep { width: 20px; height: 1px; background: var(--or-ombre); }
+  .blog-read-more {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-sub); font-size: 0.6rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--or); text-decoration: none;
+    transition: gap 0.3s;
+    margin-top: 16px;
+  }
+  .blog-read-more:hover { gap: 16px; }
+  .blog-read-more::after { content: '→'; }
+
+  /* Articles secondaires */
+  .blog-card {
+    background: var(--gris-parchemin);
+    padding: 32px 36px;
+    position: relative; overflow: hidden;
+    cursor: none;
+    border-left: 2px solid var(--or-ombre);
+    transition: border-color 0.3s, background 0.3s;
+    text-decoration: none; display: block;
+  }
+  .blog-card:hover { border-color: var(--or); background: var(--noir-encre); }
+  .blog-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 0% 50%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .blog-card:hover::before { opacity: 1; }
+
+  .blog-card .blog-cat {
+    font-family: var(--font-sub); font-size: 0.5rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--or-ombre); margin-bottom: 12px; display: block;
+    transition: color 0.3s;
+  }
+  .blog-card:hover .blog-cat { color: var(--or); }
+  .blog-card h4 {
+    font-family: var(--font-sub); font-size: 0.95rem;
+    letter-spacing: 0.05em; color: var(--ivoire);
+    line-height: 1.4; margin-bottom: 12px;
+  }
+  .blog-card p {
+    font-size: 0.88rem; color: var(--ivoire-sombre);
+    line-height: 1.6; font-style: italic;
+    margin-bottom: 20px;
+  }
+  .blog-card-num {
+    position: absolute; top: 20px; right: 24px;
+    font-family: var(--font-titre); font-size: 2.5rem;
+    color: rgba(201,168,76,0.06); line-height: 1;
+    font-weight: 900;
+  }
+
+  /* =============================
+     ORNEMENTS SUPPLÉMENTAIRES
+     ============================= */
+  /* Rune flottante de fond */
+  .section-rune {
+    position: absolute; top: 60px; right: 60px;
+    opacity: 0.04; pointer-events: none;
+    width: 200px; height: 200px;
+  }
+  /* Filigrane de coin sur les sections */
+  .corner-deco {
+    position: absolute; bottom: 0; right: 0;
+    width: 120px; height: 120px;
+    opacity: 0.04; pointer-events: none;
+  }
+
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: 1fr; }
+    .blog-featured { grid-row: span 1; }
+    .lightbox-prev, .lightbox-next { display: none; }
+    .blog-section { padding: 80px 24px; }
+  }
+
+  /* Floating particles */
   .particle {
     position: fixed;
+    width: 2px; height: 2px;
+    background: var(--or);
     border-radius: 50%;
     pointer-events: none;
     z-index: 999;
     animation: float linear infinite;
     opacity: 0;
-  }
-  .particle.type-dot {
-    width: 2px; height: 2px;
-    background: var(--or);
-    box-shadow: 0 0 4px var(--or);
-  }
-  .particle.type-spark {
-    width: 1px; height: 6px;
-    background: linear-gradient(to top, transparent, var(--or-vif));
-    border-radius: 1px;
-    box-shadow: 0 0 6px var(--or);
-  }
-  .particle.type-glow {
-    width: 3px; height: 3px;
-    background: var(--or-pale);
-    box-shadow: 0 0 8px 2px rgba(201,168,76,0.6);
   }
 
   @keyframes float {
@@ -1174,6 +1315,7 @@
     <li><a href="#univers">Univers</a></li>
     <li><a href="#galerie">Galerie</a></li>
     <li><a href="#shop">Boutique</a></li>
+    <li><a href="#blog">Blog</a></li>
     <li><a href="#process">Processus</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -1181,30 +1323,15 @@
 
 <!-- HERO -->
 <section class="hero" id="accueil">
-
-  <!-- Illustration plein écran -->
-  <!-- POUR AJOUTER VOTRE ILLUSTRATION :
-       Créer dossier images/hero/ et y mettre illustration-principale.jpg
-       Elle apparaîtra automatiquement en fond plein écran -->
-  <div class="hero-illustration"></div>
   <div class="hero-bg"></div>
 
-  <!-- Rayons de lumière dorée -->
-  <div class="hero-rays"></div>
-
-  <!-- Halo lumineux central -->
-  <div class="hero-halo"></div>
-
-  <!-- Vignetage -->
-  <div class="hero-vignette"></div>
-  <div class="hero-fade-bottom"></div>
-
-  <!-- Ornement SVG de fond -->
+  <!-- Grand ornement SVG de fond -->
   <div class="hero-ornament">
     <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="200" cy="200" r="180" stroke="#c9a84c" stroke-width="0.5"/>
       <circle cx="200" cy="200" r="150" stroke="#c9a84c" stroke-width="0.3" stroke-dasharray="4 8"/>
       <circle cx="200" cy="200" r="120" stroke="#c9a84c" stroke-width="0.5"/>
+      <!-- 8 rune marks -->
       <g stroke="#c9a84c" stroke-width="0.7">
         <line x1="200" y1="20" x2="200" y2="60"/>
         <line x1="380" y1="200" x2="340" y2="200"/>
@@ -1215,12 +1342,14 @@
         <line x1="73" y1="327" x2="102" y2="298"/>
         <line x1="73" y1="73" x2="102" y2="102"/>
       </g>
+      <!-- Losanges cardinaux -->
       <g fill="#c9a84c">
         <polygon points="200,14 205,24 200,30 195,24"/>
         <polygon points="386,200 376,205 370,200 376,195"/>
         <polygon points="200,386 205,376 200,370 195,376"/>
         <polygon points="14,200 24,195 30,200 24,205"/>
       </g>
+      <!-- Centre -->
       <polygon points="200,188 206,200 200,212 194,200" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
       <path d="M 200 60 Q 260 120 200 200 Q 140 120 200 60" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
       <path d="M 340 200 Q 280 260 200 200 Q 280 140 340 200" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
@@ -1231,10 +1360,9 @@
 
   <div class="hero-content">
     <p class="hero-eyebrow">Illustration — Dark Fantasy — Encre & Lavis</p>
-
     <h1 class="hero-title">
-      DARK-ART
-      <span class="hero-title-sub">Illustrateur</span>
+      Votre Nom
+      <span>Illustrateur</span>
     </h1>
 
     <div class="hero-divider">
@@ -1363,8 +1491,16 @@
   </div>
 
   <div class="gallery-grid">
+    <!-- ================================================
+         COMMENT AJOUTER VOS ILLUSTRATIONS :
+         1. Créer un dossier "images/galerie/" à côté du HTML
+         2. Nommer vos fichiers : 01-dryade-cendree.jpg, 02-sirene-abysses.jpg, etc.
+         3. Remplacer chaque .gallery-img-placeholder par :
+            <img src="images/galerie/01-dryade-cendree.jpg" alt="La Dryade Cendrée" class="illus-img">
+         ================================================ -->
+
     <!-- Item 1 — Grand format -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="0" data-src="images/galerie/01-dryade-cendree.jpg" data-caption="La Dryade Cendrée — Encre de Chine">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1381,7 +1517,7 @@
       </div>
     </div>
     <!-- Item 2 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="1" data-src="images/galerie/02-sirene-abysses.jpg" data-caption="Sirène des Abysses — Lavis">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1398,7 +1534,7 @@
       </div>
     </div>
     <!-- Item 3 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="2" data-src="images/galerie/03-sceau-demon.jpg" data-caption="Sceau du Démon — Encre">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1414,7 +1550,7 @@
       </div>
     </div>
     <!-- Item 4 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="3" data-src="images/galerie/04-dragon-brumes.jpg" data-caption="Dragon des Brumes — Lavis">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1431,7 +1567,7 @@
       </div>
     </div>
     <!-- Item 5 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="4" data-src="images/galerie/05-succube.jpg" data-caption="La Succube — Encre de Chine">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1449,7 +1585,7 @@
       </div>
     </div>
     <!-- Item 6 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="5" data-src="images/galerie/06-foret-nocturne.jpg" data-caption="Forêt Nocturne — Lavis">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1465,13 +1601,12 @@
       </div>
     </div>
     <!-- Item 7 — Grand format -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="6" data-src="images/galerie/07-ancien.jpg" data-caption="L'Ancien — Encre & Lavis">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
             <svg width="60" height="90" viewBox="0 0 60 90" fill="none">
               <path d="M 30 5 Q 50 20 50 45 Q 50 70 30 85 Q 10 70 10 45 Q 10 20 30 5" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <path d="M 30 15 Q 45 30 45 50 Q 45 70 30 80" stroke="#c9a84c" stroke-width="0.4"/>
               <ellipse cx="30" cy="45" rx="10" ry="14" stroke="#c9a84c" stroke-width="0.6"/>
             </svg>
           </div>
@@ -1482,7 +1617,7 @@
       </div>
     </div>
     <!-- Item 8 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="7" data-src="images/galerie/08-rune-sang.jpg" data-caption="Rune de Sang — Encre">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1499,7 +1634,7 @@
       </div>
     </div>
     <!-- Item 9 -->
-    <div class="gallery-item">
+    <div class="gallery-item" data-index="8" data-src="images/galerie/09-oeil-gouffre.jpg" data-caption="Œil du Gouffre — Lavis">
       <div class="gallery-item-inner">
         <div class="gallery-img-placeholder">
           <div class="ph-icon">
@@ -1608,6 +1743,101 @@
 
     <div style="text-align:center; margin-top:60px;" class="reveal">
       <a href="#" class="btn-ghost">Voir toute la boutique</a>
+    </div>
+  </div>
+</section>
+
+<!-- SÉPARATEUR -->
+<div class="ornament-sep">
+  <div class="sep-line"></div>
+  <div class="sep-center">
+    <svg width="40" height="20" viewBox="0 0 40 20" fill="none">
+      <polygon points="20,2 24,10 20,18 16,10" stroke="#c9a84c" stroke-width="0.8" fill="rgba(201,168,76,0.1)"/>
+      <line x1="0" y1="10" x2="12" y2="10" stroke="#7a5e1e" stroke-width="0.8"/>
+      <line x1="28" y1="10" x2="40" y2="10" stroke="#7a5e1e" stroke-width="0.8"/>
+    </svg>
+  </div>
+  <div class="sep-line"></div>
+</div>
+
+<!-- BLOG — CARNETS DE CRÉATION -->
+<section id="blog" class="blog-section">
+  <div class="blog-inner">
+    <div class="blog-header reveal">
+      <div>
+        <div class="section-label">Carnets de création</div>
+        <h2>Le Blog</h2>
+      </div>
+      <a href="#" class="btn-ghost" style="white-space:nowrap;">Tous les carnets</a>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- Article vedette — IMAGE :
+           Remplacer .blog-featured-img-inner par :
+           <img src="images/blog/article-01.jpg" alt="Titre" class="illus-img"> -->
+      <article class="blog-featured reveal">
+        <div class="blog-featured-img">
+          <div class="blog-featured-img-inner">
+            <svg width="100" height="140" viewBox="0 0 100 140" fill="none" opacity="0.12">
+              <ellipse cx="50" cy="40" rx="18" ry="22" stroke="#c9a84c" stroke-width="1"/>
+              <path d="M50 62 L50 110 M32 75 Q10 60 5 40 M68 75 Q90 60 95 40 M50 110 Q35 125 30 138 M50 110 Q65 125 70 138" stroke="#c9a84c" stroke-width="1"/>
+              <path d="M20 28 Q5 10 2 0 M80 28 Q95 10 98 0" stroke="#c9a84c" stroke-width="0.6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="blog-featured-body">
+          <span class="blog-cat">✦ Carnet de Création</span>
+          <h3>Naissance d'une Dryade — du croquis à l'encre définitive</h3>
+          <p>Comment une silhouette de brume devient créature vivante : retour sur le processus complet d'une illustration, de la première esquisse au dernier coup de pinceau.</p>
+          <div class="blog-meta">
+            <span>15 Mars 2025</span>
+            <div class="blog-meta-sep"></div>
+            <span>Lecture — 8 min</span>
+          </div>
+          <a href="#" class="blog-read-more">Lire le carnet</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <a href="#" class="blog-card reveal">
+        <div class="blog-card-num">02</div>
+        <span class="blog-cat">Technique</span>
+        <h4>L'encre de Chine : pigments, dilutions et accidents heureux</h4>
+        <p>Tout ce que j'ai appris sur les encres, les papiers et la façon dont l'eau transforme un trait en atmosphère.</p>
+        <div class="blog-meta">
+          <span>2 Mars 2025</span>
+          <div class="blog-meta-sep"></div>
+          <span>6 min</span>
+        </div>
+      </a>
+
+      <!-- Article 3 -->
+      <a href="#" class="blog-card reveal">
+        <div class="blog-card-num">03</div>
+        <span class="blog-cat">Univers</span>
+        <h4>Les créatures de forêt — mythologies et réinterprétations personnelles</h4>
+        <p>D'où viennent mes dryades ? Explorations mythologiques, références et la façon dont je forge mes propres archétypes.</p>
+        <div class="blog-meta">
+          <span>18 Fév. 2025</span>
+          <div class="blog-meta-sep"></div>
+          <span>10 min</span>
+        </div>
+      </a>
+
+      <!-- Article 4 -->
+      <a href="#" class="blog-card reveal">
+        <div class="blog-card-num">04</div>
+        <span class="blog-cat">Inspiration</span>
+        <h4>5 illustrateurs dark fantasy qui ont changé ma vision de l'encre</h4>
+        <p>Un tour d'horizon des artistes qui m'ont influencé, et ce que leurs techniques m'ont appris sur la mienne.</p>
+        <div class="blog-meta">
+          <span>5 Fév. 2025</span>
+          <div class="blog-meta-sep"></div>
+          <span>5 min</span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -1731,8 +1961,24 @@
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <span class="lightbox-close" id="lightboxClose">✕ Fermer</span>
+    <div class="lightbox-frame">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    </div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <div class="lightbox-dots" id="lightboxDots"></div>
+  </div>
+  <span class="lightbox-nav lightbox-prev" id="lightboxPrev">← Préc.</span>
+  <span class="lightbox-nav lightbox-next" id="lightboxNext">Suiv. →</span>
+</div>
+
 <script>
-  // Curseur custom
+  // ═══════════════════════════════════════
+  // CURSEUR CUSTOM
+  // ═══════════════════════════════════════
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
@@ -1752,7 +1998,7 @@
   }
   animateRing();
 
-  document.querySelectorAll('a, button, .gallery-item, .shop-card, .tag').forEach(el => {
+  document.querySelectorAll('a, button, .gallery-item, .shop-card, .tag, .blog-card, .blog-featured').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '20px';
       cursor.style.height = '20px';
@@ -1769,7 +2015,9 @@
     });
   });
 
-  // Reveal on scroll
+  // ═══════════════════════════════════════
+  // REVEAL ON SCROLL
+  // ═══════════════════════════════════════
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
@@ -1781,34 +2029,112 @@
   }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
 
-  // Particules flottantes — dorées et variées
-  const particleTypes = ['type-dot', 'type-dot', 'type-spark', 'type-glow'];
+  // ═══════════════════════════════════════
+  // PARTICULES FLOTTANTES
+  // ═══════════════════════════════════════
   function spawnParticle() {
     const p = document.createElement('div');
-    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    p.className = 'particle ' + type;
+    p.className = 'particle';
     const x = Math.random() * window.innerWidth;
-    const dur = 6 + Math.random() * 14;
-    const drift = (Math.random() - 0.5) * 120 + 'px';
-    const delay = Math.random() * 3;
-    p.style.cssText = `left:${x}px; bottom:-5px; animation-duration:${dur}s; animation-delay:${delay}s; --drift:${drift};`;
+    const dur = 8 + Math.random() * 12;
+    const drift = (Math.random() - 0.5) * 100 + 'px';
+    p.style.cssText = `left:${x}px; bottom:-5px; animation-duration:${dur}s; animation-delay:${Math.random()*5}s; --drift:${drift};`;
     document.getElementById('particles').appendChild(p);
-    setTimeout(() => p.remove(), (dur + delay + 2) * 1000);
+    setTimeout(() => p.remove(), (dur + 5) * 1000);
   }
-  for (let i = 0; i < 35; i++) spawnParticle();
-  setInterval(spawnParticle, 1200);
+  for (let i = 0; i < 20; i++) spawnParticle();
+  setInterval(spawnParticle, 2000);
 
-  // Galerie — effet parallaxe léger
+  // ═══════════════════════════════════════
+  // GALERIE — PARALLAXE HOVER
+  // ═══════════════════════════════════════
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('mousemove', e => {
       const r = item.getBoundingClientRect();
       const dx = (e.clientX - r.left - r.width/2) / r.width;
       const dy = (e.clientY - r.top - r.height/2) / r.height;
-      item.querySelector('.gallery-img-placeholder').style.transform = `scale(1.04) translate(${dx*8}px, ${dy*6}px)`;
+      const inner = item.querySelector('.gallery-img-placeholder, .illus-img');
+      if (inner) inner.style.transform = `scale(1.04) translate(${dx*8}px, ${dy*6}px)`;
     });
     item.addEventListener('mouseleave', () => {
-      item.querySelector('.gallery-img-placeholder').style.transform = '';
+      const inner = item.querySelector('.gallery-img-placeholder, .illus-img');
+      if (inner) inner.style.transform = '';
     });
+  });
+
+  // ═══════════════════════════════════════
+  // LIGHTBOX
+  // ═══════════════════════════════════════
+  const galleryItems = Array.from(document.querySelectorAll('.gallery-item[data-index]'));
+  const lightbox     = document.getElementById('lightbox');
+  const lbImg        = document.getElementById('lightboxImg');
+  const lbCaption    = document.getElementById('lightboxCaption');
+  const lbDots       = document.getElementById('lightboxDots');
+  const lbClose      = document.getElementById('lightboxClose');
+  const lbPrev       = document.getElementById('lightboxPrev');
+  const lbNext       = document.getElementById('lightboxNext');
+  let currentIndex   = 0;
+
+  // Construire les dots
+  galleryItems.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'lightbox-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => openLightbox(i));
+    lbDots.appendChild(dot);
+  });
+
+  function openLightbox(index) {
+    currentIndex = index;
+    const item = galleryItems[index];
+    const src  = item.dataset.src;
+    const cap  = item.dataset.caption;
+
+    // Si une vraie image existe dans l'item, l'utiliser
+    const realImg = item.querySelector('.illus-img');
+    lbImg.src     = realImg ? realImg.src : src;
+    lbImg.alt     = cap;
+    lbCaption.textContent = cap;
+
+    // Mettre à jour les dots
+    document.querySelectorAll('.lightbox-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === index);
+    });
+
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    setTimeout(() => { lbImg.src = ''; }, 400);
+  }
+
+  function navigate(dir) {
+    const next = (currentIndex + dir + galleryItems.length) % galleryItems.length;
+    openLightbox(next);
+  }
+
+  // Clic sur les items de la galerie
+  galleryItems.forEach((item, i) => {
+    item.addEventListener('click', () => openLightbox(i));
+  });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => navigate(-1));
+  lbNext.addEventListener('click', () => navigate(1));
+
+  // Clic en dehors de l'image
+  lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Clavier
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape')      closeLightbox();
+    if (e.key === 'ArrowLeft')   navigate(-1);
+    if (e.key === 'ArrowRight')  navigate(1);
   });
 </script>
 </body>
