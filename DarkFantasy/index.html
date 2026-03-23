@@ -265,34 +265,17 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
-<<<<<<< Updated upstream
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 50% 80% at 80% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
-      var(--noir-profond);
-=======
       radial-gradient(ellipse 80% 60% at 50% 30%, var(--u-glow) 0%, transparent 60%),
       radial-gradient(ellipse 50% 80% at 20% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
       radial-gradient(ellipse 50% 80% at 80% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
       var(--u-bg-deep);
     transition: background-color 0.8s ease;
->>>>>>> Stashed changes
   }
 
   /* Vignetage puissant sur les bords */
   .hero-vignette {
     position: absolute; inset: 0; z-index: 2;
     background:
-<<<<<<< Updated upstream
-      radial-gradient(ellipse 70% 70% at 50% 40%, transparent 20%, rgba(5,4,3,0.5) 60%, rgba(5,4,3,0.92) 100%);
-  }
-
-  /* Bande sombre en bas pour transition douce */
-  .hero-fade-bottom {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 40%; z-index: 3;
-    background: linear-gradient(to bottom, transparent, var(--noir-profond));
-=======
       radial-gradient(ellipse 70% 70% at 50% 40%, transparent 20%, var(--u-vignette-mid) 60%, var(--u-vignette) 100%);
     transition: background 0.8s ease;
   }
@@ -302,7 +285,6 @@
     height: 40%; z-index: 3;
     background: linear-gradient(to bottom, transparent, var(--u-fade));
     transition: background 0.8s ease;
->>>>>>> Stashed changes
   }
 
   /* RAYONS DE LUMIÈRE DORÉE */
@@ -362,32 +344,16 @@
     top: 0; left: 50%;
     transform: translateX(-50%);
     width: 600px; height: 500px;
-<<<<<<< Updated upstream
-    background: radial-gradient(ellipse at top, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
-    z-index: 3; pointer-events: none;
-    animation: haloPulse 8s ease-in-out infinite;
-=======
     background: radial-gradient(ellipse at top, var(--u-halo) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
     z-index: 3; pointer-events: none;
     animation: haloPulse 8s ease-in-out infinite;
     transition: background 0.8s ease;
->>>>>>> Stashed changes
   }
   @keyframes haloPulse {
     0%, 100% { opacity: 0.7; }
     50%       { opacity: 1; }
   }
 
-<<<<<<< Updated upstream
-  /* SVG ornement de fond */
-  .hero-ornament {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0.05; z-index: 3;
-    pointer-events: none;
-  }
-  .hero-ornament svg { width: 80vmin; height: 80vmin; }
-=======
   /* SVG ornement de fond — logo rotatif */
   .hero-ornament {
     position: absolute; inset: 0;
@@ -408,7 +374,6 @@
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
   }
->>>>>>> Stashed changes
 
   /* CONTENU HERO */
   .hero-content {
@@ -494,7 +459,7 @@
 
   .btn-primary {
     font-family: var(--font-sub);
-    font-size: 0.80rem;
+    font-size: 0.65rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--noir);
@@ -581,7 +546,7 @@
 
   .section-label {
     font-family: var(--font-sub);
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     letter-spacing: 0.5em;
     text-transform: uppercase;
     color: var(--or);
@@ -732,7 +697,7 @@
      ═══════════════════════════════════════════ */
   .gallery-section {
     background: var(--noir-encre);
-    padding: 140px 200px;
+    padding: 140px 0;
   }
   .gallery-header {
     padding: 0 60px;
@@ -1518,13 +1483,9 @@
   <!-- POUR AJOUTER VOTRE ILLUSTRATION :
        Créer dossier images/hero/ et y mettre illustration-principale.jpg
        Elle apparaîtra automatiquement en fond plein écran -->
-<<<<<<< Updated upstream
-  <div class="hero-illustration"></div>
-=======
        
   <div class="hero-illustration"></div>
   
->>>>>>> Stashed changes
   <div class="hero-bg"></div>
 
   <!-- Rayons de lumière dorée -->
@@ -1537,51 +1498,16 @@
   <div class="hero-vignette"></div>
   <div class="hero-fade-bottom"></div>
 
-<<<<<<< Updated upstream
-  <!-- Ornement SVG de fond -->
-  <div class="hero-ornament">
-    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="200" cy="200" r="180" stroke="#c9a84c" stroke-width="0.5"/>
-      <circle cx="200" cy="200" r="150" stroke="#c9a84c" stroke-width="0.3" stroke-dasharray="4 8"/>
-      <circle cx="200" cy="200" r="120" stroke="#c9a84c" stroke-width="0.5"/>
-      <g stroke="#c9a84c" stroke-width="0.7">
-        <line x1="200" y1="20" x2="200" y2="60"/>
-        <line x1="380" y1="200" x2="340" y2="200"/>
-        <line x1="200" y1="380" x2="200" y2="340"/>
-        <line x1="20" y1="200" x2="60" y2="200"/>
-        <line x1="327" y1="73" x2="298" y2="102"/>
-        <line x1="327" y1="327" x2="298" y2="298"/>
-        <line x1="73" y1="327" x2="102" y2="298"/>
-        <line x1="73" y1="73" x2="102" y2="102"/>
-      </g>
-      <g fill="#c9a84c">
-        <polygon points="200,14 205,24 200,30 195,24"/>
-        <polygon points="386,200 376,205 370,200 376,195"/>
-        <polygon points="200,386 205,376 200,370 195,376"/>
-        <polygon points="14,200 24,195 30,200 24,205"/>
-      </g>
-      <polygon points="200,188 206,200 200,212 194,200" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
-      <path d="M 200 60 Q 260 120 200 200 Q 140 120 200 60" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
-      <path d="M 340 200 Q 280 260 200 200 Q 280 140 340 200" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
-      <path d="M 200 340 Q 140 280 200 200 Q 260 280 200 340" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
-      <path d="M 60 200 Q 120 140 200 200 Q 120 260 60 200" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
-    </svg>
-=======
   <!-- Logo symbole en fond — rotation lente -->
   <div class="hero-ornament">
-    <img src="images/logo-symbole.svg" alt="" aria-hidden="true">
->>>>>>> Stashed changes
+    <img src="logo-symbole.svg" alt="" aria-hidden="true">
   </div>
 
   <div class="hero-content">
     <p class="hero-eyebrow">Illustration — Dark Fantasy — Encre & Lavis</p>
 
     <h1 class="hero-title">
-<<<<<<< Updated upstream
-      DARK-ART
-=======
       Darkens
->>>>>>> Stashed changes
       <span class="hero-title-sub">Illustrateur</span>
     </h1>
 
@@ -1663,7 +1589,24 @@
           </div>
 
           <div class="illus-placeholder">
-             <img src="images/galerie/TITAN-forest.png" width="100%" />
+            <div style="text-align:center;">
+              <!-- Silhouette SVG ornementale -->
+              <svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.15; margin-bottom:16px; display:block; margin:0 auto 16px;">
+                <!-- Dryade stylisée -->
+                <ellipse cx="60" cy="60" rx="18" ry="22" stroke="#c9a84c" stroke-width="1"/>
+                <line x1="60" y1="82" x2="60" y2="130" stroke="#c9a84c" stroke-width="1"/>
+                <path d="M 60 100 Q 40 90 20 80" stroke="#c9a84c" stroke-width="1"/>
+                <path d="M 60 100 Q 80 90 100 80" stroke="#c9a84c" stroke-width="1"/>
+                <path d="M 60 130 Q 45 150 40 170" stroke="#c9a84c" stroke-width="1"/>
+                <path d="M 60 130 Q 75 150 80 170" stroke="#c9a84c" stroke-width="1"/>
+                <!-- Branches -->
+                <path d="M 30 50 Q 10 30 5 10" stroke="#c9a84c" stroke-width="0.7"/>
+                <path d="M 90 50 Q 110 30 115 10" stroke="#c9a84c" stroke-width="0.7"/>
+                <path d="M 25 65 Q 5 60 2 45" stroke="#c9a84c" stroke-width="0.5"/>
+                <path d="M 95 65 Q 115 60 118 45" stroke="#c9a84c" stroke-width="0.5"/>
+              </svg>
+              <span style="font-family: var(--font-sub); font-size: 0.55rem; letter-spacing:0.3em; color: var(--or-ombre);">Votre illustration</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1695,165 +1638,9 @@
     <a href="#" class="btn-ghost" style="white-space:nowrap;">Voir tout</a>
   </div>
 
-<<<<<<< Updated upstream
-  <div class="gallery-grid">
-    <!-- Item 1 — Grand format -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="60" height="80" viewBox="0 0 60 80" fill="none">
-              <ellipse cx="30" cy="25" rx="10" ry="12" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 30 37 L 30 60 M 20 48 Q 10 42 5 35 M 40 48 Q 50 42 55 35 M 30 60 Q 20 70 18 78 M 30 60 Q 40 70 42 78" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 10 18 Q 0 8 0 0 M 50 18 Q 60 8 60 0" stroke="#c9a84c" stroke-width="0.5"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">La Dryade Cendrée — Encre de Chine</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 2 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="70" height="50" viewBox="0 0 70 50" fill="none">
-              <path d="M 5 40 Q 15 10 35 25 Q 55 40 65 10" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <ellipse cx="35" cy="20" rx="15" ry="10" stroke="#c9a84c" stroke-width="0.5"/>
-              <path d="M 20 35 Q 35 45 50 35" stroke="#c9a84c" stroke-width="0.8"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Sirène des Abysses — Lavis</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 3 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
-              <polygon points="30,5 45,20 55,15 50,32 58,45 42,40 30,55 18,40 2,45 10,32 5,15 15,20" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <circle cx="30" cy="30" r="8" stroke="#c9a84c" stroke-width="0.5"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Sceau du Démon — Encre</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 4 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="80" height="50" viewBox="0 0 80 50" fill="none">
-              <path d="M 5 45 L 20 10 L 40 30 L 60 5 L 75 35" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <path d="M 20 10 L 10 0 M 60 5 L 70 0 M 60 5 L 75 0" stroke="#c9a84c" stroke-width="0.6"/>
-              <ellipse cx="40" cy="30" rx="8" ry="5" stroke="#c9a84c" stroke-width="0.5"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Dragon des Brumes — Lavis</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 5 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="50" height="70" viewBox="0 0 50 70" fill="none">
-              <ellipse cx="25" cy="15" rx="10" ry="12" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 15 25 Q 5 15 2 5 M 35 25 Q 45 15 48 5" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 25 27 L 25 50 M 15 60 Q 25 50 35 60" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 10 38 Q 0 35 0 25 M 40 38 Q 50 35 50 25" stroke="#c9a84c" stroke-width="0.6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">La Succube — Encre de Chine</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 6 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="80" height="50" viewBox="0 0 80 50" fill="none">
-              <path d="M 5 25 Q 20 5 40 25 Q 60 45 75 25" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <circle cx="40" cy="25" r="15" stroke="#c9a84c" stroke-width="0.4" stroke-dasharray="3 6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Forêt Nocturne — Lavis</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 7 — Grand format -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="60" height="90" viewBox="0 0 60 90" fill="none">
-              <path d="M 30 5 Q 50 20 50 45 Q 50 70 30 85 Q 10 70 10 45 Q 10 20 30 5" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <path d="M 30 15 Q 45 30 45 50 Q 45 70 30 80" stroke="#c9a84c" stroke-width="0.4"/>
-              <ellipse cx="30" cy="45" rx="10" ry="14" stroke="#c9a84c" stroke-width="0.6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">L'Ancien — Encre & Lavis</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 8 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="60" height="50" viewBox="0 0 60 50" fill="none">
-              <polygon points="30,5 55,45 5,45" stroke="#c9a84c" stroke-width="0.8" fill="none"/>
-              <polygon points="30,15 48,42 12,42" stroke="#c9a84c" stroke-width="0.4" fill="none"/>
-              <circle cx="30" cy="30" r="5" fill="rgba(201,168,76,0.15)" stroke="#c9a84c" stroke-width="0.6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Rune de Sang — Encre</div>
-        </div>
-      </div>
-    </div>
-    <!-- Item 9 -->
-    <div class="gallery-item">
-      <div class="gallery-item-inner">
-        <div class="gallery-img-placeholder">
-          <div class="ph-icon">
-            <svg width="70" height="50" viewBox="0 0 70 50" fill="none">
-              <ellipse cx="35" cy="25" rx="25" ry="18" stroke="#c9a84c" stroke-width="0.8"/>
-              <path d="M 10 25 Q 35 10 60 25 M 10 25 Q 35 40 60 25" stroke="#c9a84c" stroke-width="0.4"/>
-              <circle cx="35" cy="25" r="6" stroke="#c9a84c" stroke-width="0.6"/>
-            </svg>
-          </div>
-        </div>
-        <div class="gallery-overlay">
-          <div class="gallery-caption">Œil du Gouffre — Lavis</div>
-        </div>
-      </div>
-    </div>
-=======
   <!-- FILTRES -->
   <div class="gallery-filters reveal" id="gallery-filters">
     <!-- générés par JS depuis galerie.json -->
->>>>>>> Stashed changes
   </div>
 
   <!-- COMPTEUR -->
@@ -2085,15 +1872,11 @@
 </footer>
 
 <script>
-<<<<<<< Updated upstream
-  // Curseur custom
-=======
 document.addEventListener('DOMContentLoaded', function() {
 
   // ══════════════════════════════════════════
   // CURSEUR CUSTOM
   // ══════════════════════════════════════════
->>>>>>> Stashed changes
   const cursor = document.getElementById('cursor');
   const ring   = document.getElementById('cursorRing');
   if (cursor && ring) {
@@ -2131,34 +1914,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-<<<<<<< Updated upstream
-  document.querySelectorAll('a, button, .gallery-item, .shop-card, .tag').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px';
-      cursor.style.height = '20px';
-      ring.style.width = '60px';
-      ring.style.height = '60px';
-      ring.style.opacity = '1';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '12px';
-      cursor.style.height = '12px';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.opacity = '0.5';
-    });
-  });
-
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-=======
   // ══════════════════════════════════════════
   // REVEAL ON SCROLL
   // Fonction réutilisable — appelée aussi après build galerie
   // ══════════════════════════════════════════
   const revealObserver = new IntersectionObserver((entries) => {
->>>>>>> Stashed changes
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
         setTimeout(() => e.target.classList.add('visible'), i * 80);
@@ -2167,37 +1927,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, { threshold: 0.08 });
 
-<<<<<<< Updated upstream
-  // Particules flottantes — dorées et variées
-  const particleTypes = ['type-dot', 'type-dot', 'type-spark', 'type-glow'];
-  function spawnParticle() {
-    const p = document.createElement('div');
-    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    p.className = 'particle ' + type;
-    const x = Math.random() * window.innerWidth;
-    const dur = 6 + Math.random() * 14;
-    const drift = (Math.random() - 0.5) * 120 + 'px';
-    const delay = Math.random() * 3;
-    p.style.cssText = `left:${x}px; bottom:-5px; animation-duration:${dur}s; animation-delay:${delay}s; --drift:${drift};`;
-    document.getElementById('particles').appendChild(p);
-    setTimeout(() => p.remove(), (dur + delay + 2) * 1000);
-  }
-  for (let i = 0; i < 35; i++) spawnParticle();
-  setInterval(spawnParticle, 1200);
-
-  // Galerie — effet parallaxe léger
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('mousemove', e => {
-      const r = item.getBoundingClientRect();
-      const dx = (e.clientX - r.left - r.width/2) / r.width;
-      const dy = (e.clientY - r.top - r.height/2) / r.height;
-      item.querySelector('.gallery-img-placeholder').style.transform = `scale(1.04) translate(${dx*8}px, ${dy*6}px)`;
-    });
-    item.addEventListener('mouseleave', () => {
-      item.querySelector('.gallery-img-placeholder').style.transform = '';
-    });
-  });
-=======
   function observeReveals() {
     document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
   }
@@ -2438,7 +2167,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 }); // fin DOMContentLoaded
->>>>>>> Stashed changes
 </script>
 
 <!-- ══════════════════════════════════════════
