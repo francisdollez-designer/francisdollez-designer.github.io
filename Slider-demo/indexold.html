@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOMIFA — Avant / Après</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* =============================================
+     VARIABLES
+  ============================================= */
+  :root {
+    --bleu:         #1212FF;
+    --bleu-fonce:   #000091;
+    --texte:        #1e1e1e;
+    --texte-light:  #666;
+    --gris-border:  #cecece;
+    --blanc:        #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { min-width: 1100px; }
+
+  body {
+    font-family: 'Source Sans 3', Arial, sans-serif;
+    background: var(--blanc);
+    min-height: 100vh;
+    color: var(--texte);
+  }
+
+  /* =============================================
+     HEADER — blanc, logo bleu, ombre légère
+  ============================================= */
+  header {
+    background: var(--blanc);
+    padding: 0 10%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 1px 0 #e5e7eb, 0 2px 12px rgba(0,0,0,.07);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-logo-svg {
+    height: 20px;
+    width: auto;
+    display: block;
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 32px;
+    background: #e5e7eb;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--texte-light);
+  }
+
+  .header-pill {
+    margin-left: auto;
+    background: #f0f0ff;
+    border: 1px solid #c7c7f8;
+    color: var(--bleu);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 2px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* =============================================
+     HERO
+  ============================================= */
+  .hero {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .hero h2 {
+    font-size: clamp(24px, 2.2vw, 28px);
+    font-weight: 700;
+    color: var(--bleu-fonce);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .hero p {
+    font-size: 14px;
+    color: var(--texte-light);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.65;
+  }
+
+  /* =============================================
+     MACBOOK MOCKUP
+  ============================================= */
+  .macbook-scene {
+    display: flex;
+    justify-content: center;
+    padding: 0 48px;
+  }
+
+  .macbook {
+    width: min(1000px, 98vw);
+    filter: drop-shadow(0 28px 60px rgba(0,0,60,.16));
+    position: relative;
+  }
+
+  .mac-lid {
+    background: linear-gradient(170deg, #d4d7db 0%, #a8adb5 100%);
+    border-radius: 16px 16px 0 0;
+    padding: 18px 18px 0;
+    position: relative;
+  }
+
+  .mac-notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 130px; height: 24px;
+    background: #111;
+    border-radius: 0 0 14px 14px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .mac-notch::after {
+    content: '';
+    width: 8px; height: 8px;
+    background: #222;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+  }
+
+  .mac-screen {
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 700px;
+  }
+
+  .mac-bar {
+    height: 34px;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e2e4e8;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+  .mac-dot { width: 11px; height: 11px; border-radius: 50%; }
+  .mac-dot.red    { background: #ff5f57; }
+  .mac-dot.yellow { background: #febc2e; }
+  .mac-dot.green  { background: #28c840; }
+  .mac-url {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #d1d3d8;
+    border-radius: 5px;
+    font-size: 11px;
+    color: #999;
+    padding: 3px 10px;
+    margin: 0 10px;
+    font-family: monospace;
+  }
+
+  .mac-content {
+    height: calc(680px - 34px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  .mac-content::-webkit-scrollbar { width: 5px; }
+  .mac-content::-webkit-scrollbar-track { background: transparent; }
+  .mac-content::-webkit-scrollbar-thumb { background: #c8ccd4; border-radius: 3px; }
+
+  .mac-base {
+    background: linear-gradient(180deg, #b2b7bf 0%, #8e9299 100%);
+    height: 20px;
+    border-radius: 0 0 4px 4px;
+    position: relative;
+  }
+  .mac-base::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 240px; height: 6px;
+    background: #6b7077;
+    border-radius: 0 0 4px 4px;
+  }
+  .mac-foot {
+    height: 12px;
+    background: linear-gradient(90deg, transparent 18%, #a0a5ad 33%, #d1d5db 50%, #a0a5ad 67%, transparent 82%);
+    border-radius: 0 0 36px 36px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  /* =============================================
+     PANELS & SLIDER
+  ============================================= */
+  .slide-panel { display: none; }
+  .slide-panel.active { display: block; }
+
+  .slider-container {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+    user-select: none;
+    cursor: col-resize;
+  }
+
+  .img-after {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+  }
+
+  .img-before {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path .02s linear;
+  }
+
+  .slider-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: #fff;
+    box-shadow: 0 0 14px rgba(18,18,255,.5);
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .slider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px; height: 48px;
+    background: var(--bleu);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(18,18,255,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 11;
+    cursor: grab;
+    transition: box-shadow .2s;
+  }
+  .slider-handle:active { cursor: grabbing; }
+  .slider-handle:hover  { box-shadow: 0 4px 28px rgba(18,18,255,.6); }
+  .slider-handle svg { pointer-events: none; }
+
+  .label-before, .label-after {
+    position: absolute;
+    top: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    z-index: 12;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+  }
+  .label-before { left: 12px;  background: rgba(0,0,60,.65);   color: #fff; }
+  .label-after  { right: 12px; background: rgba(18,18,255,.7); color: #fff; }
+
+  /* Placeholders */
+  .placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px; font-family: inherit;
+  }
+  .placeholder-before { background: linear-gradient(135deg, #f2f2f8 0%, #e2e2f0 100%); color: #888; }
+  .placeholder-after  { background: linear-gradient(135deg, #f0f0ff 0%, #d8d8fc 100%); color: #000091; }
+  .placeholder svg { opacity: .28; }
+  .placeholder p { font-size: 13px; font-weight: 500; opacity: .6; text-align: center; padding: 0 20px; line-height: 1.6; }
+  .placeholder code { font-size: 11px; background: rgba(0,0,0,.07); padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+  .slider-container .placeholder { position: absolute; inset: 0; }
+  .slider-container .placeholder.clip-before {
+    clip-path: inset(0 50% 0 0);
+    transition: clip-path .02s linear;
+  }
+
+  /* =============================================
+     TAGS — sous le mockup, style pill DSFR
+     Inactif : fond lavande clair + contour fin
+     Actif   : fond bleu + contour bleu
+     Désactivé : opacité réduite, texte grisé
+  ============================================= */
+  .tags-area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 28px 48px 12px;
+  }
+
+  .tag-btn {
+    background: #ececfe;
+    border: 1.5px solid #b8b8f8;
+    color: #3333cc;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px 20px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: background .18s, border-color .18s, color .18s, box-shadow .18s;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  .tag-btn:hover {
+    background: #dcdcfc;
+    border-color: #8888ee;
+    color: var(--bleu);
+  }
+
+  .tag-btn.active {
+    background: var(--bleu);
+    border-color: var(--bleu);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(18,18,255,.3);
+  }
+
+  /* =============================================
+     LÉGENDE
+  ============================================= */
+  .caption-area {
+    text-align: center;
+    padding: 18px 20px 0;
+  }
+  .caption-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bleu-fonce);
+    margin-bottom: 6px;
+  }
+  .caption-desc {
+    font-size: 15px;
+    color: var(--texte-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* =============================================
+     FOOTER
+  ============================================= */
+  footer {
+    text-align: center;
+    padding: 52px 20px;
+    color: #bbb;
+    font-size: 12px;
+    letter-spacing: .02em;
+  }
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     HEADER — blanc, logo DOMIFA bleu
+============================================= -->
+<header>
+  <svg class="header-logo-svg" viewBox="0 0 530 103" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DOMIFA">
+    <g clip-path="url(#hclip)">
+      <path d="M32.8022 5.31274C40.7675 5.31274 47.7915 6.90292 53.8738 10.0832C60.0288 13.2636 64.8077 17.745 68.2115 23.5275C71.6147 29.2376 73.3164 35.8152 73.3164 43.2601C73.3164 50.705 71.5786 57.3185 68.1027 63.101C64.6994 68.8835 59.8478 73.365 53.5478 76.5453C47.3206 79.7257 40.152 81.3161 32.0419 81.3161H0V5.31274H32.8022ZM33.3453 65.2696C37.1831 65.2696 40.5864 64.3661 43.5553 62.5589C46.5242 60.7522 48.8411 58.1861 50.5067 54.861C52.1722 51.536 53.0052 47.7414 53.0052 43.477C53.0052 39.1401 52.0999 35.3092 50.2895 31.9843C48.5518 28.6594 46.1259 26.0934 43.0122 24.2864C39.8985 22.4071 36.3504 21.4675 32.3678 21.4675H19.8769V65.2696H33.3453Z" fill="#1212FF"/>
+      <path d="M201.768 5.31274H223.383L245.432 49.7653L267.373 5.31274H288.987V81.3161H271.391L271.283 33.1769L251.841 73.7264H239.024L219.473 33.1769V81.3161H201.768V5.31274Z" fill="#1212FF"/>
+      <path d="M320.101 5.31274H339.978V81.3161H320.101V5.31274Z" fill="#1212FF"/>
+      <path d="M371.079 5.31274H427.994L427.885 21.1422H390.956V38.0559H425.061V53.8853H390.956V81.3161H371.079V5.31274Z" fill="#1212FF"/>
+      <path d="M505.465 81.3161L500.254 67.8718H467.342L462.02 81.3161H441.6L474.294 5.31274H494.715L526.646 81.3161H505.465ZM473.318 52.6929H494.387L483.96 25.5875L473.318 52.6929Z" fill="#1212FF"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M133.819 10.8421C115.823 10.8421 101.235 25.4046 101.235 43.3684C101.235 61.3323 115.823 75.8946 133.819 75.8946C151.816 75.8946 166.404 61.3323 166.404 43.3684C166.404 25.4046 151.816 10.8421 133.819 10.8421ZM90.3729 43.3684C90.3729 19.4167 109.824 0 133.819 0C157.814 0 177.266 19.4167 177.266 43.3684C177.266 67.3203 157.814 86.7368 133.819 86.7368C109.824 86.7368 90.3729 67.3203 90.3729 43.3684Z" fill="#1212FF"/>
+      <path d="M133.817 103L119.708 78.6055H147.927L133.817 103Z" fill="#1212FF"/>
+      <path d="M155.361 40.1893L135.45 19.3976C135.1 19.0564 134.63 18.8655 134.142 18.8655C133.653 18.8655 133.183 19.0564 132.834 19.3976L112.923 40.1893C112.677 40.4451 112.511 40.7677 112.447 41.1167C112.383 41.4658 112.423 41.8259 112.563 42.1523C112.702 42.4787 112.935 42.7568 113.232 42.952C113.528 43.1472 113.876 43.2509 114.231 43.2502H116.947C117.187 43.2502 117.417 43.3454 117.586 43.515C117.756 43.6845 117.851 43.9144 117.851 44.1542V59.5217C117.851 60.2413 118.137 60.931 118.647 61.4394C119.156 61.9483 119.847 62.2339 120.567 62.2339H147.719C148.438 62.2339 149.129 61.9483 149.638 61.4394C150.148 60.931 150.434 60.2413 150.434 59.5217V44.1542C150.434 43.9144 150.529 43.6845 150.699 43.515C150.868 43.3454 151.099 43.2502 151.339 43.2502H154.054C154.409 43.2502 154.756 43.1461 155.052 42.9509C155.348 42.7556 155.58 42.4777 155.719 42.1518C155.858 41.8259 155.898 41.4663 155.835 41.1177C155.771 40.7691 155.606 40.4451 155.361 40.1893Z" fill="#1212FF"/>
+    </g>
+    <defs>
+      <clipPath id="hclip"><rect width="530" height="103" fill="white"/></clipPath>
+    </defs>
+  </svg>
+
+  <div class="header-divider"></div>
+  <span class="header-title">Présentation des évolutions — Avant / Après</span>
+</header>
+
+<!-- =============================================
+     HERO — sans tag "Refonte interface"
+============================================= -->
+<section class="hero">
+  <h2>Découvrez les améliorations apportées à DOMIFA</h2>
+  <p>Glissez le curseur pour comparer l'ancienne et la nouvelle interface. Naviguez entre les onglets pour explorer chaque cas d'usage.</p>
+</section>
+
+<!-- =============================================
+     TAGS DE NAVIGATION — sous le mockup
+     ➜ POUR ÉDITER : modifier les libellés ici
+============================================= -->
+<div class="tags-area" id="tags">
+  <button class="tag-btn active" data-tab="0">Liste des domiciliés</button>
+  <button class="tag-btn" data-tab="1">Fiche domicilié</button>
+  <button class="tag-btn" data-tab="2">Formulaire</button>
+  <button class="tag-btn" data-tab="3">Rendez-vous</button>
+  <button class="tag-btn" data-tab="4">Paramètre Mon DomiFa</button>
+  <button class="tag-btn" data-tab="5">Info structure</button>
+</div>
+
+
+
+<!-- =============================================
+     MACBOOK MOCKUP
+============================================= -->
+<div class="macbook-scene">
+  <div class="macbook">
+    <div class="mac-lid">
+      <div class="mac-notch"></div>
+      <div class="mac-screen">
+
+        <div class="mac-bar">
+          <div class="mac-dot red"></div>
+          <div class="mac-dot yellow"></div>
+          <div class="mac-dot green"></div>
+          <div class="mac-url">domifa.fabrique.social.gouv.fr</div>
+        </div>
+
+        <div class="mac-content" id="macContent">
+
+          <!-- =========================================
+               ONGLET 0 — Liste des domiciliés
+               ➜ REMPLACER LES IMAGES :
+                 1. Décommenter la ligne <img ...>
+                 2. Renseigner src="votre-image.png"
+                 3. Supprimer le bloc <div class="placeholder ...">
+          ========================================= -->
+          <div class="slide-panel active" data-panel="0">
+            <div class="slider-container" id="slider-0">
+              <img class="img-after"  src="src/01-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/01-av.png"  alt="Avant">
+             
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 1 — Fiche domicilié -->
+          <div class="slide-panel" data-panel="1">
+            <div class="slider-container" id="slider-1">
+              <img class="img-after"  src="src/02-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/02-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 2 — Formulaire -->
+          <div class="slide-panel" data-panel="2">
+            <div class="slider-container" id="slider-2">
+              <img class="img-after"  src="src/03-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/03-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 3 — Rendez-vous -->
+          <div class="slide-panel" data-panel="3">
+            <div class="slider-container" id="slider-3">
+              <img class="img-after"  src="src/04-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/04-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 4 — Paramètre Mon DomiFa -->
+          <div class="slide-panel" data-panel="4">
+            <div class="slider-container" id="slider-4">
+              <img class="img-after"  src="src/05-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/05-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 5 — Info structure -->
+          <div class="slide-panel" data-panel="5">
+            <div class="slider-container" id="slider-5">
+              <img class="img-after"  src="src/06-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/06-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12H16M8 12L5 9M8 12L5 15M16 12L19 9M16 12L19 15"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+        </div><!-- /mac-content -->
+      </div><!-- /mac-screen -->
+    </div><!-- /mac-lid -->
+    <div class="mac-base"></div>
+    <div class="mac-foot"></div>
+  </div>
+</div>
+<!-- LÉGENDE DYNAMIQUE -->
+<div class="caption-area">
+  <div class="caption-title" id="captionTitle">Liste des domiciliés</div>
+  <div class="caption-desc"  id="captionDesc">Refonte de la liste principale : meilleure lisibilité, filtres améliorés et actions rapides en un coup d'œil.</div>
+</div>
+
+
+<footer>
+  DOMIFA — Ministère du Travail, de la Santé, des Solidarités et des Familles &nbsp;·&nbsp; Présentation interne
+</footer>
+
+<script>
+  /* -----------------------------------------------
+     DONNÉES — modifier title/desc par onglet
+  ----------------------------------------------- */
+  const tabData = [
+    { title: "Liste des domiciliés",  desc: "Refonte de la liste principale : meilleure lisibilité, filtres améliorés et actions rapides en un coup d'oeil." },
+    { title: "Fiche domicilié",       desc: "Nouvelle fiche individuelle avec historique complet, statut et documents centralisés." },
+    { title: "Formulaire",            desc: "Formulaire de demande repensé : étapes clarifiées, saisie simplifiée et validation en temps réel." },
+    { title: "Rendez-vous",           desc: "Gestion des rendez-vous améliorée : prise de RDV rapide, suivi et rappels intégrés." },
+    { title: "Paramètre Mon DomiFa",  desc: "Espace de configuration personnalisé : gestion des préférences et des accès utilisateurs." },
+    { title: "Info structure",        desc: "Informations de la structure centralisées et mises à jour facilement depuis un seul écran." }
+  ];
+
+  const tags       = document.querySelectorAll('.tag-btn');
+  const panels     = document.querySelectorAll('.slide-panel');
+  const capTitle   = document.getElementById('captionTitle');
+  const capDesc    = document.getElementById('captionDesc');
+  const macContent = document.getElementById('macContent');
+
+  tags.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = +btn.dataset.tab;
+      tags.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      panels[idx].classList.add('active');
+      capTitle.textContent = tabData[idx].title;
+      capDesc.textContent  = tabData[idx].desc;
+      macContent.scrollTop = 0;
+      setSlider(idx, 50);
+    });
+  });
+
+  /* Slider */
+  function setSlider(idx, pct) {
+    const c = document.getElementById(`slider-${idx}`);
+    if (!c) return;
+    c.querySelector('.slider-line').style.left   = pct + '%';
+    c.querySelector('.slider-handle').style.left = pct + '%';
+    const before = c.querySelector('.clip-before, .img-before');
+    if (before) before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+  }
+
+  function initSlider(idx) {
+    const c = document.getElementById(`slider-${idx}`);
+    if (!c || c._init) return;
+    c._init = true;
+    let drag = false;
+
+    const pct = e => {
+      const r = c.getBoundingClientRect();
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      return Math.min(Math.max(((x - r.left) / r.width) * 100, 2), 98);
+    };
+
+    c.addEventListener('mousedown',  e => { drag = true; setSlider(idx, pct(e)); e.preventDefault(); });
+    c.addEventListener('touchstart', e => { drag = true; setSlider(idx, pct(e)); }, { passive: true });
+
+    window.addEventListener('mousemove', e => {
+      if (!drag) return;
+      const ap = document.querySelector('.slide-panel.active');
+      if (!ap || +ap.dataset.panel !== idx) { drag = false; return; }
+      setSlider(idx, pct(e));
+    });
+    window.addEventListener('touchmove', e => {
+      if (!drag) return;
+      const ap = document.querySelector('.slide-panel.active');
+      if (!ap || +ap.dataset.panel !== idx) { drag = false; return; }
+      setSlider(idx, pct(e));
+    }, { passive: true });
+
+    window.addEventListener('mouseup',  () => drag = false);
+    window.addEventListener('touchend', () => drag = false);
+  }
+
+  for (let i = 0; i < 6; i++) { setSlider(i, 50); initSlider(i); }
+</script>
+</body>
+</html>

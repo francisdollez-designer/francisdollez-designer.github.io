@@ -1,0 +1,41 @@
+[
+ 
+  {
+    "fichier": "Illustration_sans_titre 1.jpg",
+    "titre": "Forêt Nocturne",
+    "technique": "Aquarelle",
+    "annee": 2023,
+    "format": "panoramique"
+  },
+  {
+    "fichier": "Dryade.jpg",
+    "titre": "Rune de Sang",
+    "technique": "Encre de Chine",
+    "annee": 2024,
+    "format": "carre"
+  },
+  
+  {
+    "fichier": "Demone_caverne.jpg",
+    "titre": "Rune de Sang",
+    "technique": "Encre de Chine",
+    "annee": 2024,
+    "format": "carre"
+  },
+  {
+    "fichier": "demon-pano.jpg",
+    "titre": "Dragon des Brumes",
+    "technique": "Aquarelle",
+    "annee": 2023,
+    "format": "panoramique"
+  },
+  
+  {
+    "fichier": "Demone-amazone.jpg",
+    "titre": "Sirène des Abysses",
+    "technique": "Illustration numérique",
+    "annee": 2024,
+    "format": "carre"
+  }
+
+]

@@ -23,6 +23,72 @@
     --font-titre: 'Cinzel Decorative', serif;
     --font-sub: 'Cinzel', serif;
     --font-corps: 'EB Garamond', serif;
+
+    /* ── Tokens univers dynamiques (Ombres = défaut) ── */
+    --u-bg-deep:       #050403;
+    --u-bg-mid:        #0a0906;
+    --u-bg-surface:    #111009;
+    --u-bg-card:       #1a1814;
+    --u-accent:        #c9a84c;
+    --u-accent-vif:    #e8c56a;
+    --u-accent-pale:   #f5e4b0;
+    --u-accent-ombre:  #7a5e1e;
+    --u-text-bright:   #f0e8d5;
+    --u-text-mid:      #c8b896;
+    --u-text-muted:    #6a5e48;
+    --u-glow:          rgba(201,168,76,0.08);
+    --u-halo:          rgba(201,168,76,0.12);
+    --u-ray1:          rgba(201,168,76,0.03);
+    --u-ray2:          rgba(201,168,76,0.05);
+    --u-ray3:          rgba(201,168,76,0.06);
+    --u-vignette:      rgba(5,4,3,0.92);
+    --u-vignette-mid:  rgba(5,4,3,0.5);
+    --u-fade:          #050403;
+    --u-ornament-filter: sepia(1) saturate(1.4) hue-rotate(5deg) brightness(1.1);
+    --u-ornament-opacity: 0.12;
+    --u-overlay-dark:  rgba(5,4,3,0.85);
+    --u-toggle-bg:     #1a1814;
+    --u-toggle-knob:   #c9a84c;
+  }
+
+  /* ── Univers Abysses Chromatiques ── */
+  body.univers-abysse {
+    /* Fonds — violet profond / indigo nuit */
+    --u-bg-deep:       #0c0818;
+    --u-bg-mid:        #110d22;
+    --u-bg-surface:    #16102e;
+    --u-bg-card:       #1e1638;
+
+    /* Accents — violet électrique lumineux */
+    --u-accent:        #b57bee;
+    --u-accent-vif:    #d4a0ff;
+    --u-accent-pale:   #ecdeff;
+    --u-accent-ombre:  #6b3fa8;
+
+    /* Texte */
+    --u-text-bright:   #ecdeff;
+    --u-text-mid:      #c4a0e8;
+    --u-text-muted:    #7a5aaa;
+
+    /* Ambiances lumineuses */
+    --u-glow:          rgba(181,123,238,0.12);
+    --u-halo:          rgba(181,123,238,0.22);
+    --u-ray1:          rgba(140,80,220,0.04);
+    --u-ray2:          rgba(140,80,220,0.08);
+    --u-ray3:          rgba(181,123,238,0.12);
+
+    /* Vignette sombre comme l'univers Ombres */
+    --u-vignette:      rgba(8,4,20,0.92);
+    --u-vignette-mid:  rgba(8,4,20,0.5);
+    --u-fade:          #0c0818;
+
+    /* Logo ornement — violet lumineux */
+    --u-ornament-filter: sepia(1) saturate(3) hue-rotate(220deg) brightness(1.4);
+    --u-ornament-opacity: 0.18;
+
+    --u-overlay-dark:  rgba(8,4,20,0.88);
+    --u-toggle-bg:     #1e1638;
+    --u-toggle-knob:   #b57bee;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,13 +96,14 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--noir-profond);
-    color: var(--ivoire-sombre);
+    background: var(--u-bg-deep);
+    color: var(--u-text-mid);
     font-family: var(--font-corps);
     font-size: 18px;
     line-height: 1.7;
     overflow-x: hidden;
     cursor: none;
+    transition: background-color 0.8s ease, color 0.8s ease;
   }
 
   /* CURSEUR CUSTOM */
@@ -73,6 +140,51 @@
   }
 
   /* NAVIGATION */
+  /* ── UNIVERSE TOGGLE SWITCH (dans le nav) ── */
+  .universe-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 40px;
+  }
+  .toggle-label {
+    font-family: var(--font-sub);
+    font-size: 0.55rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--u-text-muted);
+    transition: color 0.4s;
+    white-space: nowrap;
+  }
+  .universe-toggle:hover .toggle-label { color: var(--u-accent); }
+  .toggle-track {
+    position: relative;
+    width: 48px; height: 24px;
+    background: var(--u-toggle-bg);
+    border: 1px solid var(--u-accent-ombre);
+    border-radius: 12px;
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .universe-toggle:hover .toggle-track { border-color: var(--u-accent); }
+  .toggle-knob {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 16px; height: 16px;
+    background: var(--u-toggle-knob);
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), background 0.4s;
+    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+  }
+  body.univers-abysse .toggle-knob { transform: translateX(24px); }
+  .toggle-icon {
+    font-size: 13px;
+    opacity: 0.7;
+    transition: opacity 0.4s;
+  }
+  .universe-toggle:hover .toggle-icon { opacity: 1; }
+
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -153,16 +265,25 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
+<<<<<<< Updated upstream
       radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 60%),
       radial-gradient(ellipse 50% 80% at 20% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
       radial-gradient(ellipse 50% 80% at 80% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
       var(--noir-profond);
+=======
+      radial-gradient(ellipse 80% 60% at 50% 30%, var(--u-glow) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 80% at 80% 80%, rgba(100,60,20,0.15) 0%, transparent 50%),
+      var(--u-bg-deep);
+    transition: background-color 0.8s ease;
+>>>>>>> Stashed changes
   }
 
   /* Vignetage puissant sur les bords */
   .hero-vignette {
     position: absolute; inset: 0; z-index: 2;
     background:
+<<<<<<< Updated upstream
       radial-gradient(ellipse 70% 70% at 50% 40%, transparent 20%, rgba(5,4,3,0.5) 60%, rgba(5,4,3,0.92) 100%);
   }
 
@@ -171,6 +292,17 @@
     position: absolute; bottom: 0; left: 0; right: 0;
     height: 40%; z-index: 3;
     background: linear-gradient(to bottom, transparent, var(--noir-profond));
+=======
+      radial-gradient(ellipse 70% 70% at 50% 40%, transparent 20%, var(--u-vignette-mid) 60%, var(--u-vignette) 100%);
+    transition: background 0.8s ease;
+  }
+
+  .hero-fade-bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40%; z-index: 3;
+    background: linear-gradient(to bottom, transparent, var(--u-fade));
+    transition: background 0.8s ease;
+>>>>>>> Stashed changes
   }
 
   /* RAYONS DE LUMIÈRE DORÉE */
@@ -230,15 +362,23 @@
     top: 0; left: 50%;
     transform: translateX(-50%);
     width: 600px; height: 500px;
+<<<<<<< Updated upstream
     background: radial-gradient(ellipse at top, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
     z-index: 3; pointer-events: none;
     animation: haloPulse 8s ease-in-out infinite;
+=======
+    background: radial-gradient(ellipse at top, var(--u-halo) 0%, rgba(201,168,76,0.04) 40%, transparent 70%);
+    z-index: 3; pointer-events: none;
+    animation: haloPulse 8s ease-in-out infinite;
+    transition: background 0.8s ease;
+>>>>>>> Stashed changes
   }
   @keyframes haloPulse {
     0%, 100% { opacity: 0.7; }
     50%       { opacity: 1; }
   }
 
+<<<<<<< Updated upstream
   /* SVG ornement de fond */
   .hero-ornament {
     position: absolute; inset: 0;
@@ -247,6 +387,28 @@
     pointer-events: none;
   }
   .hero-ornament svg { width: 80vmin; height: 80vmin; }
+=======
+  /* SVG ornement de fond — logo rotatif */
+  .hero-ornament {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .hero-ornament img {
+    width: 80vmin; height: 80vmin;
+    opacity: var(--u-ornament-opacity);
+    filter: var(--u-ornament-filter);
+    animation: logoRotate 60s linear infinite;
+    transform-origin: center center;
+    will-change: transform;
+    transition: filter 0.8s ease, opacity 0.8s ease;
+  }
+  @keyframes logoRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+>>>>>>> Stashed changes
 
   /* CONTENU HERO */
   .hero-content {
@@ -332,7 +494,7 @@
 
   .btn-primary {
     font-family: var(--font-sub);
-    font-size: 0.65rem;
+    font-size: 0.80rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--noir);
@@ -419,7 +581,7 @@
 
   .section-label {
     font-family: var(--font-sub);
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     letter-spacing: 0.5em;
     text-transform: uppercase;
     color: var(--or);
@@ -565,110 +727,271 @@
     font-size: 1.2rem;
   }
 
-  /* GALLERY */
+  /* ═══════════════════════════════════════════
+     GALLERY — GRILLE RATIO LIBRE + FILTRES
+     ═══════════════════════════════════════════ */
   .gallery-section {
     background: var(--noir-encre);
-    padding: 140px 0;
+    padding: 140px 200px;
   }
-
   .gallery-header {
     padding: 0 60px;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
   }
-
   .gallery-header h2 {
     font-family: var(--font-titre);
     font-size: clamp(2rem, 4vw, 3.5rem);
     color: var(--ivoire);
   }
 
+  /* ── Filtres ── */
+  .gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0 60px;
+    margin-bottom: 48px;
+  }
+  .filter-btn {
+    font-family: var(--font-sub);
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--or-ombre);
+    border: 1px solid var(--or-ombre);
+    padding: 8px 20px;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.25s, border-color 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .filter-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--or);
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+  }
+  .filter-btn span { position: relative; z-index: 1; }
+  .filter-btn:hover { color: var(--noir); border-color: var(--or); }
+  .filter-btn:hover::before { transform: translateY(0); }
+  .filter-btn.active { color: var(--noir); border-color: var(--or); background: var(--or); }
+  .filter-btn.active::before { transform: translateY(0); }
+  .filter-count { font-size: 0.5rem; opacity: 0.6; margin-left: 6px; }
+
+  .gallery-count {
+    padding: 0 60px;
+    margin-bottom: 28px;
+    font-family: var(--font-sub);
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--or-ombre);
+  }
+
+  /* ── Grille — colonnes 12 pour spans variables ── */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: auto;
-    gap: 3px;
-    padding: 0 3px;
+    gap: 6px;
+    padding: 0 6px;
+  }
+  /* Formats par défaut : portrait = 4 cols, paysage = 6, panoramique = 8, carré = 4, rectangle = 6 */
+  .gallery-item                    { grid-column: span 4; }   /* portrait défaut */
+  .gallery-item[data-format="portrait"]    { grid-column: span 4; }
+  .gallery-item[data-format="carre"]       { grid-column: span 4; }
+  .gallery-item[data-format="paysage"]     { grid-column: span 6; }
+  .gallery-item[data-format="rectangle"]  { grid-column: span 6; }
+  .gallery-item[data-format="panoramique"] { grid-column: span 8; }
+
+  @media (max-width: 1100px) {
+    .gallery-grid { grid-template-columns: repeat(6, 1fr); }
+    .gallery-item,
+    .gallery-item[data-format="portrait"],
+    .gallery-item[data-format="carre"]       { grid-column: span 3; }
+    .gallery-item[data-format="paysage"],
+    .gallery-item[data-format="rectangle"]  { grid-column: span 6; }
+    .gallery-item[data-format="panoramique"] { grid-column: span 6; }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item,
+    .gallery-item[data-format] { grid-column: span 1; }
   }
 
+  /* L'image impose son ratio naturel */
   .gallery-item {
     position: relative;
     overflow: hidden;
     background: var(--gris-parchemin);
-    cursor: none;
+    cursor: pointer;
   }
-
-  .gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 2; }
-  .gallery-item:nth-child(2) { grid-column: span 4; }
-  .gallery-item:nth-child(3) { grid-column: span 3; }
-  .gallery-item:nth-child(4) { grid-column: span 4; }
-  .gallery-item:nth-child(5) { grid-column: span 3; }
-  .gallery-item:nth-child(6) { grid-column: span 5; }
-  .gallery-item:nth-child(7) { grid-column: span 4; grid-row: span 2; }
-  .gallery-item:nth-child(8) { grid-column: span 3; }
-  .gallery-item:nth-child(9) { grid-column: span 5; }
-
-  .gallery-item-inner {
-    aspect-ratio: 1/1.1;
-    position: relative;
-    overflow: hidden;
+  .gallery-item img {
+    width: 100%; height: auto; display: block;
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
   }
+  .gallery-item:hover img { transform: scale(1.04); }
 
-  .gallery-item:nth-child(1) .gallery-item-inner { aspect-ratio: 3/4; height: 100%; }
-  .gallery-item:nth-child(7) .gallery-item-inner { aspect-ratio: 3/4; height: 100%; }
-
-  .gallery-img-placeholder {
+  /* Placeholder — aspect-ratio depuis --ph-ratio */
+  .gallery-placeholder {
     width: 100%;
-    height: 100%;
-    min-height: 200px;
+    aspect-ratio: var(--ph-ratio, 3/4);
     background:
       radial-gradient(ellipse at 40% 40%, rgba(201,168,76,0.06) 0%, transparent 60%),
       var(--gris-parchemin);
-    display: flex;
-    align-items: flex-end;
-    padding: 20px;
-    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
   }
+  .gallery-item:hover .gallery-placeholder { transform: scale(1.04); }
 
-  .gallery-item:hover .gallery-img-placeholder { transform: scale(1.03); }
-
+  /* ── Overlay infos — plus de padding, éléments qui respirent ── */
   .gallery-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(5,4,3,0.85) 0%, transparent 50%);
+    position: absolute; inset: 0;
+    background: linear-gradient(to top,
+      rgba(5,4,3,0.95) 0%,
+      rgba(5,4,3,0.5)  40%,
+      transparent      68%);
     opacity: 0;
-    transition: opacity 0.4s;
-    display: flex;
-    align-items: flex-end;
-    padding: 24px;
+    transition: opacity 0.35s;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 28px 24px;   /* plus d'air */
     z-index: 2;
   }
-
   .gallery-item:hover .gallery-overlay { opacity: 1; }
 
   .gallery-caption {
     font-family: var(--font-sub);
-    font-size: 0.6rem;
+    font-size: 0.7rem;          /* +15% */
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--or);
+    margin-bottom: 6px;         /* espace titre/technique */
+  }
+  .gallery-technique {
+    font-family: var(--font-corps);
+    font-style: italic;
+    font-size: 0.9rem;          /* +15% */
+    color: var(--ivoire-sombre);
+    opacity: 0.85;
+    margin-bottom: 0;
   }
 
-  /* Indicateur visuel placeholder */
-  .ph-icon {
-    font-size: 2rem;
-    color: var(--or-ombre);
-    opacity: 0.3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; left: 0;
+  /* Badge technique — décalé pour laisser place aux coins */
+  .technique-badge {
+    position: absolute; top: 20px; left: 20px;   /* +8px des bords */
+    font-family: var(--font-sub); font-size: 0.52rem;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--or); border: 1px solid rgba(201,168,76,0.4);
+    padding: 5px 11px; background: rgba(5,4,3,0.78);
+    z-index: 6; opacity: 0; transition: opacity 0.3s;
   }
+  .gallery-item:hover .technique-badge { opacity: 1; }
+
+  /* Bouton zoom — décalé aussi */
+  .gallery-expand {
+    position: absolute; top: 20px; right: 20px;   /* +8px des bords */
+    width: 38px; height: 38px;                     /* légèrement plus grand */
+    border: 1px solid rgba(201,168,76,0.5);
+    background: rgba(5,4,3,0.55);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s, border-color 0.3s;
+    z-index: 6;
+  }
+  .gallery-expand svg { width: 16px; height: 16px; } /* +2px */
+  .gallery-item:hover .gallery-expand { opacity: 1; }
+  .gallery-expand:hover { border-color: var(--or); background: rgba(5,4,3,0.85); }
+
+  /* Filtrage */
+  .gallery-item.hidden { display: none; }
+  .gallery-item.filtering { animation: itemFadeIn 0.35s ease forwards; }
+  @keyframes itemFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .gallery-empty {
+    display: none; text-align: center;
+    padding: 80px 60px; font-family: var(--font-sub);
+    font-size: 0.65rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--or-ombre);
+  }
+
+  /* ════════════════════════════════════════
+     ENCADREMENT GOTHIQUE — plus visible
+     ════════════════════════════════════════ */
+
+  /* Cadre extérieur fin — toujours visible */
+  .gallery-item::before {
+    content: '';
+    position: absolute; inset: 0;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none; z-index: 4;
+    transition: border-color 0.4s;
+  }
+  .gallery-item:hover::before { border-color: rgba(201,168,76,0.55); }
+
+  /* Filet intérieur double — apparaît au hover */
+  .gallery-inner-border {
+    position: absolute; inset: 9px;
+    border: 1px solid rgba(201,168,76,0.45);   /* plus visible */
+    pointer-events: none; z-index: 4;
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .gallery-inner-border::before {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(201,168,76,0.2);   /* deuxième ligne */
+  }
+  /* Petits traits médians sur les 4 côtés */
+  .gallery-inner-border::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: -1px;
+    width: 6px; height: 1px;
+    background: rgba(201,168,76,0.5);
+    box-shadow:
+      calc(100% + 1px - 5px) 0 0 0 rgba(201,168,76,0.5);  /* côté droit */
+  }
+  .gallery-item:hover .gallery-inner-border { opacity: 1; }
+
+  /* ── Coins gothiques — plus grands, plus visibles ── */
+  .gallery-corner {
+    position: absolute;
+    width: 36px; height: 36px;    /* +8px */
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.7;                  /* repos plus visible */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .gallery-corner svg { width: 100%; height: 100%; display: block; }
+  .gallery-corner.gc-tl { top: 3px;    left: 3px; }
+  .gallery-corner.gc-tr { top: 3px;    right: 3px;  transform: scaleX(-1); }
+  .gallery-corner.gc-bl { bottom: 3px; left: 3px;   transform: scaleY(-1); }
+  .gallery-corner.gc-br { bottom: 3px; right: 3px;  transform: scale(-1); }
+
+  .gallery-item:hover .gallery-corner { opacity: 1; }
+  .gallery-item:hover .gallery-corner.gc-tl { transform: translate( 3px,  3px); }
+  .gallery-item:hover .gallery-corner.gc-tr { transform: translate(-3px,  3px) scaleX(-1); }
+  .gallery-item:hover .gallery-corner.gc-bl { transform: translate( 3px, -3px) scaleY(-1); }
+  .gallery-item:hover .gallery-corner.gc-br { transform: translate(-3px, -3px) scale(-1); }
+
+  /* ── Univers Abysses ── */
+  body.univers-abysse .gallery-item::before { border-color: rgba(181,123,238,0.2); }
+  body.univers-abysse .gallery-item:hover::before { border-color: rgba(181,123,238,0.6); }
+  body.univers-abysse .gallery-inner-border { border-color: rgba(181,123,238,0.5); }
+  body.univers-abysse .gallery-inner-border::before { border-color: rgba(181,123,238,0.22); }
+  body.univers-abysse .gallery-corner svg path { stroke: #b57bee; }
+  body.univers-abysse .gallery-corner svg circle { stroke: #b57bee; fill: #b57bee; }
+  body.univers-abysse .gallery-corner svg polygon { stroke: #b57bee; fill: rgba(181,123,238,0.2); }
+  body.univers-abysse .technique-badge { color: var(--u-accent); border-color: rgba(181,123,238,0.4); background: rgba(12,8,24,0.8); }
+  body.univers-abysse .gallery-expand { border-color: rgba(181,123,238,0.45); background: rgba(12,8,24,0.55); }
+  body.univers-abysse .gallery-expand:hover { border-color: var(--u-accent); }
+  body.univers-abysse .gallery-overlay { background: linear-gradient(to top, rgba(8,4,20,0.96) 0%, rgba(8,4,20,0.5) 40%, transparent 68%); }
+  body.univers-abysse .gallery-caption { color: var(--u-accent); }
+  body.univers-abysse .gallery-technique { color: var(--u-text-mid); }
 
   /* SHOP */
   .shop-section {
@@ -1177,6 +1500,15 @@
     <li><a href="#process">Processus</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <!-- SWITCH UNIVERS -->
+  <div class="universe-toggle" id="universe-toggle" title="Changer d'univers">
+    <span class="toggle-icon">☽</span>
+    <div class="toggle-track">
+      <div class="toggle-knob"></div>
+    </div>
+    <span class="toggle-icon">◈</span>
+    <span class="toggle-label" id="toggle-label">OMBRES</span>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1186,7 +1518,13 @@
   <!-- POUR AJOUTER VOTRE ILLUSTRATION :
        Créer dossier images/hero/ et y mettre illustration-principale.jpg
        Elle apparaîtra automatiquement en fond plein écran -->
+<<<<<<< Updated upstream
   <div class="hero-illustration"></div>
+=======
+       
+  <div class="hero-illustration"></div>
+  
+>>>>>>> Stashed changes
   <div class="hero-bg"></div>
 
   <!-- Rayons de lumière dorée -->
@@ -1199,6 +1537,7 @@
   <div class="hero-vignette"></div>
   <div class="hero-fade-bottom"></div>
 
+<<<<<<< Updated upstream
   <!-- Ornement SVG de fond -->
   <div class="hero-ornament">
     <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1227,13 +1566,22 @@
       <path d="M 200 340 Q 140 280 200 200 Q 260 280 200 340" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
       <path d="M 60 200 Q 120 140 200 200 Q 120 260 60 200" stroke="#c9a84c" stroke-width="0.3" fill="none"/>
     </svg>
+=======
+  <!-- Logo symbole en fond — rotation lente -->
+  <div class="hero-ornament">
+    <img src="images/logo-symbole.svg" alt="" aria-hidden="true">
+>>>>>>> Stashed changes
   </div>
 
   <div class="hero-content">
     <p class="hero-eyebrow">Illustration — Dark Fantasy — Encre & Lavis</p>
 
     <h1 class="hero-title">
+<<<<<<< Updated upstream
       DARK-ART
+=======
+      Darkens
+>>>>>>> Stashed changes
       <span class="hero-title-sub">Illustrateur</span>
     </h1>
 
@@ -1260,6 +1608,7 @@
 </section>
 
 <!-- ABOUT -->
+ 
 <section id="univers" style="background: var(--noir-profond); padding: 140px 60px;">
   <div style="max-width:1400px; margin:0 auto;">
     <div class="about-grid">
@@ -1314,24 +1663,7 @@
           </div>
 
           <div class="illus-placeholder">
-            <div style="text-align:center;">
-              <!-- Silhouette SVG ornementale -->
-              <svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.15; margin-bottom:16px; display:block; margin:0 auto 16px;">
-                <!-- Dryade stylisée -->
-                <ellipse cx="60" cy="60" rx="18" ry="22" stroke="#c9a84c" stroke-width="1"/>
-                <line x1="60" y1="82" x2="60" y2="130" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 100 Q 40 90 20 80" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 100 Q 80 90 100 80" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 130 Q 45 150 40 170" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 130 Q 75 150 80 170" stroke="#c9a84c" stroke-width="1"/>
-                <!-- Branches -->
-                <path d="M 30 50 Q 10 30 5 10" stroke="#c9a84c" stroke-width="0.7"/>
-                <path d="M 90 50 Q 110 30 115 10" stroke="#c9a84c" stroke-width="0.7"/>
-                <path d="M 25 65 Q 5 60 2 45" stroke="#c9a84c" stroke-width="0.5"/>
-                <path d="M 95 65 Q 115 60 118 45" stroke="#c9a84c" stroke-width="0.5"/>
-              </svg>
-              <span style="font-family: var(--font-sub); font-size: 0.55rem; letter-spacing:0.3em; color: var(--or-ombre);">Votre illustration</span>
-            </div>
+             <img src="images/galerie/TITAN-forest.png" width="100%" />
           </div>
         </div>
       </div>
@@ -1354,6 +1686,7 @@
 
 <!-- GALERIE -->
 <section class="gallery-section" id="galerie">
+
   <div class="gallery-header reveal">
     <div>
       <div class="section-label">Portfolio</div>
@@ -1362,6 +1695,7 @@
     <a href="#" class="btn-ghost" style="white-space:nowrap;">Voir tout</a>
   </div>
 
+<<<<<<< Updated upstream
   <div class="gallery-grid">
     <!-- Item 1 — Grand format -->
     <div class="gallery-item">
@@ -1515,7 +1849,26 @@
         </div>
       </div>
     </div>
+=======
+  <!-- FILTRES -->
+  <div class="gallery-filters reveal" id="gallery-filters">
+    <!-- générés par JS depuis galerie.json -->
+>>>>>>> Stashed changes
   </div>
+
+  <!-- COMPTEUR -->
+  <div class="gallery-count" id="gallery-count"></div>
+
+  <!-- GRILLE -->
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- généré par JS depuis galerie.json -->
+  </div>
+
+  <!-- MESSAGE VIDE -->
+  <div class="gallery-empty" id="gallery-empty">
+    Aucune illustration dans cette catégorie
+  </div>
+
 </section>
 
 <!-- SÉPARATEUR -->
@@ -1732,26 +2085,53 @@
 </footer>
 
 <script>
+<<<<<<< Updated upstream
   // Curseur custom
+=======
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ══════════════════════════════════════════
+  // CURSEUR CUSTOM
+  // ══════════════════════════════════════════
+>>>>>>> Stashed changes
   const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+  const ring   = document.getElementById('cursorRing');
+  if (cursor && ring) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
 
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Délégation d'événement — fonctionne aussi pour les éléments ajoutés dynamiquement
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('a, button, .gallery-item, .shop-card, .tag')) {
+        cursor.style.width = '20px'; cursor.style.height = '20px';
+        ring.style.width = '60px'; ring.style.height = '60px';
+        ring.style.opacity = '1';
+      }
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('a, button, .gallery-item, .shop-card, .tag')) {
+        cursor.style.width = '12px'; cursor.style.height = '12px';
+        ring.style.width = '36px'; ring.style.height = '36px';
+        ring.style.opacity = '0.5';
+      }
+    });
   }
-  animateRing();
 
+<<<<<<< Updated upstream
   document.querySelectorAll('a, button, .gallery-item, .shop-card, .tag').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '20px';
@@ -1772,15 +2152,22 @@
   // Reveal on scroll
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
+=======
+  // ══════════════════════════════════════════
+  // REVEAL ON SCROLL
+  // Fonction réutilisable — appelée aussi après build galerie
+  // ══════════════════════════════════════════
+  const revealObserver = new IntersectionObserver((entries) => {
+>>>>>>> Stashed changes
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
         setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
+        revealObserver.unobserve(e.target);
       }
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.08 });
 
+<<<<<<< Updated upstream
   // Particules flottantes — dorées et variées
   const particleTypes = ['type-dot', 'type-dot', 'type-spark', 'type-glow'];
   function spawnParticle() {
@@ -1810,6 +2197,554 @@
       item.querySelector('.gallery-img-placeholder').style.transform = '';
     });
   });
+=======
+  function observeReveals() {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+  }
+  observeReveals();
+
+  // ══════════════════════════════════════════
+  // PARTICULES
+  // ══════════════════════════════════════════
+  const particleTypes = ['type-dot', 'type-dot', 'type-spark', 'type-glow'];
+  const particlesEl   = document.getElementById('particles');
+  function spawnParticle() {
+    if (!particlesEl) return;
+    const p    = document.createElement('div');
+    const type = particleTypes[Math.floor(Math.random() * particleTypes.length)];
+    p.className = 'particle ' + type;
+    const x     = Math.random() * window.innerWidth;
+    const dur   = 6 + Math.random() * 14;
+    const drift = (Math.random() - 0.5) * 120 + 'px';
+    const delay = Math.random() * 3;
+    p.style.cssText = `left:${x}px;bottom:-5px;animation-duration:${dur}s;animation-delay:${delay}s;--drift:${drift};`;
+    particlesEl.appendChild(p);
+    setTimeout(() => p.remove(), (dur + delay + 2) * 1000);
+  }
+  for (let i = 0; i < 35; i++) spawnParticle();
+  setInterval(spawnParticle, 1200);
+
+  // ══════════════════════════════════════════
+  // GALERIE — JSON + Grille + Filtres + Lightbox
+  // ══════════════════════════════════════════
+  const DEMO_DATA = [
+    { fichier: null, titre: "La Dryade Cendrée",    technique: "Encre de Chine",          annee: 2024, ratio: "3/4"  },
+    { fichier: null, titre: "Sirène des Abysses",   technique: "Aquarelle",                annee: 2024, ratio: "4/3"  },
+    { fichier: null, titre: "Le Démon Cornu",        technique: "Stylo bille",              annee: 2024, ratio: "3/4"  },
+    { fichier: null, titre: "Dragon des Brumes",    technique: "Encre de Chine",          annee: 2023, ratio: "4/3"  },
+    { fichier: null, titre: "La Succube",            technique: "Illustration numérique",  annee: 2024, ratio: "2/3"  },
+    { fichier: null, titre: "Forêt Nocturne",        technique: "Aquarelle",                annee: 2023, ratio: "4/3"  },
+    { fichier: null, titre: "L'Ancien",              technique: "Encre de Chine",          annee: 2023, ratio: "3/4"  },
+    { fichier: null, titre: "Rune de Sang",          technique: "Stylo bille",              annee: 2024, ratio: "1/1"  },
+    { fichier: null, titre: "Œil du Gouffre",        technique: "Illustration numérique",  annee: 2023, ratio: "4/3"  },
+    { fichier: null, titre: "Créature des Marais",  technique: "Aquarelle",                annee: 2024, ratio: "3/4"  },
+    { fichier: null, titre: "Le Chasseur Maudit",   technique: "Encre de Chine",          annee: 2024, ratio: "2/3"  },
+    { fichier: null, titre: "Spectre du Donjon",    technique: "Stylo bille",              annee: 2023, ratio: "3/4"  },
+  ];
+
+  const PH_ICONS = [
+    `<svg width="50" height="70" viewBox="0 0 50 70" fill="none"><ellipse cx="25" cy="16" rx="9" ry="11" stroke="#c9a84c" stroke-width="0.8"/><path d="M25 27L25 52M15 40Q5 34 2 24M35 40Q45 34 48 24M25 52Q15 64 13 70M25 52Q35 64 37 70" stroke="#c9a84c" stroke-width="0.8"/></svg>`,
+    `<svg width="70" height="48" viewBox="0 0 70 48" fill="none"><path d="M5 38Q18 8 35 22Q52 36 65 8" stroke="#c9a84c" stroke-width="0.8" fill="none"/><ellipse cx="35" cy="18" rx="14" ry="9" stroke="#c9a84c" stroke-width="0.5"/></svg>`,
+    `<svg width="55" height="55" viewBox="0 0 55 55" fill="none"><polygon points="27,4 42,18 52,14 47,30 55,42 40,37 27,52 14,37 0,42 8,30 3,14 13,18" stroke="#c9a84c" stroke-width="0.8" fill="none"/><circle cx="27" cy="27" r="7" stroke="#c9a84c" stroke-width="0.5"/></svg>`,
+    `<svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M30 4Q52 18 52 44Q52 58 30 58Q8 58 8 44Q8 18 30 4" stroke="#c9a84c" stroke-width="0.8" fill="none"/><ellipse cx="30" cy="36" rx="9" ry="13" stroke="#c9a84c" stroke-width="0.5"/></svg>`,
+    `<svg width="75" height="48" viewBox="0 0 75 48" fill="none"><path d="M4 44L18 8L37 28L56 4L72 34" stroke="#c9a84c" stroke-width="0.8" fill="none"/><ellipse cx="37" cy="28" rx="7" ry="5" stroke="#c9a84c" stroke-width="0.5"/></svg>`,
+  ];
+
+  let currentData = [];
+
+  function buildGallery(data) {
+    currentData = data;
+    const grid      = document.getElementById('gallery-grid');
+    const filtersEl = document.getElementById('gallery-filters');
+    const countEl   = document.getElementById('gallery-count');
+    const emptyEl   = document.getElementById('gallery-empty');
+    if (!grid) return;
+
+    // Techniques uniques
+    const techniques = ['Tout'];
+    data.forEach(item => { if (!techniques.includes(item.technique)) techniques.push(item.technique); });
+
+    // Filtres
+    filtersEl.innerHTML = techniques.map((t, i) => {
+      const count = t === 'Tout' ? data.length : data.filter(d => d.technique === t).length;
+      return `<button class="filter-btn${i === 0 ? ' active' : ''}" data-filter="${t}">
+        <span>${t}<span class="filter-count">(${count})</span></span>
+      </button>`;
+    }).join('');
+
+    // SVG coin gothique — plus épais, plus lisible
+    const CORNER_SVG = `<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 34L2 2L34 2" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M2 2L13 13" stroke="#c9a84c" stroke-width="1" opacity="0.6"/>
+      <circle cx="2" cy="2" r="3" fill="#c9a84c"/>
+      <polygon points="13,2 18,7 13,12 8,7" stroke="#c9a84c" stroke-width="0.9" fill="rgba(201,168,76,0.18)"/>
+      <line x1="2" y1="22" x2="9" y2="22" stroke="#c9a84c" stroke-width="0.8" opacity="0.45"/>
+    </svg>`;
+
+    // Mapping format → ratio placeholder
+    const FORMAT_RATIO = {
+      'portrait':    '3/4',
+      'carre':       '1/1',
+      'paysage':     '4/3',
+      'rectangle':   '16/9',
+      'panoramique': '21/9',
+    };
+
+    // Items
+    grid.innerHTML = data.map((item, idx) => {
+      const fmt   = item.format || 'portrait';
+      const ratio = item.ratio || FORMAT_RATIO[fmt] || '3/4';
+      const icon  = PH_ICONS[idx % PH_ICONS.length];
+      const content = item.fichier
+        ? `<img src="images/galerie/${item.fichier}" alt="${item.titre}" loading="lazy">`
+        : `<div class="gallery-placeholder" style="--ph-ratio:${ratio}">${icon}</div>`;
+      return `<div class="gallery-item reveal" data-technique="${item.technique}" data-format="${fmt}" data-idx="${idx}">
+        ${content}
+        <div class="gallery-inner-border"></div>
+        <div class="gallery-corner gc-tl">${CORNER_SVG}</div>
+        <div class="gallery-corner gc-tr">${CORNER_SVG}</div>
+        <div class="gallery-corner gc-bl">${CORNER_SVG}</div>
+        <div class="gallery-corner gc-br">${CORNER_SVG}</div>
+        <div class="technique-badge">${item.technique}</div>
+        <div class="gallery-overlay">
+          <div class="gallery-caption">${item.titre}</div>
+          <div class="gallery-technique">${item.technique}${item.annee ? ' · ' + item.annee : ''}</div>
+        </div>
+        <div class="gallery-expand" data-idx="${idx}">
+          <svg viewBox="0 0 14 14" fill="none" stroke="#c9a84c" stroke-width="1.2"><path d="M1 5V1h4M9 1h4v4M13 9v4H9M5 13H1V9"/></svg>
+        </div>
+      </div>`;
+    }).join('');
+
+    updateCount(data.length, data.length);
+
+    // Re-observer les nouveaux .reveal injectés
+    observeReveals();
+
+    // Clic → lightbox
+    grid.addEventListener('click', function(e) {
+      const item = e.target.closest('.gallery-item');
+      if (item) openLightbox(parseInt(item.dataset.idx));
+    });
+
+    // Filtres
+    filtersEl.addEventListener('click', function(e) {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      let visible = 0;
+      grid.querySelectorAll('.gallery-item').forEach(item => {
+        const show = filter === 'Tout' || item.dataset.technique === filter;
+        item.classList.toggle('hidden', !show);
+        if (show) {
+          item.classList.add('filtering');
+          setTimeout(() => item.classList.remove('filtering'), 400);
+          visible++;
+        }
+      });
+      if (emptyEl) emptyEl.style.display = visible === 0 ? 'block' : 'none';
+      updateCount(visible, data.length);
+    });
+
+    function updateCount(visible, total) {
+      if (!countEl) return;
+      countEl.textContent = visible === total
+        ? `${total} œuvre${total > 1 ? 's' : ''}`
+        : `${visible} œuvre${visible > 1 ? 's' : ''} sur ${total}`;
+    }
+  }
+
+  // Lightbox
+  function openLightbox(idx) {
+    const item = currentData[idx];
+    const lb   = document.getElementById('lightbox');
+    if (!lb || !item) return;
+    const img  = document.getElementById('lb-img');
+    const cap  = document.getElementById('lb-caption');
+    const tech = document.getElementById('lb-technique');
+    if (item.fichier) { img.src = 'images/galerie/' + item.fichier; img.style.display = 'block'; }
+    else { img.src = ''; img.style.display = 'none'; }
+    if (cap)  cap.textContent  = item.titre;
+    if (tech) tech.textContent = item.technique + (item.annee ? ' · ' + item.annee : '');
+    lb.dataset.current = idx;
+    lb.dataset.total   = currentData.length;
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  window.openLightbox = openLightbox;
+
+  // Lightbox — fermeture et navigation
+  const lb = document.getElementById('lightbox');
+  if (lb) {
+    document.getElementById('lightbox-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); navLb(-1); });
+    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); navLb(1); });
+    document.addEventListener('keydown', e => {
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape')      closeLb();
+      if (e.key === 'ArrowLeft')   navLb(-1);
+      if (e.key === 'ArrowRight')  navLb(1);
+    });
+  }
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function navLb(dir) {
+    const cur = parseInt(lb.dataset.current || 0);
+    const tot = parseInt(lb.dataset.total || 1);
+    openLightbox((cur + dir + tot) % tot);
+  }
+
+  // Fetch galerie.json, fallback démo
+  fetch('galerie.json')
+    .then(r => { if (!r.ok) throw new Error('absent'); return r.json(); })
+    .then(data => buildGallery(data))
+    .catch(() => buildGallery(DEMO_DATA));
+
+  // ══════════════════════════════════════════
+  // SWITCH UNIVERS
+  // ══════════════════════════════════════════
+  const toggle = document.getElementById('universe-toggle');
+  const label  = document.getElementById('toggle-label');
+
+  if (toggle) {
+    let univers = localStorage.getItem('vorn-univers') || 'ombres';
+
+    function applyUnivers(u, animate) {
+      univers = u;
+      document.body.classList.toggle('univers-abysse', u === 'abysse');
+      if (label) label.textContent = u === 'abysse' ? 'ABYSSES' : 'OMBRES';
+      localStorage.setItem('vorn-univers', u);
+
+      if (animate) {
+        const flash = document.createElement('div');
+        // Couleur du flash = fond de destination
+        const bgColor = u === 'abysse' ? '#0c0818' : '#050403';
+        flash.style.cssText = `position:fixed;inset:0;z-index:9999;pointer-events:none;background:${bgColor};opacity:0.7;transition:opacity 0.7s ease;`;
+        document.body.appendChild(flash);
+        requestAnimationFrame(() => {
+          flash.style.opacity = '0';
+          setTimeout(() => flash.remove(), 750);
+        });
+      }
+    }
+
+    applyUnivers(univers, false);
+    toggle.addEventListener('click', () => applyUnivers(univers === 'ombres' ? 'abysse' : 'ombres', true));
+  }
+
+}); // fin DOMContentLoaded
+>>>>>>> Stashed changes
 </script>
+
+<!-- ══════════════════════════════════════════
+     STYLES — UNIVERS ABYSSES CHROMATIQUES
+     ══════════════════════════════════════════ -->
+<style>
+
+/* Transition douce sur tous les éléments clés */
+body, nav, section, footer, .hero-bg, .hero-vignette,
+.hero-fade-bottom, .hero-halo, .hero-title, h2, p,
+.btn-primary, .btn-ghost, .tag, .gallery-item,
+.gallery-img-placeholder, .shop-card, .illus-frame,
+.illus-placeholder, input, select, textarea,
+.step-num, .step-title, .nav-links a, .section-label,
+.toggle-track, .toggle-knob, .toggle-label {
+  transition: background-color 0.7s ease, color 0.7s ease,
+              border-color 0.5s ease, box-shadow 0.5s ease,
+              filter 0.7s ease, opacity 0.5s ease !important;
+}
+
+/* ── NAV ── */
+body.univers-abysse nav {
+  background: linear-gradient(to bottom, rgba(12,8,24,0.97) 0%, transparent 100%);
+}
+body.univers-abysse .nav-logo { color: var(--u-accent); }
+body.univers-abysse .nav-links a { color: var(--u-text-mid); }
+body.univers-abysse .nav-links a:hover { color: var(--u-accent); }
+body.univers-abysse .nav-links a::after { background: var(--u-accent); }
+
+/* ── HERO ── */
+body.univers-abysse .hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(140,80,220,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(80,30,160,0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 80% at 80% 80%, rgba(80,30,160,0.25) 0%, transparent 50%),
+    var(--u-bg-deep);
+}
+body.univers-abysse .hero-rays::before {
+  background: conic-gradient(
+    from 260deg at 50% 0%,
+    transparent 0deg, rgba(140,80,220,0.06) 5deg, transparent 10deg,
+    transparent 18deg, rgba(181,123,238,0.09) 22deg, transparent 26deg,
+    transparent 36deg, rgba(140,80,220,0.04) 40deg, transparent 44deg,
+    transparent 52deg, rgba(181,123,238,0.12) 55deg, transparent 58deg,
+    transparent 68deg, rgba(140,80,220,0.06) 72deg, transparent 76deg
+  );
+}
+body.univers-abysse .hero-rays::after {
+  background: radial-gradient(ellipse at top, rgba(181,123,238,0.15) 0%, transparent 65%);
+}
+body.univers-abysse .hero-title {
+  color: var(--u-text-bright);
+  text-shadow:
+    0 0 80px rgba(181,123,238,0.5),
+    0 0 160px rgba(181,123,238,0.2),
+    0 2px 4px rgba(0,0,0,0.9);
+}
+body.univers-abysse .hero-title::after {
+  background: linear-gradient(to right, transparent, var(--u-accent), transparent);
+}
+body.univers-abysse .hero-title-sub { color: var(--u-accent); }
+body.univers-abysse .hero-eyebrow   { color: var(--u-accent); }
+body.univers-abysse .hero-divider-gem { background: var(--u-accent); }
+body.univers-abysse .hero-divider-line {
+  background: linear-gradient(to right, transparent, var(--u-accent-ombre));
+}
+body.univers-abysse .hero-divider-line:last-child {
+  background: linear-gradient(to left, transparent, var(--u-accent-ombre));
+}
+body.univers-abysse .hero-sub { color: var(--u-text-mid); }
+body.univers-abysse .scroll-indicator span { color: var(--u-accent-ombre); }
+body.univers-abysse .scroll-line {
+  background: linear-gradient(to bottom, var(--u-accent-ombre), transparent);
+}
+
+/* ── BOUTONS ── */
+body.univers-abysse .btn-primary { background: var(--u-accent); color: #0c0818; }
+body.univers-abysse .btn-primary::before { background: var(--u-accent-vif); }
+body.univers-abysse .btn-ghost { color: var(--u-accent); border-color: var(--u-accent-ombre); }
+body.univers-abysse .btn-ghost:hover {
+  border-color: var(--u-accent);
+  background: rgba(181,123,238,0.1);
+  color: var(--u-accent-pale);
+}
+
+/* ── SECTIONS / FOND ── */
+body.univers-abysse,
+body.univers-abysse section { background-color: var(--u-bg-deep); }
+body.univers-abysse .gallery-section { background: var(--u-bg-surface) !important; }
+body.univers-abysse .process-section { background: var(--u-bg-mid) !important; }
+body.univers-abysse #univers,
+body.univers-abysse #shop,
+body.univers-abysse #contact { background: var(--u-bg-deep) !important; }
+
+/* ── TYPOGRAPHIE ── */
+body.univers-abysse .section-label { color: var(--u-accent); }
+body.univers-abysse .section-label::before { background: var(--u-accent-ombre); }
+body.univers-abysse h2 { color: var(--u-text-bright) !important; }
+body.univers-abysse h2 em { color: var(--u-accent) !important; }
+body.univers-abysse p { color: var(--u-text-mid); }
+body.univers-abysse .tag { color: var(--u-accent-ombre); border-color: var(--u-accent-ombre); }
+body.univers-abysse .tag:hover { color: var(--u-accent); border-color: var(--u-accent); }
+body.univers-abysse .sep-line {
+  background: linear-gradient(to right, transparent, var(--u-accent-ombre) 50%, transparent);
+}
+body.univers-abysse .sep-center { color: var(--u-accent); }
+
+/* ── GALERIE ── */
+body.univers-abysse .gallery-item { background: var(--u-bg-card); }
+body.univers-abysse .gallery-img-placeholder {
+  background: radial-gradient(ellipse at 40% 40%, rgba(140,80,220,0.12) 0%, transparent 60%), var(--u-bg-card);
+}
+body.univers-abysse .gallery-overlay {
+  background: linear-gradient(to top, rgba(8,4,20,0.9) 0%, transparent 50%);
+}
+body.univers-abysse .gallery-caption { color: var(--u-accent); }
+body.univers-abysse .gallery-header h2 { color: var(--u-text-bright) !important; }
+body.univers-abysse .ph-icon { color: var(--u-accent-ombre); }
+
+/* ── ILLUSTRATION FRAME ── */
+body.univers-abysse .illus-frame { background: var(--u-bg-card); }
+body.univers-abysse .illus-frame::before { border-color: var(--u-accent-ombre); }
+body.univers-abysse .illus-frame::after {
+  background: linear-gradient(to top, rgba(8,4,20,0.7) 0%, transparent 50%);
+}
+body.univers-abysse .illus-placeholder {
+  background: radial-gradient(ellipse at 50% 30%, rgba(140,80,220,0.15) 0%, transparent 60%), var(--u-bg-card);
+  color: var(--u-accent-ombre);
+}
+
+/* ── SHOP ── */
+body.univers-abysse .shop-card { background: var(--u-bg-card); border-color: var(--u-accent-ombre); }
+body.univers-abysse .shop-card-img { background: var(--u-bg-surface); }
+body.univers-abysse .shop-card-category { color: var(--u-accent-ombre); }
+body.univers-abysse .shop-card-title { color: var(--u-text-bright); }
+body.univers-abysse .shop-price { color: var(--u-accent); }
+body.univers-abysse .shop-add { background: var(--u-accent); color: #0c0818; }
+body.univers-abysse .shop-add:hover { background: var(--u-accent-vif); }
+body.univers-abysse .shop-header p { color: var(--u-text-mid); }
+
+/* ── PROCESS ── */
+body.univers-abysse .step-num { color: var(--u-accent); border-color: var(--u-accent-ombre); }
+body.univers-abysse .step-title { color: var(--u-text-bright); }
+body.univers-abysse .step-desc { color: var(--u-text-mid); }
+
+/* ── CONTACT ── */
+body.univers-abysse input,
+body.univers-abysse select,
+body.univers-abysse textarea {
+  background: var(--u-bg-card);
+  border-color: var(--u-accent-ombre);
+  color: var(--u-text-bright);
+}
+body.univers-abysse input:focus,
+body.univers-abysse select:focus,
+body.univers-abysse textarea:focus { border-color: var(--u-accent); }
+body.univers-abysse label { color: var(--u-accent-ombre); }
+
+/* ── CURSEUR ── */
+body.univers-abysse .cursor { background: var(--u-accent); }
+body.univers-abysse .cursor-ring { border-color: var(--u-accent); }
+
+/* ── PARTICULES ── */
+body.univers-abysse .particle.type-dot {
+  background: var(--u-accent);
+  box-shadow: 0 0 6px var(--u-accent);
+}
+body.univers-abysse .particle.type-spark {
+  background: linear-gradient(to top, transparent, var(--u-accent-vif));
+  box-shadow: 0 0 8px var(--u-accent);
+}
+body.univers-abysse .particle.type-glow {
+  background: var(--u-accent-pale);
+  box-shadow: 0 0 10px 3px rgba(181,123,238,0.6);
+}
+
+/* ── LIGHTBOX ── */
+body.univers-abysse .lightbox { background: rgba(8,4,20,0.97); }
+body.univers-abysse .lightbox-caption { color: var(--u-accent); }
+body.univers-abysse .lightbox-close { color: var(--u-accent-ombre); }
+body.univers-abysse .lightbox-close:hover { color: var(--u-text-bright); }
+
+/* ── FOOTER ── */
+body.univers-abysse footer { background: var(--u-bg-mid); border-top-color: var(--u-accent-ombre); }
+body.univers-abysse .footer-brand-name { color: var(--u-accent); }
+body.univers-abysse .footer-brand-desc { color: var(--u-text-mid); }
+body.univers-abysse footer h4 { color: var(--u-text-bright); }
+body.univers-abysse footer a { color: var(--u-text-muted); }
+body.univers-abysse footer a:hover { color: var(--u-accent); }
+body.univers-abysse .footer-bottom { border-top-color: var(--u-accent-ombre); color: var(--u-text-muted); }
+body.univers-abysse .social-links a { color: var(--u-accent-ombre); }
+body.univers-abysse .social-links a:hover { color: var(--u-accent); }
+
+/* ── BORDER ANIM ── */
+body.univers-abysse .gold-border-anim::after {
+  background: linear-gradient(90deg, var(--u-accent), transparent, var(--u-accent), transparent);
+  background-size: 300% 100%;
+}
+
+/* ── Abysse overrides galerie ── */
+body.univers-abysse .filter-btn { color: var(--u-accent-ombre); border-color: var(--u-accent-ombre); }
+body.univers-abysse .filter-btn:hover,
+body.univers-abysse .filter-btn.active { color: var(--u-bg-deep); border-color: var(--u-accent); }
+body.univers-abysse .filter-btn::before { background: var(--u-accent); }
+body.univers-abysse .gallery-count { color: var(--u-accent-ombre); }
+body.univers-abysse .gallery-caption { color: var(--u-accent); }
+body.univers-abysse .gallery-technique { color: var(--u-text-mid); }
+body.univers-abysse .technique-badge { color: var(--u-accent); border-color: rgba(181,123,238,0.4); background: rgba(12,8,24,0.8); }
+body.univers-abysse .gallery-expand { border-color: rgba(181,123,238,0.4); }
+body.univers-abysse .gallery-expand svg { stroke: var(--u-accent); }
+body.univers-abysse .gallery-item { background: var(--u-bg-card); }
+body.univers-abysse .gallery-placeholder { background: radial-gradient(ellipse at 40% 40%, rgba(140,80,220,0.1) 0%, transparent 60%), var(--u-bg-card); }
+body.univers-abysse .gallery-overlay { background: linear-gradient(to top, rgba(8,4,20,0.92) 0%, rgba(8,4,20,0.3) 40%, transparent 70%); }
+
+/* ── Lightbox ── */
+.lightbox {
+  position: fixed; inset: 0;
+  background: rgba(5,4,3,0.97);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  flex-direction: column;
+  gap: 20px;
+}
+.lightbox.active { opacity: 1; pointer-events: all; }
+.lightbox-inner {
+  position: relative;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.lightbox-info {
+  text-align: center;
+}
+.lightbox-caption {
+  font-family: var(--font-sub);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--or);
+  margin-bottom: 4px;
+}
+.lightbox-technique {
+  font-family: var(--font-corps);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ivoire-sombre);
+  opacity: 0.7;
+}
+.lightbox-close {
+  position: absolute;
+  top: 24px; right: 32px;
+  font-size: 1.8rem;
+  color: var(--or-ombre);
+  cursor: pointer;
+  transition: color 0.3s;
+  line-height: 1;
+  background: none; border: none;
+}
+.lightbox-close:hover { color: var(--ivoire); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--or-ombre);
+  cursor: pointer;
+  background: rgba(5,4,3,0.6);
+  border: 1px solid rgba(201,168,76,0.2);
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.3s, border-color 0.3s;
+}
+.lightbox-nav:hover { color: var(--or); border-color: var(--or); }
+.lightbox-prev { left: -60px; }
+.lightbox-next { right: -60px; }
+body.univers-abysse .lightbox { background: rgba(8,4,20,0.97); }
+body.univers-abysse .lightbox-caption { color: var(--u-accent); }
+body.univers-abysse .lightbox-technique { color: var(--u-text-mid); }
+
+</style>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">×</button>
+  <div class="lightbox-inner">
+    <button class="lightbox-nav lightbox-prev" id="lb-prev">‹</button>
+    <img class="lightbox-img" src="" alt="" id="lb-img">
+    <button class="lightbox-nav lightbox-next" id="lb-next">›</button>
+  </div>
+  <div class="lightbox-info">
+    <div class="lightbox-caption" id="lb-caption"></div>
+    <div class="lightbox-technique" id="lb-technique"></div>
+  </div>
+</div>
+
 </body>
 </html>

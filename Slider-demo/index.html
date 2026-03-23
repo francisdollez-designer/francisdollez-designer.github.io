@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOMIFA — Avant / Après</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bleu:         #1212FF;
+    --bleu-fonce:   #000091;
+    --fond-hero:    #ECECFE;
+    --blanc:        #ffffff;
+    --texte:        #1e1e1e;
+    --texte-light:  #555;
+    --gris-border:  #e5e7eb;
+    --gris-footer:  #f5f5fe;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { min-width: 1100px; }
+  body {
+    font-family: 'Source Sans 3', Arial, sans-serif;
+    background: var(--blanc);
+    color: var(--texte);
+  }
+
+  /* =============================================
+     HEADER DSFR — avec bloc République Française
+  ============================================= */
+  .fr-header {
+    background: var(--blanc);
+    border-bottom: 1px solid var(--gris-border);
+    box-shadow: 0 1px 0 var(--gris-border), 0 2px 8px rgba(0,0,0,.05);
+  }
+
+  .fr-header__body { padding: 0 40px; }
+
+  .fr-header__body-row {
+    display: flex;
+    align-items: center;
+    margin: 0px 150px;
+    min-height: 80px;
+    gap: 24px;
+  }
+
+  /* Brand = RF + DOMIFA */
+  .fr-header__brand {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+    gap: 20px;
+  }
+
+  /* Bloc République Française */
+  .fr-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 20px;
+  
+  }
+
+  /* Drapeau tricolore RF */
+  .rf-flag {
+    display: flex;
+    flex-direction: column;
+    width: 32px;
+    height: 38px;
+    border-radius: 2px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .rf-flag span {
+    flex: 1;
+    display: block;
+  }
+  .rf-flag .bleu  { background: #002395; }
+  .rf-flag .blanc { background: #EDEDED; }
+  .rf-flag .rouge { background: #ED2939; }
+
+  .rf-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+  .rf-text strong {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--bleu-fonce);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+  .rf-text em {
+    font-size: 9.5px;
+    font-style: italic;
+    color: var(--texte-light);
+    letter-spacing: .01em;
+    line-height: 1.3;
+  }
+
+  /* Logo opérateur DOMIFA */
+  .fr-header__operator {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+  .fr-header__operator svg {
+    height: 40px;
+    width: auto;
+    display: block;
+    max-width: 160px;
+  }
+
+  /* =============================================
+     HERO — fond lavande, titre gauche, illus droite
+  ============================================= */
+  .hero {
+    background: var(--fond-hero);
+    padding: 24px 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    min-height: 220px;
+  }
+
+  .hero-text { flex: 1; max-width: 580px; }
+
+  .hero-text h1 {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 700;
+    color: var(--bleu-fonce);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .hero-text p {
+    font-size: 16px;
+    color: var(--texte-light);
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  /* Illustration droite — SVG généré inline, style "teamwork" */
+  .hero-illus {
+    flex-shrink: 0;
+    width: 300px;
+    margin-right: 50px;
+    opacity: .92;
+  }
+
+  /* =============================================
+     TAGS — centrés, sous hero
+  ============================================= */
+  .tags-area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 36px 40px 28px;
+    background: var(--blanc);
+  }
+
+  .tag-btn {
+    background: var(--blanc);
+    border: 1.5px solid #c0c0e8;
+    color: #3333aa;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: 40px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all .18s;
+  }
+  .tag-btn:hover { background: #ececfe; border-color: var(--bleu); color: var(--bleu); }
+  .tag-btn.active {
+    background: var(--bleu);
+    border-color: var(--bleu);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(18,18,255,.25);
+  }
+
+  /* =============================================
+     MOCKUP MACBOOK — 1100 × 700
+  ============================================= */
+  .macbook-scene {
+    display: flex;
+    justify-content: center;
+    padding: 0 40px 8px;
+    background: var(--blanc);
+  }
+
+  .macbook {
+    width: 65%;
+    filter: drop-shadow(0 20px 48px rgba(0,0,60,.14));
+  }
+
+  .mac-lid {
+    background: linear-gradient(170deg, #d4d7db 0%, #a8adb5 100%);
+    border-radius: 14px 14px 0 0;
+    padding: 16px 16px 0;
+    position: relative;
+  }
+  .mac-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 120px; height: 22px;
+    background: #111; border-radius: 0 0 12px 12px;
+    z-index: 5; display: flex; align-items: center; justify-content: center;
+  }
+  .mac-notch::after {
+    content: ''; width: 8px; height: 8px;
+    background: #222; border-radius: 50%;
+  }
+  .mac-screen {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 600px;
+  }
+  .mac-bar {
+    height: 32px;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e2e4e8;
+    display: flex; align-items: center;
+    padding: 0 12px; gap: 6px; flex-shrink: 0;
+  }
+  .mac-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mac-dot.red    { background: #ff5f57; }
+  .mac-dot.yellow { background: #febc2e; }
+  .mac-dot.green  { background: #28c840; }
+  .mac-url {
+    flex: 1; background: #fff;
+    border: 1px solid #d1d3d8; border-radius: 4px;
+    font-size: 11px; color: #999;
+    padding: 2px 10px; margin: 0 8px; font-family: monospace;
+  }
+  .mac-content {
+    height: calc(700px - 32px);
+    overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth;
+  }
+  .mac-content::-webkit-scrollbar { width: 4px; }
+  .mac-content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+  .mac-base {
+    background: linear-gradient(180deg, #b2b7bf 0%, #8e9299 100%);
+    height: 18px; border-radius: 0 0 4px 4px; position: relative;
+  }
+  .mac-base::after {
+    content: ''; position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 5px; background: #6b7077; border-radius: 0 0 4px 4px;
+  }
+  .mac-foot {
+    height: 10px;
+    background: linear-gradient(90deg, transparent 20%, #a0a5ad 35%, #d1d5db 50%, #a0a5ad 65%, transparent 80%);
+    border-radius: 0 0 30px 30px; max-width: 320px; margin: 0 auto;
+  }
+
+  /* =============================================
+     PANELS & SLIDER
+  ============================================= */
+  .slide-panel { display: none; }
+  .slide-panel.active { display: block; }
+
+  .slider-container {
+    position: relative; width: 100%; height: 600px;
+    overflow: hidden; user-select: none; cursor: col-resize;
+  }
+  .img-after {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: top left;
+  }
+  .img-before {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: top left;
+    clip-path: inset(0 50% 0 0); transition: clip-path .02s linear;
+  }
+  .slider-line {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 2px; background: #7B61FF;
+    box-shadow: 0 0 12px rgba(18,18,255,.5);
+    transform: translateX(-50%); pointer-events: none; z-index: 10;
+  }
+  .slider-handle {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; height: 50px;
+    background: #7B61FF; border: 2px solid #fff; border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(18,18,255,.4);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 11; cursor: grab; transition: box-shadow .2s;
+  }
+  .slider-handle:active { cursor: grabbing; }
+  .slider-handle:hover  { box-shadow: 0 4px 24px rgba(18,18,255,.6); }
+  .slider-handle svg { pointer-events: none; }
+
+  .label-before, .label-after {
+    position: absolute; top: 12px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 3px 10px; border-radius: 2px;
+    z-index: 12; pointer-events: none;
+  }
+  .label-before { left: 10px; background: rgba(68, 68, 78, 0.65); color: #ffffff;border-radius: 60px; }
+  .label-after  { right: 10px; background: rgba(18,18,255,.7); color: #fff;border-radius: 60px; }
+
+  /* Placeholders */
+  .placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+  }
+  .placeholder-before { background: linear-gradient(135deg,#f2f2f8,#e2e2f0); color: #888; }
+  .placeholder-after  { background: linear-gradient(135deg,#eeeeff,#d5d5fa); color: #000091; }
+  .placeholder svg { opacity: .28; }
+  .placeholder p { font-size: 13px; font-weight: 500; opacity: .6; text-align: center; padding: 0 20px; line-height: 1.6; }
+  .placeholder code { font-size: 11px; background: rgba(0,0,0,.07); padding: 2px 6px; border-radius: 3px; font-family: monospace; }
+  .slider-container .placeholder { position: absolute; inset: 0; }
+  .slider-container .placeholder.clip-before { clip-path: inset(0 50% 0 0); transition: clip-path .02s linear; }
+
+  /* =============================================
+     LÉGENDE — bandeau info style DSFR
+  ============================================= */
+  .caption-band {
+    display: flex;
+    justify-content: center;
+    padding: 16px 40px 32px;
+    background: var(--blanc);
+  }
+
+  .caption-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    padding: 14px 24px;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .caption-icon {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--bleu-fonce);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 13px; font-weight: 700;
+    line-height: 1;
+  }
+
+  .caption-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--texte);
+    line-height: 1.4;
+  }
+
+  /* =============================================
+     FOOTER DSFR complet
+  ============================================= */
+  .fr-footer {
+    background: #ffffff;
+    border-top: 2px solid var(--bleu-fonce);
+    margin-top: 20px;
+  }
+
+  /* Bloc RF + liens institutionnels */
+  .fr-footer__top {
+    padding: 40px 80px 32px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  /* Bloc RF dans footer */
+  .fr-footer__brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .fr-footer__brand .rf-flag {
+    width: 28px; height: 34px;
+  }
+  .fr-footer__brand .rf-text strong { font-size: 11px; }
+  .fr-footer__brand .rf-text em { font-size: 9px; }
+
+  /* Liens institutionnels à droite */
+  .fr-footer__top-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-self: center;
+  }
+
+  .fr-footer__top-links a {
+    font-size: 13px;
+    color: var(--bleu-fonce);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .fr-footer__top-links a:hover { text-decoration: underline; }
+  .fr-footer__top-links a svg {
+    width: 11px; height: 11px; opacity: .6; flex-shrink: 0;
+  }
+
+  /* Séparateur */
+  .fr-footer__sep {
+    border: none;
+    border-top: 1px solid #d0d0e8;
+    margin: 0 80px;
+  }
+
+  /* Liens du bas */
+  .fr-footer__bottom {
+    padding: 16px 80px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .fr-footer__bottom-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+
+  .fr-footer__bottom-links li {
+    display: flex;
+    align-items: center;
+  }
+
+  .fr-footer__bottom-links li + li::before {
+    content: '|';
+    color: #ffffff;
+    margin: 0 10px;
+    font-size: 12px;
+  }
+
+  .fr-footer__bottom-links a {
+    font-size: 12px;
+    color: var(--texte-light);
+    text-decoration: none;
+  }
+  .fr-footer__bottom-links a:hover { text-decoration: underline; }
+
+  .fr-footer__bottom-links .fr-footer__bottom--icon {
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .fr-footer__bottom-links .fr-footer__bottom--icon svg {
+    width: 12px; height: 12px; opacity: .5;
+  }
+
+  /* Mention licence */
+  .fr-footer__licence {
+    padding: 12px 80px 20px;
+    font-size: 11px;
+    color: #aaa;
+    line-height: 1.5;
+  }
+  .fr-footer__licence a { color: #888; }
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     HEADER DSFR — Bloc RF + Logo DOMIFA, sans outils
+============================================= -->
+<header role="banner" class="fr-header">
+  <div class="fr-header__body">
+    <div class="fr-header__body-row">
+      <div class="fr-header__brand">
+
+        <!-- Bloc marque RF -->
+        <div class="fr-header__logo">
+          <img src="images/Bloc marque.svg" >
+        </div>
+
+        <!-- Logo opérateur DOMIFA -->
+        <div class="fr-header__operator">
+          <svg viewBox="0 0 530 103" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DOMIFA" role="img">
+            <g clip-path="url(#hc)">
+              <path d="M32.8022 5.31274C40.7675 5.31274 47.7915 6.90292 53.8738 10.0832C60.0288 13.2636 64.8077 17.745 68.2115 23.5275C71.6147 29.2376 73.3164 35.8152 73.3164 43.2601C73.3164 50.705 71.5786 57.3185 68.1027 63.101C64.6994 68.8835 59.8478 73.365 53.5478 76.5453C47.3206 79.7257 40.152 81.3161 32.0419 81.3161H0V5.31274H32.8022ZM33.3453 65.2696C37.1831 65.2696 40.5864 64.3661 43.5553 62.5589C46.5242 60.7522 48.8411 58.1861 50.5067 54.861C52.1722 51.536 53.0052 47.7414 53.0052 43.477C53.0052 39.1401 52.0999 35.3092 50.2895 31.9843C48.5518 28.6594 46.1259 26.0934 43.0122 24.2864C39.8985 22.4071 36.3504 21.4675 32.3678 21.4675H19.8769V65.2696H33.3453Z" fill="#1212FF"/>
+              <path d="M201.768 5.31274H223.383L245.432 49.7653L267.373 5.31274H288.987V81.3161H271.391L271.283 33.1769L251.841 73.7264H239.024L219.473 33.1769V81.3161H201.768V5.31274Z" fill="#1212FF"/>
+              <path d="M320.101 5.31274H339.978V81.3161H320.101V5.31274Z" fill="#1212FF"/>
+              <path d="M371.079 5.31274H427.994L427.885 21.1422H390.956V38.0559H425.061V53.8853H390.956V81.3161H371.079V5.31274Z" fill="#1212FF"/>
+              <path d="M505.465 81.3161L500.254 67.8718H467.342L462.02 81.3161H441.6L474.294 5.31274H494.715L526.646 81.3161H505.465ZM473.318 52.6929H494.387L483.96 25.5875L473.318 52.6929Z" fill="#1212FF"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M133.819 10.8421C115.823 10.8421 101.235 25.4046 101.235 43.3684C101.235 61.3323 115.823 75.8946 133.819 75.8946C151.816 75.8946 166.404 61.3323 166.404 43.3684C166.404 25.4046 151.816 10.8421 133.819 10.8421ZM90.3729 43.3684C90.3729 19.4167 109.824 0 133.819 0C157.814 0 177.266 19.4167 177.266 43.3684C177.266 67.3203 157.814 86.7368 133.819 86.7368C109.824 86.7368 90.3729 67.3203 90.3729 43.3684Z" fill="#1212FF"/>
+              <path d="M133.817 103L119.708 78.6055H147.927L133.817 103Z" fill="#1212FF"/>
+              <path d="M155.361 40.1893L135.45 19.3976C135.1 19.0564 134.63 18.8655 134.142 18.8655C133.653 18.8655 133.183 19.0564 132.834 19.3976L112.923 40.1893C112.677 40.4451 112.511 40.7677 112.447 41.1167C112.383 41.4658 112.423 41.8259 112.563 42.1523C112.702 42.4787 112.935 42.7568 113.232 42.952C113.528 43.1472 113.876 43.2509 114.231 43.2502H116.947C117.187 43.2502 117.417 43.3454 117.586 43.515C117.756 43.6845 117.851 43.9144 117.851 44.1542V59.5217C117.851 60.2413 118.137 60.931 118.647 61.4394C119.156 61.9483 119.847 62.2339 120.567 62.2339H147.719C148.438 62.2339 149.129 61.9483 149.638 61.4394C150.148 60.931 150.434 60.2413 150.434 59.5217V44.1542C150.434 43.9144 150.529 43.6845 150.699 43.515C150.868 43.3454 151.099 43.2502 151.339 43.2502H154.054C154.409 43.2502 154.756 43.1461 155.052 42.9509C155.348 42.7556 155.58 42.4777 155.719 42.1518C155.858 41.8259 155.898 41.4663 155.835 41.1177C155.771 40.7691 155.606 40.4451 155.361 40.1893Z" fill="#1212FF"/>
+            </g>
+            <defs><clipPath id="hc"><rect width="530" height="103" fill="white"/></clipPath></defs>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- =============================================
+     HERO — fond lavande, titre + illus
+============================================= -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Découvrez les améliorations<br>apportées à DomiFa</h1>
+    <p>Glissez le curseur pour comparer l'ancienne et la nouvelle interface. Naviguez entre les onglets pour explorer chaque cas d'usage.</p>
+  </div>
+
+  <!-- Illustration SVG style "équipe / construction" -->
+  <div class="hero-illus" aria-hidden="true">
+ <img src="images/illu.svg" >   </div>
+</section>
+
+<!-- TAGS -->
+<div class="tags-area" id="tags">
+  <button class="tag-btn active" data-tab="0">Liste des domiciliés</button>
+  <button class="tag-btn" data-tab="1">Fiche domicilié</button>
+  <button class="tag-btn" data-tab="2">Formulaire</button>
+  <button class="tag-btn" data-tab="3">Rendez-vous</button>
+  <button class="tag-btn" data-tab="4">Paramètre Mon DomiFa</button>
+  <button class="tag-btn" data-tab="5">Info Structure</button>
+</div>
+
+<!-- =============================================
+     MACBOOK MOCKUP
+============================================= -->
+<div class="macbook-scene">
+  <div class="macbook">
+    <div class="mac-lid">
+      <div class="mac-notch"></div>
+      <div class="mac-screen">
+
+        <div class="mac-bar">
+          <div class="mac-dot red"></div>
+          <div class="mac-dot yellow"></div>
+          <div class="mac-dot green"></div>
+          <div class="mac-url">domifa.fabrique.social.gouv.fr</div>
+        </div>
+
+        <div class="mac-content" id="macContent">
+
+          <!-- =========================================
+               ONGLET 0 — Liste des domiciliés
+               ➜ REMPLACER LES IMAGES :
+                 1. Décommenter la ligne <img ...>
+                 2. Renseigner src="votre-image.png"
+                 3. Supprimer le bloc <div class="placeholder ...">
+          ========================================= -->
+          <div class="slide-panel active" data-panel="0">
+            <div class="slider-container" id="slider-0">
+              <img class="img-after"  src="src/01-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/01-av.png"  alt="Avant">
+             
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 1 — Fiche domicilié -->
+          <div class="slide-panel" data-panel="1">
+            <div class="slider-container" id="slider-1">
+              <img class="img-after"  src="src/02-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/02-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 2 — Formulaire -->
+          <div class="slide-panel" data-panel="2">
+            <div class="slider-container" id="slider-2">
+              <img class="img-after"  src="src/03-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/03-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 3 — Rendez-vous -->
+          <div class="slide-panel" data-panel="3">
+            <div class="slider-container" id="slider-3">
+              <img class="img-after"  src="src/04-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/04-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 4 — Paramètre Mon DomiFa -->
+          <div class="slide-panel" data-panel="4">
+            <div class="slider-container" id="slider-4">
+              <img class="img-after"  src="src/05-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/05-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+          <!-- ONGLET 5 — Info structure -->
+          <div class="slide-panel" data-panel="5">
+            <div class="slider-container" id="slider-5">
+              <img class="img-after"  src="src/06-ap.png"  alt="Après"> 
+             
+             <img class="img-before" src="src/06-av.png"  alt="Avant">
+              <div class="slider-line"></div>
+              <div class="slider-handle">
+                <svg width="30" height="27" viewBox="0 0 54 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M38.8284 1.41431L50.8284 13.4143L38.8284 25.4143" stroke="white" stroke-width="4"/><path d="M14.8284 1.41431L2.82843 13.4143L14.8284 25.4143" stroke="white" stroke-width="4"/></svg>
+              </div>
+              <div class="label-before">Avant</div>
+              <div class="label-after">Après</div>
+            </div>
+          </div>
+
+        </div><!-- /mac-content -->
+      </div><!-- /mac-screen -->
+    </div><!-- /mac-lid -->
+    <div class="mac-base"></div>
+    <div class="mac-foot"></div>
+  </div>
+</div>
+
+<!-- LÉGENDE — bandeau info -->
+<div class="caption-band">
+  <div class="caption-inner">
+    <div class="caption-icon" aria-hidden="true">i</div>
+    <div class="caption-text" id="captionText">
+      Refonte de la liste principale : meilleure lisibilité, filtres améliorés et actions rapides en un coup d'œil.
+    </div>
+  </div>
+</div>
+
+<!-- =============================================
+     FOOTER DSFR complet
+============================================= -->
+<footer role="contentinfo" class="fr-footer">
+
+  <!-- Ligne haute : RF + liens institutionnels -->
+  <div class="fr-footer__top">
+              <img src="images/Bloc marque.svg" >
+
+    <div class="fr-footer__top-links">
+      <a href="https://info.gouv.fr" target="_blank" rel="noopener">
+        info.gouv.fr
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <a href="https://service-public.fr" target="_blank" rel="noopener">
+        service-public.fr
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <a href="https://legifrance.gouv.fr" target="_blank" rel="noopener">
+        legifrance.gouv.fr
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+      <a href="https://data.gouv.fr" target="_blank" rel="noopener">
+        data.gouv.fr
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <hr class="fr-footer__sep">
+
+  <!-- Liens du bas -->
+  <div class="fr-footer__bottom">
+    <ul class="fr-footer__bottom-links">
+      <li><a href="#">Accessibilité : partiellement conforme</a></li>
+      <li><a href="#">Mentions légales</a></li>
+      <li><a href="#">Conditions générales d'utilisation</a></li>
+      <li><a href="#">Politique de confidentialité</a></li>
+      <li><a href="#">Plan du site</a></li>
+      <li><a href="#">Nos partenaires</a></li>
+      <li>
+        <a href="#" class="fr-footer__bottom--icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Paramètres d'affichage
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Mention licence -->
+  <p class="fr-footer__licence">
+    Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous
+    <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener">licence etalab-2.0</a>
+  </p>
+
+</footer>
+
+<script>
+  /* -----------------------------------------------
+     DONNÉES — modifier desc par onglet
+  ----------------------------------------------- */
+  const tabData = [
+    { desc: "Refonte de la liste principale : meilleure lisibilité, filtres améliorés et actions rapides en un coup d'oeil." },
+    { desc: "Nouvelle fiche individuelle avec historique complet, statut et documents centralisés." },
+    { desc: "Formulaire de demande repensé : étapes clarifiées, saisie simplifiée et validation en temps réel." },
+    { desc: "Gestion des rendez-vous améliorée : prise de RDV rapide, suivi et rappels intégrés." },
+    { desc: "Espace de configuration personnalisé : gestion des préférences et des accès utilisateurs." },
+    { desc: "Informations de la structure centralisées et mises à jour facilement depuis un seul écran." }
+  ];
+
+  const tags       = document.querySelectorAll('.tag-btn');
+  const panels     = document.querySelectorAll('.slide-panel');
+  const capText    = document.getElementById('captionText');
+  const macContent = document.getElementById('macContent');
+
+  tags.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = +btn.dataset.tab;
+      tags.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      panels[idx].classList.add('active');
+      capText.textContent  = tabData[idx].desc;
+      macContent.scrollTop = 0;
+      setSlider(idx, 50);
+    });
+  });
+
+  function setSlider(idx, pct) {
+    const c = document.getElementById(`slider-${idx}`);
+    if (!c) return;
+    c.querySelector('.slider-line').style.left   = pct + '%';
+    c.querySelector('.slider-handle').style.left = pct + '%';
+    const before = c.querySelector('.clip-before, .img-before');
+    if (before) before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+  }
+
+  function initSlider(idx) {
+    const c = document.getElementById(`slider-${idx}`);
+    if (!c || c._init) return;
+    c._init = true;
+    let drag = false;
+    const pct = e => {
+      const r = c.getBoundingClientRect();
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      return Math.min(Math.max(((x - r.left) / r.width) * 100, 2), 98);
+    };
+    c.addEventListener('mousedown',  e => { drag = true; setSlider(idx, pct(e)); e.preventDefault(); });
+    c.addEventListener('touchstart', e => { drag = true; setSlider(idx, pct(e)); }, { passive: true });
+    window.addEventListener('mousemove', e => {
+      if (!drag) return;
+      const ap = document.querySelector('.slide-panel.active');
+      if (!ap || +ap.dataset.panel !== idx) { drag = false; return; }
+      setSlider(idx, pct(e));
+    });
+    window.addEventListener('touchmove', e => {
+      if (!drag) return;
+      const ap = document.querySelector('.slide-panel.active');
+      if (!ap || +ap.dataset.panel !== idx) { drag = false; return; }
+      setSlider(idx, pct(e));
+    }, { passive: true });
+    window.addEventListener('mouseup',  () => drag = false);
+    window.addEventListener('touchend', () => drag = false);
+  }
+
+  for (let i = 0; i < 6; i++) { setSlider(i, 50); initSlider(i); }
+</script>
+</body>
+</html>
