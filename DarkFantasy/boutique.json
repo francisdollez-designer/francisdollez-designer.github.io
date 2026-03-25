@@ -1,0 +1,50 @@
+[
+  {
+    "titre": "Titan des Forêts",
+    "categorie": "Original",
+    "prix": "320 €",
+    "desc": "Encre de Chine sur papier Arches 300g — 21×29,7 cm",
+    "fichier": "demon-abyss.png",
+    "dispo": true
+  },
+  {
+    "titre": "La Dryade Cendrée",
+    "categorie": "Original",
+    "prix": "280 €",
+    "desc": "Encre de Chine sur papier Arches 300g — 21×29,7 cm",
+    "fichier": null,
+    "dispo": true
+  },
+  {
+    "titre": "Dragon des Brumes",
+    "categorie": "Original",
+    "prix": "350 €",
+    "desc": "Lavis d'encre sur papier aquarelle — 30×40 cm",
+    "fichier": null,
+    "dispo": false
+  },
+  {
+    "titre": "Titan des Forêts — Giclée A3",
+    "categorie": "Impression",
+    "prix": "65 €",
+    "desc": "Impression fine art sur papier Hahnemühle — A3",
+    "fichier": "TITAN-forest.png",
+    "dispo": true
+  },
+  {
+    "titre": "Bestiaire des Ombres Vol. I",
+    "categorie": "Artbook",
+    "prix": "45 €",
+    "desc": "40 illustrations — édition limitée 100 exemplaires",
+    "fichier": null,
+    "dispo": true
+  },
+  {
+    "titre": "Portrait de créature",
+    "categorie": "Commande",
+    "prix": "À partir de 180 €",
+    "desc": "Dessin original sur mesure — format et sujet au choix",
+    "fichier": "demon-abyss.png",
+    "dispo": true
+  }
+]

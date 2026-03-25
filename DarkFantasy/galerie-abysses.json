@@ -1,0 +1,30 @@
+[
+  {
+    "fichier": "demon-abyss.png",
+    "titre": "Le Démon Cornu",
+    "technique": "Stylo bille",
+    "annee": 2024,
+    "format": "carre"
+  },
+  {
+    "fichier": "Jeneba.png",
+    "titre": "Œil du Gouffre",
+    "technique": "Illustration numérique",
+    "annee": 2023,
+    "format": "carre"
+  },
+  {
+    "fichier": "vecna.png",
+    "titre": "Sirène des Abysses",
+    "technique": "Illustration numérique",
+    "annee": 2024,
+    "format": "carre"
+  },
+  {
+    "fichier": "FéeEnorasy.png",
+    "titre": "Sirène des Abysses",
+    "technique": "Illustration numérique",
+    "annee": 2024,
+    "format": "portrait"
+  }
+]

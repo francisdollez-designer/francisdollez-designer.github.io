@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique — VORN Illustrateur Dark Fantasy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --noir: #0a0906;
+    --noir-profond: #050403;
+    --noir-encre: #111009;
+    --gris-parchemin: #1a1814;
+    --or: #c9a84c;
+    --or-vif: #e8c56a;
+    --or-pale: #f5e4b0;
+    --or-ombre: #7a5e1e;
+    --ivoire: #f0e8d5;
+    --ivoire-sombre: #c8b896;
+    --font-titre: 'Cinzel Decorative', serif;
+    --font-sub: 'Cinzel', serif;
+    --font-corps: 'EB Garamond', serif;
+    --u-accent: #c9a84c;
+    --u-bg-deep: #050403;
+    --u-bg-card: #1a1814;
+    --u-text-bright: #f0e8d5;
+    --u-text-mid: #c8b896;
+  }
+
+  body.univers-abysse {
+    --u-accent: #b57bee;
+    --u-accent-vif: #d4a0ff;
+    --u-bg-deep: #0c0818;
+    --u-bg-card: #1e1638;
+    --u-text-bright: #ecdeff;
+    --u-text-mid: #c4a0e8;
+    --u-accent-ombre: #6b3fa8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--u-bg-deep);
+    color: var(--u-text-mid);
+    font-family: var(--font-corps);
+    font-size: 18px;
+    line-height: 1.7;
+    cursor: none;
+    transition: background-color 0.8s ease, color 0.8s ease;
+  }
+
+  /* CURSEUR */
+  .cursor { position:fixed; width:12px; height:12px; background:var(--or); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+  .cursor-ring { position:fixed; width:36px; height:36px; border:1px solid var(--or); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); opacity:0.5; transition:transform .15s ease-out,width .3s,height .3s,opacity .3s; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 24px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: linear-gradient(to bottom, rgba(5,4,3,0.95) 0%, transparent 100%);
+  }
+  .nav-logo { font-family: var(--font-titre); font-size: 1.1rem; color: var(--or); letter-spacing: 0.3em; text-decoration: none; text-transform: uppercase; }
+  .nav-back { font-family: var(--font-sub); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ivoire-sombre); text-decoration: none; display: flex; align-items: center; gap: 10px; transition: color 0.3s; }
+  .nav-back:hover { color: var(--or); }
+  .nav-back::before { content: '←'; font-size: 1rem; }
+
+  /* HERO BOUTIQUE */
+  .shop-hero {
+    padding: 200px 60px 100px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 60%),
+      var(--u-bg-deep);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .shop-hero .section-label {
+    font-family: var(--font-sub); font-size: 0.75rem; letter-spacing: 0.5em;
+    text-transform: uppercase; color: var(--or); margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .shop-hero .section-label::before,
+  .shop-hero .section-label::after {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--or-ombre);
+  }
+  .shop-hero h1 {
+    font-family: var(--font-titre);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--ivoire); margin-bottom: 24px;
+  }
+  .shop-hero p {
+    font-style: italic; color: var(--ivoire-sombre);
+    max-width: 560px; margin: 0 auto; font-size: 1.1rem;
+  }
+
+  /* FILTRES CATÉGORIES */
+  .shop-filters {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; padding: 60px 60px 40px;
+  }
+  .shop-filter-btn {
+    font-family: var(--font-sub); font-size: 0.72rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ivoire-sombre); border: 1px solid rgba(201,168,76,0.4);
+    padding: 9px 22px; background: transparent; cursor: pointer;
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .shop-filter-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--or); transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); z-index: 0;
+  }
+  .shop-filter-btn span { position: relative; z-index: 1; }
+  .shop-filter-btn:hover { color: var(--noir); border-color: var(--or); }
+  .shop-filter-btn:hover::before { transform: translateY(0); }
+  .shop-filter-btn.active { color: var(--noir); border-color: var(--or); background: var(--or); }
+  .shop-filter-btn.active::before { transform: translateY(0); }
+
+  /* GRILLE PRODUITS */
+  .shop-grid-full {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    padding: 0 3px 3px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1100px) { .shop-grid-full { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px)  { .shop-grid-full { grid-template-columns: 1fr; } }
+
+  .product-card {
+    background: var(--gris-parchemin);
+    position: relative; overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .product-card:hover { transform: translateY(-3px); }
+
+  .product-img {
+    aspect-ratio: 3/4;
+    background: radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.06) 0%, transparent 60%), var(--noir-encre);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+  .product-card:hover .product-img { transform: scale(1.03); }
+  .product-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .product-img svg { opacity: 0.1; width: 50%; height: 50%; }
+
+  .product-badge {
+    position: absolute; top: 16px; right: 16px;
+    font-family: var(--font-sub); font-size: 0.52rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--noir); background: var(--or); padding: 5px 12px; z-index: 2;
+  }
+  .product-badge.sold { background: var(--ivoire-sombre); color: var(--noir); }
+
+  .product-info {
+    padding: 24px;
+    border-top: 1px solid rgba(201,168,76,0.12);
+  }
+  .product-category {
+    font-family: var(--font-sub); font-size: 0.58rem;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--or-ombre); margin-bottom: 8px;
+  }
+  .product-title {
+    font-family: var(--font-sub); font-size: 1rem;
+    color: var(--ivoire); margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  .product-desc {
+    font-style: italic; font-size: 0.9rem;
+    color: var(--ivoire-sombre); margin-bottom: 20px; opacity: 0.8;
+  }
+  .product-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .product-price {
+    font-family: var(--font-titre); font-size: 1.1rem; color: var(--or);
+  }
+  .product-btn {
+    font-family: var(--font-sub); font-size: 0.62rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ivoire-sombre); background: none;
+    border: 1px solid var(--or-ombre); padding: 10px 20px;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .product-btn:hover { border-color: var(--or); color: var(--or); background: rgba(201,168,76,0.05); }
+  .product-btn.sold { opacity: 0.4; cursor: not-allowed; border-color: transparent; }
+
+  /* SECTION COMMANDES */
+  .commandes-section {
+    padding: 120px 60px;
+    max-width: 900px; margin: 0 auto; text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .commandes-section h2 {
+    font-family: var(--font-titre);
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    color: var(--ivoire); margin-bottom: 24px;
+  }
+  .commandes-section p {
+    font-style: italic; color: var(--ivoire-sombre);
+    font-size: 1.1rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .commandes-section .btn-primary {
+    font-family: var(--font-sub); font-size: 0.8rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--noir); background: var(--or);
+    padding: 18px 48px; text-decoration: none; display: inline-block;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .commandes-section .btn-primary:hover { background: var(--or-vif); transform: translateY(-2px); }
+
+  /* ITEM HIDDEN */
+  .product-card.hidden { display: none; }
+
+  /* FOOTER */
+  footer { padding: 60px; border-top: 1px solid rgba(201,168,76,0.1); text-align: center; }
+  footer p { font-family: var(--font-sub); font-size: 0.6rem; letter-spacing: 0.3em; color: var(--or-ombre); text-transform: uppercase; }
+  footer a { color: var(--or-ombre); text-decoration: none; margin: 0 16px; transition: color 0.3s; }
+  footer a:hover { color: var(--or); }
+
+  /* Abysse overrides */
+  body.univers-abysse nav { background: linear-gradient(to bottom, rgba(12,8,24,0.97) 0%, transparent 100%); }
+  body.univers-abysse .nav-logo { color: var(--u-accent); }
+  body.univers-abysse .nav-back { color: var(--u-text-mid); }
+  body.univers-abysse .nav-back:hover { color: var(--u-accent); }
+  body.univers-abysse .shop-hero { background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(181,123,238,0.1) 0%, transparent 60%), var(--u-bg-deep); border-bottom-color: rgba(181,123,238,0.15); }
+  body.univers-abysse .shop-hero h1 { color: var(--u-text-bright); }
+  body.univers-abysse .shop-hero .section-label { color: var(--u-accent); }
+  body.univers-abysse .shop-filter-btn { color: var(--u-text-mid); border-color: rgba(181,123,238,0.4); }
+  body.univers-abysse .shop-filter-btn::before { background: var(--u-accent); }
+  body.univers-abysse .shop-filter-btn:hover,
+  body.univers-abysse .shop-filter-btn.active { color: #0c0818; border-color: var(--u-accent); }
+  body.univers-abysse .product-card { background: var(--u-bg-card); }
+  body.univers-abysse .product-info { border-top-color: rgba(181,123,238,0.15); }
+  body.univers-abysse .product-category { color: var(--u-accent-ombre); }
+  body.univers-abysse .product-title { color: var(--u-text-bright); }
+  body.univers-abysse .product-price { color: var(--u-accent); }
+  body.univers-abysse .product-badge { background: var(--u-accent); color: #0c0818; }
+  body.univers-abysse .product-btn { color: var(--u-text-mid); border-color: rgba(181,123,238,0.4); }
+  body.univers-abysse .product-btn:hover { border-color: var(--u-accent); color: var(--u-accent); background: rgba(181,123,238,0.08); }
+  body.univers-abysse .commandes-section h2 { color: var(--u-text-bright); }
+  body.univers-abysse .commandes-section .btn-primary { background: var(--u-accent); }
+  body.univers-abysse .commandes-section .btn-primary:hover { background: var(--u-accent-vif); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">VORN</a>
+  <a href="index.html" class="nav-back">Retour au site</a>
+</nav>
+
+<!-- HERO -->
+<div class="shop-hero">
+  <div class="section-label">Boutique</div>
+  <h1>Acquérir une Œuvre</h1>
+  <p>Originaux uniques, impressions fine art et artbooks — chaque pièce est un fragment de l'univers VORN tracé à la main.</p>
+</div>
+
+<!-- FILTRES -->
+<div class="shop-filters" id="shop-filters">
+  <button class="shop-filter-btn active" data-cat="Tout"><span>Tout</span></button>
+  <button class="shop-filter-btn" data-cat="Original"><span>Originaux</span></button>
+  <button class="shop-filter-btn" data-cat="Impression"><span>Impressions</span></button>
+  <button class="shop-filter-btn" data-cat="Artbook"><span>Artbooks</span></button>
+  <button class="shop-filter-btn" data-cat="Commande"><span>Commandes</span></button>
+</div>
+
+<!-- GRILLE PRODUITS — générée depuis boutique.json -->
+<div class="shop-grid-full" id="shop-grid"></div>
+
+<!-- COMMANDES SUR MESURE -->
+<div class="commandes-section">
+  <h2>Commande sur mesure</h2>
+  <p>Vous souhaitez un dessin original réalisé spécialement pour vous — portrait de créature, ex-libris, illustration pour un projet ? Prenons contact.</p>
+  <a href="index.html#contact" class="btn-primary">Prendre contact</a>
+</div>
+
+<footer>
+  <p>© 2025 VORN — <a href="index.html">Accueil</a> <a href="index.html#galerie">Galerie</a> <a href="index.html#contact">Contact</a></p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Curseur
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  if (cursor && ring) {
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+    (function anim(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(anim); })();
+  }
+
+  // Conserver l'univers depuis index.html
+  const univers = localStorage.getItem('vorn-univers') || 'ombres';
+  if (univers === 'abysse') document.body.classList.add('univers-abysse');
+
+  // Données boutique — charge depuis boutique.json
+  const DEMO_BOUTIQUE = [
+    { titre: "La Dryade Cendrée", categorie: "Original", prix: "280 €", desc: "Encre de Chine sur papier Arches 300g — 21×29,7 cm", fichier: null, dispo: true },
+    { titre: "Titan des Forêts", categorie: "Original", prix: "320 €", desc: "Encre de Chine sur papier Arches 300g — 21×29,7 cm", fichier: "TITAN-forest.png", dispo: true },
+    { titre: "Dragon des Brumes", categorie: "Original", prix: "350 €", desc: "Lavis d'encre sur papier aquarelle — 30×40 cm", fichier: null, dispo: false },
+    { titre: "Titan des Forêts — Giclée A3", categorie: "Impression", prix: "65 €", desc: "Impression fine art sur papier Hahnemühle — A3", fichier: "TITAN-forest.png", dispo: true },
+    { titre: "Dryade Cendrée — Giclée A3", categorie: "Impression", prix: "55 €", desc: "Impression fine art sur papier Hahnemühle — A3", fichier: null, dispo: true },
+    { titre: "Bestiaire des Ombres Vol. I", categorie: "Artbook", prix: "45 €", desc: "40 illustrations originales — édition limitée 100 ex.", fichier: null, dispo: true },
+    { titre: "Carnet de Créatures", categorie: "Artbook", prix: "28 €", desc: "Croquis et études — 60 pages — couverture rigide", fichier: null, dispo: true },
+    { titre: "Portrait de créature", categorie: "Commande", prix: "À partir de 180 €", desc: "Dessin original sur mesure — format au choix", fichier: null, dispo: true },
+    { titre: "Ex-libris personnalisé", categorie: "Commande", prix: "À partir de 80 €", desc: "Format carte postale — encre de Chine", fichier: null, dispo: true },
+  ];
+
+  function buildShop(data) {
+    const grid = document.getElementById('shop-grid');
+    grid.innerHTML = data.map((item, i) => `
+      <div class="product-card" data-cat="${item.categorie}">
+        <div class="product-img">
+          ${item.fichier ? `<img src="images/galerie/${item.fichier}" alt="${item.titre}">` : `<svg viewBox="0 0 100 140" fill="none"><ellipse cx="50" cy="40" rx="18" ry="22" stroke="#c9a84c" stroke-width="1"/><path d="M50 62L50 100M32 55Q10 40 5 20M68 55Q90 40 95 20M50 100Q35 120 30 135M50 100Q65 120 70 135" stroke="#c9a84c" stroke-width="1"/></svg>`}
+          <div class="product-badge${item.dispo ? '' : ' sold'}">${item.dispo ? item.categorie : 'Vendu'}</div>
+        </div>
+        <div class="product-info">
+          <div class="product-category">${item.categorie}</div>
+          <div class="product-title">${item.titre}</div>
+          <div class="product-desc">${item.desc}</div>
+          <div class="product-footer">
+            <span class="product-price">${item.prix}</span>
+            <button class="product-btn${item.dispo ? '' : ' sold'}" ${item.dispo ? '' : 'disabled'}>
+              ${item.dispo ? 'Acquérir' : 'Indisponible'}
+            </button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  fetch('boutique.json')
+    .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+    .then(data => buildShop(data))
+    .catch(() => buildShop(DEMO_BOUTIQUE));
+
+  // Filtres
+  document.getElementById('shop-filters').addEventListener('click', e => {
+    const btn = e.target.closest('.shop-filter-btn');
+    if (!btn) return;
+    document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.classList.toggle('hidden', cat !== 'Tout' && card.dataset.cat !== cat);
+    });
+  });
+});
+</script>
+</body>
+</html>

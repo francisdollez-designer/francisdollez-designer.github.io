@@ -45,10 +45,10 @@
     --u-vignette-mid:  rgba(5,4,3,0.5);
     --u-fade:          #050403;
     --u-ornament-filter: sepia(1) saturate(1.4) hue-rotate(5deg) brightness(1.1);
-    --u-ornament-opacity: 0.12;
+    --u-ornament-opacity: 0.25;
     --u-overlay-dark:  rgba(5,4,3,0.85);
-    --u-toggle-bg:     #1a1814;
-    --u-toggle-knob:   #c9a84c;
+    --u-toggle-bg:     #815b11;
+    --u-toggle-knob:   #e2be5b;
   }
 
   /* ── Univers Abysses Chromatiques ── */
@@ -87,8 +87,8 @@
     --u-ornament-opacity: 0.18;
 
     --u-overlay-dark:  rgba(8,4,20,0.88);
-    --u-toggle-bg:     #1e1638;
-    --u-toggle-knob:   #b57bee;
+    --u-toggle-bg:     #705aba;
+    --u-toggle-knob:   #c79bf3;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -99,7 +99,7 @@
     background: var(--u-bg-deep);
     color: var(--u-text-mid);
     font-family: var(--font-corps);
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.7;
     overflow-x: hidden;
     cursor: none;
@@ -144,46 +144,52 @@
   .universe-toggle {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     cursor: pointer;
     user-select: none;
     margin-left: 40px;
+    padding: 8px 14px;
+   
+    transition: border-color 0.3s;
   }
+  .universe-toggle:hover { border-color: rgba(201,168,76,0.5); }
   .toggle-label {
     font-family: var(--font-sub);
-    font-size: 0.55rem;
-    letter-spacing: 0.25em;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--u-text-muted);
+    color: var(--u-text-mid);
     transition: color 0.4s;
     white-space: nowrap;
   }
   .universe-toggle:hover .toggle-label { color: var(--u-accent); }
   .toggle-track {
     position: relative;
-    width: 48px; height: 24px;
+    width: 56px; height: 28px;
     background: var(--u-toggle-bg);
-    border: 1px solid var(--u-accent-ombre);
-    border-radius: 12px;
+    border-radius: 14px;
     transition: background 0.4s, border-color 0.4s;
+    flex-shrink: 0;
   }
   .universe-toggle:hover .toggle-track { border-color: var(--u-accent); }
   .toggle-knob {
     position: absolute;
-    top: 3px; left: 3px;
-    width: 16px; height: 16px;
+    top: 4px; left: 4px;
+    width: 18px; height: 18px;
     background: var(--u-toggle-knob);
     border-radius: 50%;
     transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), background 0.4s;
-    box-shadow: 0 0 6px rgba(0,0,0,0.4);
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
   }
-  body.univers-abysse .toggle-knob { transform: translateX(24px); }
+  body.univers-abysse .toggle-knob { transform: translateX(28px); }
   .toggle-icon {
-    font-size: 13px;
-    opacity: 0.7;
+    font-size: 25px;
+    opacity: 0.75;
     transition: opacity 0.4s;
   }
   .universe-toggle:hover .toggle-icon { opacity: 1; }
+  body.univers-abysse .universe-toggle { border-color: rgba(181,123,238,0.25); }
+  body.univers-abysse .universe-toggle:hover { border-color: rgba(181,123,238,0.6); }
 
   nav {
     position: fixed;
@@ -193,7 +199,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to bottom, rgba(5,4,3,0.95) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95) 0%, transparent 100%);
   }
 
   .nav-logo {
@@ -396,7 +402,7 @@
     font-weight: 900;
     color: var(--ivoire);
     line-height: 0.88;
-    letter-spacing: 0.08em;
+    letter-spacing: 0em;
     margin-bottom: 0;
     opacity: 0;
     animation: fadeUp 1.2s 0.5s forwards;
@@ -411,10 +417,10 @@
   .hero-title::after {
     content: '';
     display: block;
-    width: 60%; height: 1px;
+    width: 90%; height: 1px;
     background: linear-gradient(to right, transparent, var(--or), transparent);
     margin: 20px auto 0;
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .hero-title-sub {
@@ -546,7 +552,7 @@
 
   .section-label {
     font-family: var(--font-sub);
-    font-size: 0.6rem;
+    font-size: 1.5rem;
     letter-spacing: 0.5em;
     text-transform: uppercase;
     color: var(--or);
@@ -660,7 +666,7 @@
     font-size: 0.6rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--or-ombre);
+    color: var(--or);
     border: 1px solid var(--or-ombre);
     padding: 8px 18px;
     transition: color 0.3s, border-color 0.3s;
@@ -682,7 +688,7 @@
 
   .sep-line {
     flex: 1;
-    height: 1px;
+    height: 2px;
     background: linear-gradient(to right, transparent, var(--or-ombre) 50%, transparent);
   }
 
@@ -697,11 +703,11 @@
      ═══════════════════════════════════════════ */
   .gallery-section {
     background: var(--noir-encre);
-    padding: 140px 0;
+    padding: 20px 200px;
   }
   .gallery-header {
-    padding: 0 60px;
-    margin-bottom: 60px;
+    padding: 0 0;
+    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -717,15 +723,15 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 0 60px;
-    margin-bottom: 48px;
+    padding: 0 0;
+    margin-bottom: 26px;
   }
   .filter-btn {
     font-family: var(--font-sub);
-    font-size: 0.58rem;
+    font-size: 0.75rem;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--or-ombre);
+    color: var(--or);
     border: 1px solid var(--or-ombre);
     padding: 8px 20px;
     background: transparent;
@@ -746,32 +752,32 @@
   .filter-btn:hover::before { transform: translateY(0); }
   .filter-btn.active { color: var(--noir); border-color: var(--or); background: var(--or); }
   .filter-btn.active::before { transform: translateY(0); }
-  .filter-count { font-size: 0.5rem; opacity: 0.6; margin-left: 6px; }
+  .filter-count { font-size: 0.9rem; opacity: 0.9; margin-left: 6px; }
 
   .gallery-count {
-    padding: 0 60px;
+    padding: 0 20px;
     margin-bottom: 28px;
     font-family: var(--font-sub);
-    font-size: 0.55rem;
+    font-size: 0.90rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: var(--or-ombre);
+    color: var(--or-vif);
   }
 
   /* ── Grille — colonnes 12 pour spans variables ── */
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 6px;
+    gap: 12px;
     padding: 0 6px;
   }
   /* Formats par défaut : portrait = 4 cols, paysage = 6, panoramique = 8, carré = 4, rectangle = 6 */
   .gallery-item                    { grid-column: span 4; }   /* portrait défaut */
-  .gallery-item[data-format="portrait"]    { grid-column: span 4; }
+  .gallery-item[data-format="portrait"]    { grid-column: span 3; }
   .gallery-item[data-format="carre"]       { grid-column: span 4; }
   .gallery-item[data-format="paysage"]     { grid-column: span 6; }
-  .gallery-item[data-format="rectangle"]  { grid-column: span 6; }
-  .gallery-item[data-format="panoramique"] { grid-column: span 8; }
+  .gallery-item[data-format="rectangle"]  { grid-column: span 8; }
+  .gallery-item[data-format="panoramique"] { grid-column: span 12; }
 
   @media (max-width: 1100px) {
     .gallery-grid { grid-template-columns: repeat(6, 1fr); }
@@ -823,7 +829,7 @@
     opacity: 0;
     transition: opacity 0.35s;
     display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 28px 24px;   /* plus d'air */
+    padding: 40px 40px;   /* plus d'air */
     z-index: 2;
   }
   .gallery-item:hover .gallery-overlay { opacity: 1; }
@@ -834,7 +840,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--or);
-    margin-bottom: 6px;         /* espace titre/technique */
+    margin-bottom: 0px;         /* espace titre/technique */
   }
   .gallery-technique {
     font-family: var(--font-corps);
@@ -847,7 +853,7 @@
 
   /* Badge technique — décalé pour laisser place aux coins */
   .technique-badge {
-    position: absolute; top: 20px; left: 20px;   /* +8px des bords */
+    position: absolute; bottom: 40px; right: 40px;   /* +8px des bords */
     font-family: var(--font-sub); font-size: 0.52rem;
     letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--or); border: 1px solid rgba(201,168,76,0.4);
@@ -857,8 +863,9 @@
   .gallery-item:hover .technique-badge { opacity: 1; }
 
   /* Bouton zoom — décalé aussi */
+  
   .gallery-expand {
-    position: absolute; top: 20px; right: 20px;   /* +8px des bords */
+    position: absolute; top: 40px; right: 40px;   /* +8px des bords */
     width: 38px; height: 38px;                     /* légèrement plus grand */
     border: 1px solid rgba(201,168,76,0.5);
     background: rgba(5,4,3,0.55);
@@ -892,7 +899,7 @@
   .gallery-item::before {
     content: '';
     position: absolute; inset: 0;
-    border: 1px solid rgba(201,168,76,0.2);
+    border: Opx solid rgba(201, 168, 76, 0.328);
     pointer-events: none; z-index: 4;
     transition: border-color 0.4s;
   }
@@ -900,15 +907,17 @@
 
   /* Filet intérieur double — apparaît au hover */
   .gallery-inner-border {
-    position: absolute; inset: 9px;
-    border: 1px solid rgba(201,168,76,0.45);   /* plus visible */
+    position: absolute; inset: 12px;
+    margin: 1px;
+    border: 1px solid rgba(225, 192, 100, 0.331);   /* plus visible */
     pointer-events: none; z-index: 4;
+    border-radius: 22px;
     opacity: 0; transition: opacity 0.4s ease;
   }
   .gallery-inner-border::before {
     content: '';
-    position: absolute; inset: 6px;
-    border: 1px solid rgba(201,168,76,0.2);   /* deuxième ligne */
+    position: absolute; inset: 13px;
+    border: 1px solid rgba(201, 168, 76, 0.43);   /* deuxième ligne */
   }
   /* Petits traits médians sur les 4 côtés */
   .gallery-inner-border::after {
@@ -925,11 +934,11 @@
   /* ── Coins gothiques — plus grands, plus visibles ── */
   .gallery-corner {
     position: absolute;
-    width: 36px; height: 36px;    /* +8px */
+    width: 32px; height: 32px;    /* +8px */
     z-index: 5;
     pointer-events: none;
-    opacity: 0.7;                  /* repos plus visible */
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 1;                  /* repos plus visible */
+    transition: opacity 0.9s ease, transform 0.4s ease;
   }
   .gallery-corner svg { width: 100%; height: 100%; display: block; }
   .gallery-corner.gc-tl { top: 3px;    left: 3px; }
@@ -1457,7 +1466,7 @@
 
 <!-- NAVIGATION -->
 <nav>
-  <a href="#" class="nav-logo">Nom / Alias</a>
+  <a href="#" class="nav-logo">FD illu</a>
   <ul class="nav-links">
     <li><a href="#univers">Univers</a></li>
     <li><a href="#galerie">Galerie</a></li>
@@ -1500,14 +1509,14 @@
 
   <!-- Logo symbole en fond — rotation lente -->
   <div class="hero-ornament">
-    <img src="logo-symbole.svg" alt="" aria-hidden="true">
+   <img src="images/logo-symbole.svg" alt="" aria-hidden="true">
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Illustration — Dark Fantasy — Encre & Lavis</p>
+    <p class="hero-eyebrow">Illustrations — Dark Fantasy — Arts - Bande dessinée</p>
 
     <h1 class="hero-title">
-      Darkens
+      Darkëns
       <span class="hero-title-sub">Illustrateur</span>
     </h1>
 
@@ -1519,7 +1528,7 @@
       <div class="hero-divider-line"></div>
     </div>
 
-    <p class="hero-sub">Des créatures des bois aux abysses obscures — des mondes tracés à l'encre de Chine.</p>
+    <p class="hero-sub">Des créatures des bois aux abysses obscures découvrez mon monde mystérieux aux peuples uniques</p>
 
     <div class="hero-cta">
       <a href="#galerie" class="btn-primary"><span>Explorer l'univers</span></a>
@@ -1557,6 +1566,7 @@
       </div>
 
       <div class="about-visual reveal">
+        
         <div class="illus-frame gold-border-anim">
           <!-- Ornements de coin -->
           <div class="corner-ornament co-tl">
@@ -1591,20 +1601,8 @@
           <div class="illus-placeholder">
             <div style="text-align:center;">
               <!-- Silhouette SVG ornementale -->
-              <svg width="120" height="180" viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.15; margin-bottom:16px; display:block; margin:0 auto 16px;">
-                <!-- Dryade stylisée -->
-                <ellipse cx="60" cy="60" rx="18" ry="22" stroke="#c9a84c" stroke-width="1"/>
-                <line x1="60" y1="82" x2="60" y2="130" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 100 Q 40 90 20 80" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 100 Q 80 90 100 80" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 130 Q 45 150 40 170" stroke="#c9a84c" stroke-width="1"/>
-                <path d="M 60 130 Q 75 150 80 170" stroke="#c9a84c" stroke-width="1"/>
-                <!-- Branches -->
-                <path d="M 30 50 Q 10 30 5 10" stroke="#c9a84c" stroke-width="0.7"/>
-                <path d="M 90 50 Q 110 30 115 10" stroke="#c9a84c" stroke-width="0.7"/>
-                <path d="M 25 65 Q 5 60 2 45" stroke="#c9a84c" stroke-width="0.5"/>
-                <path d="M 95 65 Q 115 60 118 45" stroke="#c9a84c" stroke-width="0.5"/>
-              </svg>
+                  <img src="images/galerie/TITAN-forest.png" width="100%" alt="" aria-hidden="true">
+        
               <span style="font-family: var(--font-sub); font-size: 0.55rem; letter-spacing:0.3em; color: var(--or-ombre);">Votre illustration</span>
             </div>
           </div>
@@ -1654,6 +1652,21 @@
   <!-- MESSAGE VIDE -->
   <div class="gallery-empty" id="gallery-empty">
     Aucune illustration dans cette catégorie
+  </div>
+
+  <!-- SOUS-TEXTE GALERIE -->
+  <div class="gallery-footer reveal">
+    <div class="gallery-sep">
+      <div class="gallery-sep-line"></div>
+      <svg width="30" height="16" viewBox="0 0 30 16" fill="none"><polygon points="15,2 18,8 15,14 12,8" stroke="#c9a84c" stroke-width="0.8" fill="rgba(201,168,76,0.15)"/><line x1="0" y1="8" x2="9" y2="8" stroke="#7a5e1e" stroke-width="0.7"/><line x1="21" y1="8" x2="30" y2="8" stroke="#7a5e1e" stroke-width="0.7"/></svg>
+      <div class="gallery-sep-line"></div>
+    </div>
+    <p class="gallery-footer-text" id="gallery-footer-text">
+      Chaque illustration est un original tracé à l'encre de Chine et au lavis — aucune retouche numérique, chaque trait assumé.
+    </p>
+    <p class="gallery-footer-sub">
+      Commandes d'originaux et impressions fine art disponibles en <a href="#shop" class="gallery-footer-link">boutique</a>.
+    </p>
   </div>
 
 </section>
@@ -1747,7 +1760,7 @@
     </div>
 
     <div style="text-align:center; margin-top:60px;" class="reveal">
-      <a href="#" class="btn-ghost">Voir toute la boutique</a>
+      <a href="boutique.html" class="btn-ghost">Voir toute la boutique</a>
     </div>
   </div>
 </section>
@@ -2001,14 +2014,9 @@ document.addEventListener('DOMContentLoaded', function() {
       </button>`;
     }).join('');
 
-    // SVG coin gothique — plus épais, plus lisible
-    const CORNER_SVG = `<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M2 34L2 2L34 2" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M2 2L13 13" stroke="#c9a84c" stroke-width="1" opacity="0.6"/>
-      <circle cx="2" cy="2" r="3" fill="#c9a84c"/>
-      <polygon points="13,2 18,7 13,12 8,7" stroke="#c9a84c" stroke-width="0.9" fill="rgba(201,168,76,0.18)"/>
-      <line x1="2" y1="22" x2="9" y2="22" stroke="#c9a84c" stroke-width="0.8" opacity="0.45"/>
-    </svg>`;
+    // Coin gothique — image externe (images/coin-ornement.svg)
+    // Pour changer : remplacer ce fichier dans votre dossier images/
+    const CORNER_IMG = `<img src="images/coin-ornement.svg" alt="" aria-hidden="true" style="width:100%;height:100%;display:block; ">`;
 
     // Mapping format → ratio placeholder
     const FORMAT_RATIO = {
@@ -2030,10 +2038,10 @@ document.addEventListener('DOMContentLoaded', function() {
       return `<div class="gallery-item reveal" data-technique="${item.technique}" data-format="${fmt}" data-idx="${idx}">
         ${content}
         <div class="gallery-inner-border"></div>
-        <div class="gallery-corner gc-tl">${CORNER_SVG}</div>
-        <div class="gallery-corner gc-tr">${CORNER_SVG}</div>
-        <div class="gallery-corner gc-bl">${CORNER_SVG}</div>
-        <div class="gallery-corner gc-br">${CORNER_SVG}</div>
+        <div class="gallery-corner gc-tl">${CORNER_IMG}</div>
+        <div class="gallery-corner gc-tr">${CORNER_IMG}</div>
+        <div class="gallery-corner gc-bl">${CORNER_IMG}</div>
+        <div class="gallery-corner gc-br">${CORNER_IMG}</div>
         <div class="technique-badge">${item.technique}</div>
         <div class="gallery-overlay">
           <div class="gallery-caption">${item.titre}</div>
@@ -2128,11 +2136,59 @@ document.addEventListener('DOMContentLoaded', function() {
     openLightbox((cur + dir + tot) % tot);
   }
 
-  // Fetch galerie.json, fallback démo
-  fetch('galerie.json')
-    .then(r => { if (!r.ok) throw new Error('absent'); return r.json(); })
-    .then(data => buildGallery(data))
-    .catch(() => buildGallery(DEMO_DATA));
+  // ══════════════════════════════════════════
+  // DUAL JSON — galerie-ombres.json / galerie-abysses.json
+  // ══════════════════════════════════════════
+  const GALLERY_TEXTS = {
+    ombres: "Chaque illustration est un original tracé à l'encre de Chine et au lavis — aucune retouche numérique, chaque trait assumé.",
+    abysse: "Des visions de l'au-delà capturées au stylo bille et à l'aquarelle — des créatures qui n'existent qu'à la lisière du rêve et de l'encre."
+  };
+
+  function loadGallery(univers) {
+    const jsonFile = univers === 'abysse' ? 'galerie-abysses.json' : 'galerie-ombres.json';
+    const footerEl = document.getElementById('gallery-footer-text');
+    if (footerEl) {
+      footerEl.style.opacity = '0';
+      setTimeout(() => {
+        footerEl.textContent = GALLERY_TEXTS[univers === 'abysse' ? 'abysse' : 'ombres'];
+        footerEl.style.opacity = '1';
+      }, 300);
+    }
+    fetch(jsonFile)
+      .then(r => { if (!r.ok) throw new Error('absent'); return r.json(); })
+      .then(data => buildGallery(data))
+      .catch(() =>
+        fetch('galerie.json')
+          .then(r => { if (!r.ok) throw new Error('absent'); return r.json(); })
+          .then(data => buildGallery(data))
+          .catch(() => buildGallery(DEMO_DATA))
+      );
+  }
+
+  // ══════════════════════════════════════════
+  // SITE.JSON — config images hero + triquetra
+  // Charge site.json pour personnaliser les images sans toucher au code
+  // ══════════════════════════════════════════
+  fetch('site.json')
+    .then(r => r.ok ? r.json() : null)
+    .then(cfg => {
+      if (!cfg) return;
+      // Image hero ornement (logo qui tourne)
+      if (cfg.hero_ornement) {
+        const ornImg = document.querySelector('.hero-ornament img');
+        if (ornImg) ornImg.src = cfg.hero_ornement;
+      }
+      // Triquetra (image de fond hero principale)
+      if (cfg.hero_illustration) {
+        const heroIllus = document.querySelector('.hero-illustration');
+        if (heroIllus) heroIllus.style.backgroundImage = `url('${cfg.hero_illustration}')`;
+      }
+    })
+    .catch(() => {});
+
+  // Chargement initial galerie
+  const initUnivers = localStorage.getItem('vorn-univers') || 'ombres';
+  loadGallery(initUnivers);
 
   // ══════════════════════════════════════════
   // SWITCH UNIVERS
@@ -2148,10 +2204,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.toggle('univers-abysse', u === 'abysse');
       if (label) label.textContent = u === 'abysse' ? 'ABYSSES' : 'OMBRES';
       localStorage.setItem('vorn-univers', u);
-
+      loadGallery(u);
       if (animate) {
         const flash = document.createElement('div');
-        // Couleur du flash = fond de destination
         const bgColor = u === 'abysse' ? '#0c0818' : '#050403';
         flash.style.cssText = `position:fixed;inset:0;z-index:9999;pointer-events:none;background:${bgColor};opacity:0.7;transition:opacity 0.7s ease;`;
         document.body.appendChild(flash);
@@ -2267,12 +2322,25 @@ body.univers-abysse .section-label::before { background: var(--u-accent-ombre); 
 body.univers-abysse h2 { color: var(--u-text-bright) !important; }
 body.univers-abysse h2 em { color: var(--u-accent) !important; }
 body.univers-abysse p { color: var(--u-text-mid); }
-body.univers-abysse .tag { color: var(--u-accent-ombre); border-color: var(--u-accent-ombre); }
-body.univers-abysse .tag:hover { color: var(--u-accent); border-color: var(--u-accent); }
+body.univers-abysse .tag {
+  color: var(--u-text-mid);
+  border-color: rgba(181,123,238,0.45);
+  background: rgba(181,123,238,0.06);
+}
+body.univers-abysse .tag:hover {
+  color: #0c0818;
+  border-color: var(--u-accent);
+  background: var(--u-accent);
+}
 body.univers-abysse .sep-line {
-  background: linear-gradient(to right, transparent, var(--u-accent-ombre) 50%, transparent);
+  background: linear-gradient(to right, transparent, rgba(181,123,238,0.45) 50%, transparent);
 }
 body.univers-abysse .sep-center { color: var(--u-accent); }
+body.univers-abysse .sep-center svg polygon { stroke: var(--u-accent); fill: rgba(181,123,238,0.15); }
+body.univers-abysse .sep-center svg line { stroke: var(--u-accent-ombre); }
+body.univers-abysse .ornament-sep .sep-line {
+  background: linear-gradient(to right, transparent, rgba(181,123,238,0.45) 50%, transparent);
+}
 
 /* ── GALERIE ── */
 body.univers-abysse .gallery-item { background: var(--u-bg-card); }
@@ -2300,16 +2368,36 @@ body.univers-abysse .illus-placeholder {
 /* ── SHOP ── */
 body.univers-abysse .shop-card { background: var(--u-bg-card); border-color: var(--u-accent-ombre); }
 body.univers-abysse .shop-card-img { background: var(--u-bg-surface); }
+body.univers-abysse .shop-card-info { border-top-color: rgba(181,123,238,0.2); }
 body.univers-abysse .shop-card-category { color: var(--u-accent-ombre); }
 body.univers-abysse .shop-card-title { color: var(--u-text-bright); }
 body.univers-abysse .shop-price { color: var(--u-accent); }
-body.univers-abysse .shop-add { background: var(--u-accent); color: #0c0818; }
-body.univers-abysse .shop-add:hover { background: var(--u-accent-vif); }
+body.univers-abysse .shop-add {
+  color: var(--u-text-mid);
+  border-color: rgba(181,123,238,0.4);
+}
+body.univers-abysse .shop-add:hover {
+  border-color: var(--u-accent);
+  color: var(--u-accent);
+  background: rgba(181,123,238,0.08);
+}
+body.univers-abysse .shop-badge { background: var(--u-accent); color: #0c0818; }
 body.univers-abysse .shop-header p { color: var(--u-text-mid); }
 
 /* ── PROCESS ── */
-body.univers-abysse .step-num { color: var(--u-accent); border-color: var(--u-accent-ombre); }
-body.univers-abysse .step-title { color: var(--u-text-bright); }
+body.univers-abysse .process-section {
+  background: linear-gradient(to bottom, var(--u-bg-surface), var(--u-bg-mid)) !important;
+}
+body.univers-abysse .process-step {
+  background: var(--u-bg-card);
+  border-top-color: rgba(181,123,238,0.4);
+}
+body.univers-abysse .process-step:hover { border-top-color: var(--u-accent); }
+body.univers-abysse .process-step::before {
+  background: radial-gradient(ellipse at 50% 0%, rgba(181,123,238,0.08) 0%, transparent 60%);
+}
+body.univers-abysse .step-num { color: rgba(181,123,238,0.18); }
+body.univers-abysse .step-title { color: var(--u-accent); }
 body.univers-abysse .step-desc { color: var(--u-text-mid); }
 
 /* ── CONTACT ── */
@@ -2457,6 +2545,69 @@ body.univers-abysse .gallery-overlay { background: linear-gradient(to top, rgba(
 body.univers-abysse .lightbox { background: rgba(8,4,20,0.97); }
 body.univers-abysse .lightbox-caption { color: var(--u-accent); }
 body.univers-abysse .lightbox-technique { color: var(--u-text-mid); }
+body.univers-abysse .lightbox-img { border-color: rgba(181,123,238,0.2); }
+body.univers-abysse .lightbox-nav { background: rgba(8,4,20,0.6); border-color: rgba(181,123,238,0.2); color: var(--u-accent-ombre); }
+body.univers-abysse .lightbox-nav:hover { color: var(--u-accent); border-color: var(--u-accent); }
+body.univers-abysse .lightbox-close { color: var(--u-accent-ombre); }
+body.univers-abysse .lightbox-close:hover { color: var(--u-text-bright); }
+
+/* ── Filtres abysse — texte lisible ── */
+body.univers-abysse .filter-btn {
+  color: var(--u-text-mid);
+  border-color: rgba(181,123,238,0.4);
+}
+body.univers-abysse .filter-btn:hover,
+body.univers-abysse .filter-btn.active {
+  color: #0c0818;
+  border-color: var(--u-accent);
+}
+body.univers-abysse .filter-btn::before { background: var(--u-accent); }
+body.univers-abysse .gallery-count { color: var(--u-text-mid); }
+
+/* ── Coins gallery — image externe ── */
+.gallery-corner img { width: 100%; height: 100%; display: block; }
+
+/* ── Footer galerie ── */
+.gallery-footer {
+  padding: 60px 60px 0;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.gallery-sep {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 32px;
+}
+.gallery-sep-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.3) 50%, transparent);
+}
+.gallery-footer-text {
+  font-family: var(--font-corps);
+  font-style: italic;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--ivoire-sombre);
+  margin-bottom: 16px;
+  transition: opacity 0.3s ease;
+}
+.gallery-footer-sub {
+  font-family: var(--font-sub);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--u-text-muted);
+}
+.gallery-footer-link {
+  color: var(--or);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  transition: border-color 0.3s, color 0.3s;
+}
+.gallery-footer-link:hover { color: var(--or-vif); border-color: var(--or); }
+body.univers-abysse .gallery-footer-text { color: var(--u-text-mid); }
+body.univers-abysse .gallery-footer-sub  { color: var(--u-text-muted); }
+body.univers-abysse .gallery-footer-link { color: var(--u-accent); border-color: rgba(181,123,238,0.3); }
+body.univers-abysse .gallery-sep-line { background: linear-gradient(to right, transparent, rgba(181,123,238,0.3) 50%, transparent); }
 
 </style>
 

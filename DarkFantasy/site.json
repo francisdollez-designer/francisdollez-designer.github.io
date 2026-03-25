@@ -1,0 +1,6 @@
+{
+  "_commentaire": "Modifiez ces chemins pour changer les images sans toucher au code HTML",
+  "hero_ornement": "images/logo-symbole.svg",
+  "hero_illustration": "images/hero/illustration-principale.jpg",
+  "hero_triquetra": "images/triquetra.svg"
+}
