@@ -255,7 +255,7 @@
   /* Illustration de fond — plein écran */
   .hero-illustration {
     position: absolute; inset: 0;
-    background-image: url('images/hero/illustration-principale.jpg');
+    background-image: src('images/hero/illustration-principale.jpg');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -1612,7 +1612,6 @@
 
 <!-- HERO -->
 <section class="hero" id="accueil">
-
   <!-- Illustration plein écran -->
   <!-- POUR AJOUTER VOTRE ILLUSTRATION :
        Créer dossier images/hero/ et y mettre illustration-principale.jpg
@@ -1633,9 +1632,12 @@
   <div class="hero-fade-bottom"></div>
 
   <!-- Logo symbole en fond — rotation lente -->
-  <!-- <div class="hero-ornament">
+   <div class="hero-illustration">
+   <img src="images/hero/illustration-principale.jpg" width="120%" alt="" aria-hidden="true">
+  </div>
+ <div class="hero-ornament">
    <img src="images/logo-symbole.svg" alt="" aria-hidden="true">
-  </div>-->
+  </div>
 
   <div class="hero-content">
     <p class="hero-eyebrow">Illustrations — Dark Fantasy — Arts - Bande dessinée</p>
