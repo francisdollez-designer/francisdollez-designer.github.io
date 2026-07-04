@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Francis Dollez — Lead Product Designer UX/UI | Paris</title>
+<meta name="description" content="Francis Dollez, Lead Product Designer UX/UI avec 15+ ans d'expérience. Spécialiste en recherche utilisateur, service design et interfaces complexes. Freelance basé en France.">
+<meta name="keywords" content="Lead Product Designer, UX Designer, UI Designer, Freelance, Paris, France, DomiFa, Eurosport, EDF, design système, product design">
+<meta name="author" content="Francis Dollez">
+<meta property="og:title" content="Francis Dollez — Lead Product Designer UX/UI">
+<meta property="og:description" content="Strategic Product Designer qui transforme la complexité technique en expériences simples et engageantes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://francisdollez.fr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://francisdollez.fr">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================
+   DESIGN TOKENS — from Figma
+   ========================================= */
+:root {
+  --yellow: #FFCD29;
+  --black: #36342D;
+  --white: #F7F6EF;
+  --violet: #9747FF;
+  --pink: #F25D7B;
+  --font-brand: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --max-w: 1580px;
+  --pad-x: 340px;
+  --radius-btn: 12px;
+}
+
+/* =========================================
+   RESET & BASE
+   ========================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+
+/* =========================================
+   PAGES ROUTER
+   ========================================= */
+.page { display: none; }
+.page.active { display: block; }
+
+/* =========================================
+   STICKY HEADER
+   ========================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--yellow);
+  padding: 14px var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  transition: box-shadow 0.3s ease;
+}
+.site-header.scrolled { box-shadow: 0 4px 30px rgba(54,52,45,.15); }
+
+/* Logo / Brand */
+.header-brand { flex-shrink: 0; }
+.header-brand .name {
+  font-family: var(--font-brand);
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--black);
+  line-height: 1;
+}
+.header-brand .subtitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+.header-brand .subtitle span {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--black);
+}
+.ux-badge, .ui-badge {
+  font-weight: 700;
+  font-size: 11px;
+  padding: 2px 7px;
+  color: var(--white);
+  border-radius: 4px 0 0 4px;
+}
+.ux-badge { background: var(--violet); border-radius: 4px 0 0 4px; }
+.ui-badge { background: var(--pink); border-radius: 0 4px 4px 0; }
+
+/* Nav */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+.nav-link {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--black);
+  padding: 8px 16px;
+  border-radius: 8px;
+  position: relative;
+  transition: opacity .2s;
+  white-space: nowrap;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 16px; right: 16px;
+  height: 3px;
+  background: var(--violet);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.nav-link.active::after, .nav-link:hover::after { transform: scaleX(1); }
+.nav-link:hover { opacity: .75; }
+
+/* Header right */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.btn-contact {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  white-space: nowrap;
+}
+.btn-contact:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(54,52,45,.2); }
+
+.header-socials {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.social-icon {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  transition: transform .2s;
+  opacity: .85;
+}
+.social-icon:hover { transform: scale(1.15); opacity: 1; }
+.social-icon svg { width: 24px; height: 24px; }
+
+/* Mobile burger */
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1100;
+}
+.burger-btn span {
+  display: block;
+  width: 26px; height: 2px;
+  background: var(--black);
+  border-radius: 2px;
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+}
+.burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger-btn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Full-screen mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: var(--yellow);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  transform: translateY(-100%);
+  transition: transform .45s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+.mobile-menu.open { transform: translateY(0); pointer-events: all; }
+.mobile-menu-link {
+  font-family: var(--font-brand);
+  font-size: 48px;
+  color: var(--black);
+  padding: 20px 40px;
+  text-align: center;
+  border-bottom: 1px solid rgba(54,52,45,.12);
+  width: 100%;
+  transition: color .2s, background .2s;
+}
+.mobile-menu-link:last-of-type { border-bottom: none; }
+.mobile-menu-link:hover { color: var(--violet); }
+.mobile-menu-cta {
+  margin-top: 40px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 20px;
+  padding: 18px 40px;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+}
+.mobile-menu-socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+/* =========================================
+   HERO SECTION
+   ========================================= */
+.hero {
+  background: var(--yellow);
+  min-height: calc(100vh - 64px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 0 var(--pad-x);
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* TRAM background pattern */
+.hero-tram {
+  position: absolute;
+  inset: 0;
+  opacity: .06;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 78px, var(--black) 78px, var(--black) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 78px, var(--black) 78px, var(--black) 80px);
+}
+
+/* Gradient fade to white at bottom */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, var(--white));
+  pointer-events: none;
+}
+
+/* Left text block */
+.hero-text {
+  position: relative;
+  z-index: 1;
+  padding: 60px 0;
+}
+.hero-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.hero-subtitle .lead-label {
+  font-family: var(--font-body);
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--black);
+}
+.hero-subtitle .lead-label strong { font-weight: 700; }
+.hero-name {
+  font-family: var(--font-brand);
+  font-size: clamp(72px, 10vw, 140px);
+  line-height: .9;
+  color: var(--black);
+  letter-spacing: -2px;
+}
+.hero-name .line1 { font-style: italic; }
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.btn-outline {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 16px 24px;
+  border-radius: var(--radius-btn);
+  border: 2.5px solid var(--black);
+  background: var(--white);
+  color: var(--black);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  white-space: nowrap;
+}
+.btn-filled {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 17px;
+  padding: 16px 24px;
+  border-radius: var(--radius-btn);
+  border: none;
+  background: var(--black);
+  color: var(--white);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  white-space: nowrap;
+}
+.btn-outline:hover, .btn-filled:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(54,52,45,.2); }
+
+/* Right: illustration + dialog balloon */
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 60px 0;
+}
+.hero-illustration-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+.hero-character {
+  width: 100%;
+  animation: characterFloat 4s ease-in-out infinite;
+}
+@keyframes characterFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Dialog balloon */
+.dialog-balloon {
+  position: absolute;
+  top: -30px;
+  right: -10px;
+  background: var(--white);
+  border: 2.5px solid var(--black);
+  border-radius: 18px 18px 18px 4px;
+  padding: 14px 20px;
+  max-width: 220px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  line-height: 1.4;
+  box-shadow: 4px 4px 0 var(--black);
+  animation: balloonPop 0.5s cubic-bezier(.4,0,.2,1) both;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+}
+.dialog-balloon::before {
+  content: '';
+  position: absolute;
+  bottom: -16px; left: 20px;
+  width: 0; height: 0;
+  border: 8px solid transparent;
+  border-top-color: var(--black);
+  border-bottom: 0;
+}
+.dialog-balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -12px; left: 22px;
+  width: 0; height: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--white);
+  border-bottom: 0;
+}
+@keyframes balloonPop {
+  from { opacity: 0; transform: scale(.8) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.balloon-text { transition: opacity .3s ease; }
+.balloon-text.fade { opacity: 0; }
+
+/* Hero description */
+.hero-description {
+  max-width: 420px;
+  margin-top: 24px;
+  text-align: right;
+}
+.hero-description p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(54,52,45,.75);
+}
+.hero-description p + p {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* =========================================
+   STATS / CHIFFRES
+   ========================================= */
+.stats-section {
+  background: var(--white);
+  padding: 60px var(--pad-x);
+  border-bottom: 1px solid rgba(54,52,45,.08);
+}
+.stats-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(54,52,45,.5);
+  margin-bottom: 32px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.stat-item {
+  padding: 0 40px 0 0;
+  border-right: 1px solid rgba(54,52,45,.1);
+}
+.stat-item:first-child { padding-left: 0; }
+.stat-item:last-child { border-right: none; padding-left: 40px; }
+.stat-num {
+  font-family: var(--font-brand);
+  font-size: 64px;
+  color: var(--black);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.stat-num .suffix { font-size: 36px; }
+.stat-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(54,52,45,.65);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   PORTFOLIO SECTION
+   ========================================= */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.section-title-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.section-line {
+  width: 4px;
+  height: 44px;
+  background: var(--violet);
+  border-radius: 2px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: var(--font-brand);
+  font-size: 38px;
+  color: var(--black);
+  line-height: 1.1;
+}
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: rgba(54,52,45,.6);
+  margin-top: 6px;
+}
+
+.portfolio-section {
+  padding: 80px var(--pad-x);
+  background: var(--white);
+}
+
+/* Portfolio grid */
+.portfolio-grid {
+  display: grid;
+  gap: 24px;
+}
+.portfolio-grid.large { grid-template-columns: 1fr; }
+.portfolio-grid.medium { grid-template-columns: 1fr 1fr; }
+
+.portfolio-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  background: var(--black);
+  cursor: pointer;
+  transition: transform .3s cubic-bezier(.4,0,.2,1), box-shadow .3s;
+  position: relative;
+  display: block;
+}
+.portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(54,52,45,.2); }
+
+.portfolio-card-inner {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #2a2820 0%, #1a1814 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.portfolio-card.medium .portfolio-card-inner { aspect-ratio: 4/3; }
+
+.portfolio-card-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: .7;
+  transition: opacity .3s, transform .4s;
+}
+.portfolio-card:hover .portfolio-card-img { opacity: .9; transform: scale(1.03); }
+
+.portfolio-card-cover {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(54,52,45,.95) 0%, transparent 50%);
+}
+.portfolio-card-content {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 28px;
+}
+.portfolio-card-client {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(247,246,239,.6);
+  margin-bottom: 6px;
+}
+.portfolio-card-title {
+  font-family: var(--font-brand);
+  font-size: 26px;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.portfolio-card.medium .portfolio-card-title { font-size: 22px; }
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.portfolio-tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(247,246,239,.3);
+  color: rgba(247,246,239,.8);
+}
+
+/* Color accents per card */
+.card-domifa .portfolio-card-inner { background: linear-gradient(135deg, #1a2035, #0f1520); }
+.card-eurosport .portfolio-card-inner { background: linear-gradient(135deg, #1a0a0a, #2d1010); }
+.card-edf .portfolio-card-inner { background: linear-gradient(135deg, #0a1a10, #051208); }
+.card-snac .portfolio-card-inner { background: linear-gradient(135deg, #1a1020, #0d0814); }
+
+/* Color blobs */
+.card-blob {
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  opacity: .25;
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* =========================================
+   EXPERIENCES SECTION
+   ========================================= */
+.experiences-section {
+  background: var(--white);
+  padding: 80px var(--pad-x);
+}
+.experiences-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.exp-card {
+  background: var(--white);
+  border: 2px solid rgba(54,52,45,.1);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color .2s, transform .2s;
+}
+.exp-card:hover { border-color: var(--violet); transform: translateY(-4px); }
+.exp-logo {
+  height: 48px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+.exp-logo-text {
+  font-family: var(--font-brand);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--black);
+}
+.exp-role {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+.exp-company {
+  font-size: 14px;
+  color: rgba(54,52,45,.6);
+  margin-bottom: 2px;
+}
+.exp-period {
+  font-size: 13px;
+  color: var(--violet);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.exp-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(54,52,45,.75);
+  margin-bottom: 20px;
+}
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.exp-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(151,71,255,.1);
+  color: var(--violet);
+}
+
+/* =========================================
+   CLIENTS / LOGOS
+   ========================================= */
+.clients-section {
+  padding: 60px var(--pad-x);
+  background: rgba(54,52,45,.02);
+  border-top: 1px solid rgba(54,52,45,.06);
+  border-bottom: 1px solid rgba(54,52,45,.06);
+}
+.clients-label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(54,52,45,.4);
+  margin-bottom: 32px;
+}
+.clients-logos {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.client-logo {
+  font-family: var(--font-brand);
+  font-size: 20px;
+  color: rgba(54,52,45,.35);
+  transition: color .2s;
+  white-space: nowrap;
+}
+.client-logo:hover { color: var(--black); }
+
+/* =========================================
+   SKILLS / COMPETENCES
+   ========================================= */
+.skills-section {
+  padding: 80px var(--pad-x);
+  background: var(--black);
+  color: var(--white);
+}
+.skills-section .section-title { color: var(--white); }
+.skills-section .section-line { background: var(--yellow); }
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+.skill-card {
+  background: rgba(247,246,239,.05);
+  border: 1px solid rgba(247,246,239,.1);
+  border-radius: 12px;
+  padding: 24px;
+  transition: background .2s, transform .2s;
+}
+.skill-card:hover { background: rgba(247,246,239,.08); transform: translateY(-4px); }
+.skill-icon {
+  width: 36px; height: 36px;
+  background: var(--yellow);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.skill-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.skill-list {
+  list-style: none;
+  font-size: 13px;
+  color: rgba(247,246,239,.55);
+  line-height: 1.8;
+}
+
+/* =========================================
+   CONTACT SECTION
+   ========================================= */
+.contact-section {
+  background: var(--yellow);
+  padding: 80px var(--pad-x);
+  position: relative;
+  overflow: hidden;
+}
+.contact-section .hero-tram { opacity: .04; }
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+.contact-info .contact-title {
+  font-family: var(--font-brand);
+  font-size: 48px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.contact-info p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(54,52,45,.75);
+  margin-bottom: 32px;
+}
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--black);
+  transition: gap .2s;
+}
+.contact-link:hover { gap: 14px; }
+.contact-link svg { width: 20px; height: 20px; }
+
+.contact-form { background: var(--white); border-radius: 20px; padding: 40px; border: 2px solid var(--black); box-shadow: 6px 6px 0 var(--black); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.form-group label { font-size: 13px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: rgba(54,52,45,.6); }
+.form-control {
+  padding: 14px 16px;
+  border: 2px solid rgba(54,52,45,.15);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--black);
+  background: var(--white);
+  transition: border-color .2s;
+  width: 100%;
+  resize: none;
+}
+.form-control:focus { outline: none; border-color: var(--violet); }
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+.form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(54,52,45,.3); }
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.site-footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 48px var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  font-family: var(--font-brand);
+  font-size: 20px;
+  color: var(--white);
+}
+.footer-copy {
+  font-size: 13px;
+  color: rgba(247,246,239,.4);
+}
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+.footer-links a {
+  font-size: 13px;
+  color: rgba(247,246,239,.5);
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* =========================================
+   PROJECT PAGE
+   ========================================= */
+.project-header-sticky {
+  position: sticky;
+  top: 64px; /* after main header */
+  z-index: 900;
+  background: var(--black);
+  color: var(--white);
+  padding: 16px var(--pad-x);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid rgba(247,246,239,.1);
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(247,246,239,.6);
+}
+.breadcrumb a { color: rgba(247,246,239,.6); transition: color .2s; }
+.breadcrumb a:hover { color: var(--white); }
+.breadcrumb span { color: var(--white); font-weight: 600; }
+.breadcrumb-sep { opacity: .4; }
+
+.project-hero {
+  background: var(--black);
+  color: var(--white);
+  padding: 80px var(--pad-x) 60px;
+}
+.project-hero-kpi {
+  display: flex;
+  gap: 60px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.kpi-item .kpi-num {
+  font-family: var(--font-brand);
+  font-size: 48px;
+  color: var(--yellow);
+  line-height: 1;
+}
+.kpi-item .kpi-label {
+  font-size: 14px;
+  color: rgba(247,246,239,.55);
+  margin-top: 4px;
+}
+
+.project-meta-bar {
+  background: var(--black);
+  border-top: 1px solid rgba(247,246,239,.08);
+  padding: 24px var(--pad-x);
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+.meta-item {
+  padding: 0 48px 0 0;
+  border-right: 1px solid rgba(247,246,239,.1);
+  margin-right: 48px;
+}
+.meta-item:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.meta-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(247,246,239,.4); margin-bottom: 6px; }
+.meta-value { font-size: 15px; color: var(--white); font-weight: 500; }
+
+.project-content {
+  padding: 80px var(--pad-x);
+  background: var(--white);
+}
+.project-intro {
+  max-width: 780px;
+  margin-bottom: 60px;
+}
+.project-intro h2 {
+  font-family: var(--font-brand);
+  font-size: 36px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.project-intro p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: rgba(54,52,45,.75);
+  margin-bottom: 16px;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+.tag-chip {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 2px solid rgba(54,52,45,.15);
+  color: var(--black);
+}
+
+.project-image-hero {
+  width: 100%;
+  aspect-ratio: 16/8;
+  background: linear-gradient(135deg, #1a2035, #0f1520);
+  border-radius: 16px;
+  margin-bottom: 60px;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(247,246,239,.3);
+}
+
+.project-3cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 60px;
+}
+.project-insight {
+  background: rgba(54,52,45,.03);
+  border: 2px solid rgba(54,52,45,.08);
+  border-radius: 16px;
+  padding: 32px;
+}
+.insight-icon {
+  width: 44px; height: 44px;
+  background: var(--yellow);
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.insight-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(54,52,45,.5);
+  margin-bottom: 12px;
+}
+.insight-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--black);
+}
+
+.project-section {
+  margin-bottom: 60px;
+}
+.project-section h3 {
+  font-family: var(--font-brand);
+  font-size: 28px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.project-section h3::before {
+  content: '';
+  width: 4px; height: 28px;
+  background: var(--violet);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.project-section p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(54,52,45,.75);
+  max-width: 760px;
+}
+
+.project-screenshots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+.screenshot-placeholder {
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #1a2035 0%, #0f1520 100%);
+  border-radius: 12px;
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: rgba(247,246,239,.25);
+  font-family: var(--font-body);
+}
+
+/* Related projects */
+.related-projects {
+  padding: 80px var(--pad-x);
+  background: rgba(54,52,45,.02);
+  border-top: 1px solid rgba(54,52,45,.08);
+}
+
+/* =========================================
+   NUMBER COUNTER ANIMATION
+   ========================================= */
+.counter-num { display: inline-block; }
+
+/* =========================================
+   SCROLL ANIMATIONS
+   ========================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* =========================================
+   RESPONSIVE — Tablet
+   ========================================= */
+@media (max-width: 1200px) {
+  :root {
+    --pad-x: 48px;
+  }
+  .hero { grid-template-columns: 1fr 1fr; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .experiences-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .project-3cols { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =========================================
+   RESPONSIVE — Mobile
+   ========================================= */
+@media (max-width: 768px) {
+  :root {
+    --pad-x: 20px;
+  }
+  
+  /* Header */
+  .site-header { padding: 12px 20px; }
+  .header-nav, .header-right { display: none; }
+  .burger-btn { display: flex; }
+  
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 40px 20px 80px;
+    min-height: unset;
+  }
+  .hero-visual { order: -1; align-items: center; }
+  .hero-illustration-wrap { max-width: 320px; margin: 0 auto; }
+  .dialog-balloon { max-width: 180px; font-size: 12px; top: -20px; right: 0; }
+  .hero-name { font-size: 60px; }
+  .hero-ctas { gap: 10px; }
+  .btn-outline, .btn-filled { font-size: 15px; padding: 14px 18px; }
+  .hero-description { text-align: left; }
+  
+  /* Stats */
+  .stats-section { padding: 40px 20px; }
+  .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+  .stat-item { border-right: none; border-bottom: 1px solid rgba(54,52,45,.1); padding: 0 0 24px 0; }
+  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .stat-item:last-child { padding-left: 0; }
+  
+  /* Portfolio */
+  .portfolio-section { padding: 48px 20px; }
+  .portfolio-grid.medium { grid-template-columns: 1fr; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  
+  /* Experiences */
+  .experiences-section { padding: 48px 20px; }
+  .experiences-grid { grid-template-columns: 1fr; }
+  
+  /* Skills */
+  .skills-section { padding: 48px 20px; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  
+  /* Contact */
+  .contact-section { padding: 48px 20px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .contact-info .contact-title { font-size: 36px; }
+  .form-row { grid-template-columns: 1fr; }
+  
+  /* Footer */
+  .site-footer { padding: 32px 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  
+  /* Project page */
+  .project-header-sticky { padding: 12px 20px; top: 56px; }
+  .project-hero { padding: 40px 20px; }
+  .project-hero-kpi { gap: 32px; }
+  .project-meta-bar { padding: 20px; flex-direction: column; gap: 16px; }
+  .meta-item { border-right: none; padding-right: 0; margin-right: 0; border-bottom: 1px solid rgba(247,246,239,.08); padding-bottom: 16px; }
+  .meta-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .project-content { padding: 40px 20px; }
+  .project-3cols { grid-template-columns: 1fr; }
+  .project-screenshots { grid-template-columns: 1fr; }
+  .related-projects { padding: 48px 20px; }
+  
+  /* Mobile menu */
+  .mobile-menu-link { font-size: 36px; padding: 18px 32px; }
+}
+
+@media (max-width: 480px) {
+  .hero-name { font-size: 48px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .hero-subtitle .lead-label { font-size: 18px; }
+  .ux-badge, .ui-badge { font-size: 10px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ==========================================
+     GLOBAL HEADER (sticky, shared)
+     ========================================== -->
+<header class="site-header" id="siteHeader" role="banner">
+  <div class="header-brand">
+    <div class="name">francis dollez</div>
+    <div class="subtitle">
+      <span><strong>lead</strong> product designer</span>
+      <span class="ux-badge">UX</span><span class="ui-badge">UI</span>
+    </div>
+  </div>
+  
+  <nav class="header-nav" role="navigation" aria-label="Navigation principale">
+    <a href="#" class="nav-link active" onclick="showPage('home',this)" id="nav-home">Home</a>
+    <a href="#" class="nav-link" onclick="showPage('home',this); setTimeout(()=>scrollTo('#portfolio'),100)">Portfolios</a>
+    <a href="#" class="nav-link" onclick="showPage('home',this); setTimeout(()=>scrollTo('#experiences'),100)">Expériences</a>
+    <a href="#" class="nav-link" onclick="showPage('home',this); setTimeout(()=>scrollTo('#competences'),100)">Compétences</a>
+  </nav>
+  
+  <div class="header-right">
+    <button class="btn-contact" onclick="showPage('home',null); setTimeout(()=>scrollTo('#contact'),100)">Me contacter</button>
+    <div class="header-socials" aria-label="Réseaux sociaux">
+      <a href="https://linkedin.com/in/francisdollez" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="var(--black)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.malt.fr/profile/francisdollez" target="_blank" rel="noopener" class="social-icon" aria-label="Malt">
+        <svg viewBox="0 0 24 24" fill="var(--black)"><path d="M21.007 2.993a3.394 3.394 0 0 0-4.8 0L3.62 15.58a3.394 3.394 0 0 0 4.8 4.799l12.587-12.587a3.394 3.394 0 0 0 0-4.799zm-9.385 14.482-2.12-2.12 7.79-7.79 2.12 2.12zm-5.657 1.414a1.394 1.394 0 0 1-1.97-1.971l1.415-1.414 1.97 1.97zm13.435-10.607-1.414 1.414-1.97-1.97 1.414-1.415a1.394 1.394 0 0 1 1.97 1.97z"/></svg>
+      </a>
+      <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="var(--black)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Burger mobile -->
+  <button class="burger-btn" id="burgerBtn" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ==========================================
+     MOBILE FULL-SCREEN MENU
+     ========================================== -->
+<nav class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu mobile" aria-hidden="true">
+  <a href="#" class="mobile-menu-link" onclick="closeMobileMenu(); showPage('home'); setTimeout(()=>scrollTo('#hero'),100)">Home</a>
+  <a href="#" class="mobile-menu-link" onclick="closeMobileMenu(); showPage('home'); setTimeout(()=>scrollTo('#portfolio'),100)">Portfolios</a>
+  <a href="#" class="mobile-menu-link" onclick="closeMobileMenu(); showPage('home'); setTimeout(()=>scrollTo('#experiences'),100)">Expériences</a>
+  <a href="#" class="mobile-menu-link" onclick="closeMobileMenu(); showPage('home'); setTimeout(()=>scrollTo('#competences'),100)">Compétences</a>
+  <button class="mobile-menu-cta" onclick="closeMobileMenu(); showPage('home'); setTimeout(()=>scrollTo('#contact'),100)">Me contacter</button>
+  <div class="mobile-menu-socials">
+    <a href="https://linkedin.com/in/francisdollez" target="_blank" rel="noopener" class="social-icon" style="width:44px;height:44px;background:rgba(54,52,45,.1);border-radius:12px;">
+      <svg viewBox="0 0 24 24" fill="var(--black)" width="24" height="24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" style="width:44px;height:44px;background:rgba(54,52,45,.1);border-radius:12px;">
+      <svg viewBox="0 0 24 24" fill="var(--black)" width="24" height="24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+  </div>
+</nav>
+
+
+<!-- ==========================================
+     PAGE: HOME
+     ========================================== -->
+<main id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Présentation">
+    <div class="hero-tram" aria-hidden="true"></div>
+    
+    <div class="hero-text">
+      <div class="hero-subtitle">
+        <span class="lead-label"><strong>lead</strong> product designer</span>
+        <span class="ux-badge">UX</span><span class="ui-badge">UI</span>
+      </div>
+      <h1 class="hero-name">
+        <span class="line1">francis</span><br>
+        <span class="line2">dollez</span>
+      </h1>
+      <div class="hero-ctas">
+        <button class="btn-outline" onclick="downloadCV()">Télécharger mon CV</button>
+        <button class="btn-filled" onclick="scrollTo('#contact')">Discutons de votre projet</button>
+      </div>
+    </div>
+    
+    <div class="hero-visual">
+      <div class="hero-illustration-wrap">
+        <!-- Dialog balloon animé -->
+        <div class="dialog-balloon" id="dialogBalloon" aria-live="polite">
+          <span class="balloon-text" id="balloonText">Bonjour ! Je crée des interfaces qui font sens ✨</span>
+        </div>
+        <!-- Illustration SVG du personnage (comic character) -->
+        <svg class="hero-character" viewBox="0 0 568 447" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration du personnage Francis Dollez en style comic">
+          <!-- Corps principal -->
+          <ellipse cx="284" cy="370" rx="180" ry="30" fill="rgba(54,52,45,.08)"/>
+          <!-- Pieds -->
+          <ellipse cx="220" cy="410" rx="38" ry="14" fill="#36342D"/>
+          <ellipse cx="348" cy="410" rx="38" ry="14" fill="#36342D"/>
+          <!-- Jambes -->
+          <rect x="200" y="320" width="40" height="90" rx="20" fill="#36342D"/>
+          <rect x="328" y="320" width="40" height="90" rx="20" fill="#36342D"/>
+          <!-- Corps -->
+          <rect x="170" y="200" width="228" height="140" rx="30" fill="#9747FF"/>
+          <!-- Col -->
+          <path d="M250 200 L284 240 L318 200" fill="#F7F6EF" stroke="#36342D" stroke-width="2"/>
+          <!-- Bras gauche -->
+          <path d="M170 220 Q110 260 100 300" stroke="#36342D" stroke-width="38" stroke-linecap="round" fill="none"/>
+          <circle cx="95" cy="310" r="22" fill="#FFCD29" stroke="#36342D" stroke-width="2"/>
+          <!-- Bras droit / tablette -->
+          <path d="M398 220 Q450 240 460 280" stroke="#36342D" stroke-width="38" stroke-linecap="round" fill="none"/>
+          <rect x="448" y="265" width="70" height="100" rx="8" fill="#F7F6EF" stroke="#36342D" stroke-width="2"/>
+          <rect x="454" y="272" width="58" height="78" rx="4" fill="#9747FF" opacity=".3"/>
+          <rect x="458" y="278" width="40" height="4" rx="2" fill="#36342D" opacity=".4"/>
+          <rect x="458" y="286" width="32" height="4" rx="2" fill="#36342D" opacity=".4"/>
+          <rect x="458" y="294" width="36" height="4" rx="2" fill="#36342D" opacity=".4"/>
+          <!-- Cou -->
+          <rect x="260" y="155" width="48" height="55" rx="10" fill="#FFCD29" stroke="#36342D" stroke-width="1.5"/>
+          <!-- Tête -->
+          <ellipse cx="284" cy="135" rx="95" ry="110" fill="#FFCD29"/>
+          <ellipse cx="284" cy="145" rx="88" ry="100" fill="#FFCD29" stroke="#36342D" stroke-width="2"/>
+          <!-- Cheveux -->
+          <path d="M198 110 Q200 40 284 35 Q368 40 370 110 Q350 75 284 72 Q218 75 198 110Z" fill="#36342D"/>
+          <path d="M198 110 Q185 90 190 70" stroke="#36342D" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <path d="M370 110 Q383 90 378 70" stroke="#36342D" stroke-width="8" stroke-linecap="round" fill="none"/>
+          <!-- Lunettes -->
+          <rect x="230" y="140" width="44" height="28" rx="14" fill="none" stroke="#36342D" stroke-width="2.5"/>
+          <rect x="294" y="140" width="44" height="28" rx="14" fill="none" stroke="#36342D" stroke-width="2.5"/>
+          <line x1="274" y1="154" x2="294" y2="154" stroke="#36342D" stroke-width="2.5"/>
+          <line x1="218" y1="154" x2="230" y2="154" stroke="#36342D" stroke-width="2"/>
+          <line x1="338" y1="154" x2="348" y2="154" stroke="#36342D" stroke-width="2"/>
+          <!-- Yeux -->
+          <ellipse cx="252" cy="154" rx="8" ry="8" fill="#36342D"/>
+          <ellipse cx="316" cy="154" rx="8" ry="8" fill="#36342D"/>
+          <ellipse cx="255" cy="151" rx="3" ry="3" fill="white"/>
+          <ellipse cx="319" cy="151" rx="3" ry="3" fill="white"/>
+          <!-- Sourire -->
+          <path d="M260 180 Q284 200 308 180" stroke="#36342D" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <!-- Badge sur veste -->
+          <rect x="200" y="240" width="60" height="22" rx="6" fill="#FFCD29" stroke="#36342D" stroke-width="1.5"/>
+          <text x="207" y="256" font-family="sans-serif" font-size="9" font-weight="700" fill="#36342D">DESIGNER</text>
+        </svg>
+      </div>
+      <div class="hero-description">
+        <p>Strategic Product Designer avec +15 ans d'expérience sur des interfaces à fort impact.</p>
+        <p>Freelance auto-entrepreneur · Paris, France</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS / CHIFFRES ANIMÉS -->
+  <section class="stats-section reveal" aria-label="Chiffres clés">
+    <p class="stats-label">En chiffres</p>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-num">
+          <span class="counter-num" data-target="15">0</span>
+          <span class="suffix">ans</span>
+        </div>
+        <p class="stat-desc">d'expérience en Product Design</p>
+      </div>
+      <div class="stat-item" style="padding-left:40px;">
+        <div class="stat-num">
+          <span class="counter-num" data-target="20">0</span>
+          <span class="suffix">M</span>
+        </div>
+        <p class="stat-desc">d'utilisateurs impactés — e.quilibre EDF</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">
+          <span class="counter-num" data-target="600">0</span>
+          <span class="suffix">K</span>
+        </div>
+        <p class="stat-desc">dossiers gérés via DomiFa</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio-section" id="portfolio" aria-label="Portfolio">
+    <div class="section-header">
+      <div class="section-title-wrap">
+        <div class="section-line" aria-hidden="true"></div>
+        <div>
+          <h2 class="section-title">Mes projets</h2>
+          <p class="section-subtitle">Sélection de missions récentes</p>
+        </div>
+      </div>
+      <button class="btn-outline" style="font-size:14px;padding:10px 20px;" onclick="alert('Tous les projets bientôt disponibles')">Voir tout</button>
+    </div>
+    
+    <!-- Projet principal large -->
+    <div class="portfolio-grid large reveal" style="margin-bottom:24px;">
+      <div class="portfolio-card card-domifa" onclick="showProjectPage('domifa')" role="button" tabindex="0" aria-label="Voir le projet DomiFa" onkeydown="if(event.key==='Enter')showProjectPage('domifa')">
+        <div class="portfolio-card-inner">
+          <div class="card-blob" style="background:#9747FF;top:-50px;left:-50px;"></div>
+          <div class="portfolio-card-img" style="background:radial-gradient(ellipse at 60% 40%, rgba(151,71,255,.3) 0%, transparent 70%);"></div>
+          <div class="portfolio-card-cover"></div>
+          <div class="portfolio-card-content">
+            <p class="portfolio-card-client">Ministère des solidarités · DNUM</p>
+            <h3 class="portfolio-card-title">DomiFa — Refonte UX de la domiciliation nationale</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">UX Research</span>
+              <span class="portfolio-tag">Service Design</span>
+              <span class="portfolio-tag">DSFR</span>
+              <span class="portfolio-tag">+600K dossiers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Deux projets medium -->
+    <div class="portfolio-grid medium reveal" style="margin-bottom:24px;" id="portfolio">
+      <div class="portfolio-card medium card-eurosport" onclick="showProjectPage('eurosport')" role="button" tabindex="0" aria-label="Voir le projet Eurosport">
+        <div class="portfolio-card-inner">
+          <div class="card-blob" style="background:#f25d7b;top:-30px;right:-30px;"></div>
+          <div class="portfolio-card-cover"></div>
+          <div class="portfolio-card-content">
+            <p class="portfolio-card-client">Warner Bros. Discovery</p>
+            <h3 class="portfolio-card-title">Eurosport — CMS InNova & InPlan</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">Product Design</span>
+              <span class="portfolio-tag">15 pays</span>
+              <span class="portfolio-tag">100 journalistes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card medium card-edf" onclick="showProjectPage('edf')" role="button" tabindex="0" aria-label="Voir le projet EDF / Datanumia">
+        <div class="portfolio-card-inner">
+          <div class="card-blob" style="background:#FFCD29;bottom:-30px;left:30px;"></div>
+          <div class="portfolio-card-cover"></div>
+          <div class="portfolio-card-content">
+            <p class="portfolio-card-client">Groupe EDF · Datanumia</p>
+            <h3 class="portfolio-card-title">e.quilibre — 20M d'utilisateurs</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">Lead Design</span>
+              <span class="portfolio-tag">Énergie</span>
+              <span class="portfolio-tag">Mobile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Projet large bas -->
+    <div class="portfolio-grid large reveal">
+      <div class="portfolio-card card-snac" onclick="showProjectPage('snac')" role="button" tabindex="0" aria-label="Voir le projet SNAC">
+        <div class="portfolio-card-inner">
+          <div class="card-blob" style="background:#F25D7B;bottom:-50px;right:-50px;"></div>
+          <div class="portfolio-card-cover"></div>
+          <div class="portfolio-card-content">
+            <p class="portfolio-card-client">SNAC — Auteurs & Compositeurs</p>
+            <h3 class="portfolio-card-title">Dépôt d'œuvres numériques — Refonte UX/UI</h3>
+            <div class="portfolio-tags">
+              <span class="portfolio-tag">UX/UI</span>
+              <span class="portfolio-tag">Système de tokens</span>
+              <span class="portfolio-tag">Design System</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPÉRIENCES -->
+  <section class="experiences-section" id="experiences" aria-label="Expériences professionnelles">
+    <div class="section-title-wrap reveal">
+      <div class="section-line" aria-hidden="true"></div>
+      <div>
+        <h2 class="section-title">Expériences</h2>
+        <p class="section-subtitle">15 ans de missions à fort impact</p>
+      </div>
+    </div>
+    <div class="experiences-grid">
+      <!-- DomiFa -->
+      <div class="exp-card reveal">
+        <div class="exp-logo">
+          <span class="exp-logo-text" style="color:var(--violet);">DomiFa</span>
+        </div>
+        <div class="exp-role">Lead UX/UI Designer</div>
+        <div class="exp-company">Ministère des solidarités — DNUM</div>
+        <div class="exp-period">2025 — aujourd'hui</div>
+        <p class="exp-description">Refonte UX complète et intégration du DSFR sur DomiFa, outil national de domiciliation utilisé par +1 500 structures gérant +600 000 dossiers de personnes sans domicile stable.</p>
+        <div class="exp-tags">
+          <span class="exp-tag">DSFR</span>
+          <span class="exp-tag">UX Research</span>
+          <span class="exp-tag">Service Design</span>
+          <span class="exp-tag">Figma</span>
+        </div>
+      </div>
+      <!-- Eurosport -->
+      <div class="exp-card reveal">
+        <div class="exp-logo">
+          <span class="exp-logo-text" style="color:var(--pink);">Eurosport</span>
+        </div>
+        <div class="exp-role">Product Designer Senior</div>
+        <div class="exp-company">Warner Bros. Discovery</div>
+        <div class="exp-period">2022 — 2025</div>
+        <p class="exp-description">Refonte UX des outils CMS InNova & InPlan à destination des journalistes d'Eurosport. ~100 journalistes · 15 pays · Adoption sans formation.</p>
+        <div class="exp-tags">
+          <span class="exp-tag">CMS</span>
+          <span class="exp-tag">Product Design</span>
+          <span class="exp-tag">User Testing</span>
+          <span class="exp-tag">Design System</span>
+        </div>
+      </div>
+      <!-- EDF -->
+      <div class="exp-card reveal">
+        <div class="exp-logo">
+          <span class="exp-logo-text" style="color:#0070C0;">Datanumia · EDF</span>
+        </div>
+        <div class="exp-role">Lead Designer</div>
+        <div class="exp-company">Groupe EDF</div>
+        <div class="exp-period">2011 — 2022</div>
+        <p class="exp-description">Lead Designer sur divers produits autour de l'énergie et de la connectivité. 20 M d'utilisateurs — e.quilibre · Iboard · Feelpro · MTVE (app).</p>
+        <div class="exp-tags">
+          <span class="exp-tag">Lead Design</span>
+          <span class="exp-tag">Énergie</span>
+          <span class="exp-tag">Mobile</span>
+          <span class="exp-tag">IoT</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLIENTS LOGOS -->
+  <section class="clients-section reveal" aria-label="Clients">
+    <p class="clients-label">Ils m'ont fait confiance</p>
+    <div class="clients-logos">
+      <span class="client-logo">EDF Groupe</span>
+      <span class="client-logo">Eurosport</span>
+      <span class="client-logo">DomiFa</span>
+      <span class="client-logo">SNAC</span>
+      <span class="client-logo">Datanumia</span>
+      <span class="client-logo">Warner Bros. Discovery</span>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section class="skills-section" id="competences" aria-label="Compétences">
+    <div class="section-title-wrap reveal">
+      <div class="section-line" aria-hidden="true"></div>
+      <div>
+        <h2 class="section-title" style="color:var(--white);">Compétences</h2>
+        <p class="section-subtitle" style="color:rgba(247,246,239,.5);">Mon spectre d'intervention</p>
+      </div>
+    </div>
+    <div class="skills-grid" style="margin-top:40px;">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🔬</div>
+        <div class="skill-title">UX Research</div>
+        <ul class="skill-list">
+          <li>Interviews utilisateurs</li>
+          <li>Tests utilisateurs</li>
+          <li>Persona & parcours</li>
+          <li>Benchmark UX</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-title">Product Design</div>
+        <ul class="skill-list">
+          <li>Wireframing</li>
+          <li>Prototypage</li>
+          <li>Design System</li>
+          <li>Figma / Adobe XD</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🗺️</div>
+        <div class="skill-title">Service Design</div>
+        <ul class="skill-list">
+          <li>Journey Map</li>
+          <li>Blueprint</li>
+          <li>Ateliers co-design</li>
+          <li>Cadrage produit</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-title">Front-end</div>
+        <ul class="skill-list">
+          <li>HTML / CSS</li>
+          <li>Intégration DSFR</li>
+          <li>Design tokens</li>
+          <li>Accessibilité RGAA</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact" aria-label="Contact">
+    <div class="hero-tram" aria-hidden="true"></div>
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <h2 class="contact-title">Travaillons ensemble</h2>
+        <p>Disponible pour des missions freelance longue durée. Je m'adapte à vos processus et contraintes produit.</p>
+        <div class="contact-links">
+          <a href="mailto:francis.dollez@gmail.com" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            francis.dollez@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/francisdollez" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn — Francis Dollez
+          </a>
+          <a href="https://www.malt.fr/profile/francisdollez" target="_blank" rel="noopener" class="contact-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.007 2.993a3.394 3.394 0 0 0-4.8 0L3.62 15.58a3.394 3.394 0 0 0 4.8 4.799l12.587-12.587a3.394 3.394 0 0 0 0-4.799zm-9.385 14.482-2.12-2.12 7.79-7.79 2.12 2.12zm-5.657 1.414a1.394 1.394 0 0 1-1.97-1.971l1.415-1.414 1.97 1.97zm13.435-10.607-1.414 1.414-1.97-1.97 1.414-1.415a1.394 1.394 0 0 1 1.97 1.97z"/></svg>
+            Malt — Profil freelance
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <h3 style="font-family:var(--font-brand);font-size:24px;margin-bottom:24px;">Envoyez-moi un message</h3>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label for="firstName">Prénom</label>
+            <input class="form-control" id="firstName" type="text" placeholder="Jean" autocomplete="given-name">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label for="lastName">Nom</label>
+            <input class="form-control" id="lastName" type="text" placeholder="Martin" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:16px;">
+          <label for="email">Email</label>
+          <input class="form-control" id="email" type="email" placeholder="jean@entreprise.fr" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea class="form-control" id="message" rows="5" placeholder="Décrivez votre besoin, la durée de la mission, le contexte..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleFormSubmit(this)">Envoyer →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-brand">francis dollez</div>
+    <p class="footer-copy">© 2025 Francis Dollez — Lead Product Designer · Auto-entrepreneur · France</p>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Accueil</a>
+      <a href="mailto:francis.dollez@gmail.com">Contact</a>
+      <a href="https://linkedin.com/in/francisdollez" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</main><!-- / page-home -->
+
+
+<!-- ==========================================
+     PAGE: PROJECT DETAIL
+     ========================================== -->
+<main id="page-project" class="page" aria-label="Page projet">
+
+  <!-- Sticky sub-header: breadcrumb black -->
+  <div class="project-header-sticky" id="projectHeaderSticky" role="navigation" aria-label="Fil d'Ariane">
+    <nav class="breadcrumb">
+      <a href="#" onclick="showPage('home')">Accueil</a>
+      <span class="breadcrumb-sep">→</span>
+      <a href="#" onclick="showPage('home'); setTimeout(()=>scrollTo('#portfolio'),100)">Portfolios</a>
+      <span class="breadcrumb-sep">→</span>
+      <span id="breadcrumbTitle">DomiFa</span>
+    </nav>
+  </div>
+
+  <!-- Project Hero -->
+  <div class="project-hero" id="projectHero">
+    <p style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(247,246,239,.4);margin-bottom:12px;" id="projectClient">Ministère des solidarités · DNUM</p>
+    <h1 style="font-family:var(--font-brand);font-size:clamp(36px,5vw,72px);color:var(--white);line-height:1.1;max-width:900px;" id="projectTitle">DomiFa — Refonte UX de la domiciliation nationale</h1>
+    <div class="project-hero-kpi" id="projectKpis">
+      <!-- rempli par JS -->
+    </div>
+  </div>
+  
+  <!-- Project meta bar -->
+  <div class="project-meta-bar" id="projectMetaBar">
+    <!-- rempli par JS -->
+  </div>
+
+  <!-- Project content -->
+  <div class="project-content">
+    <div class="project-intro" id="projectIntro"></div>
+    
+    <div class="tags-row" id="projectTags"></div>
+    
+    <div class="project-image-hero" id="projectImageHero">
+      <span>Visuels du projet — à importer</span>
+    </div>
+    
+    <div class="project-3cols" id="project3Cols"></div>
+    
+    <div id="projectSections"></div>
+    
+    <div class="project-screenshots" id="projectScreenshots"></div>
+  </div>
+
+  <!-- Related projects -->
+  <section class="related-projects">
+    <div class="section-title-wrap">
+      <div class="section-line" aria-hidden="true"></div>
+      <div>
+        <h2 class="section-title">Autres projets</h2>
+      </div>
+    </div>
+    <div class="portfolio-grid medium" style="margin-top:32px;" id="relatedProjects"></div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-brand">francis dollez</div>
+    <p class="footer-copy">© 2025 Francis Dollez — Lead Product Designer · Auto-entrepreneur · France</p>
+    <div class="footer-links">
+      <a href="#" onclick="showPage('home')">Accueil</a>
+      <a href="mailto:francis.dollez@gmail.com">Contact</a>
+    </div>
+  </footer>
+
+</main><!-- / page-project -->
+
+
+<!-- ==========================================
+     JSON DATA — Projets (éditable)
+     ========================================== -->
+<script>
+const PROJECTS_DATA = {
+  domifa: {
+    id: "domifa",
+    title: "DomiFa — Refonte UX de la domiciliation nationale",
+    client: "Ministère des solidarités · DNUM",
+    period: "2025 — aujourd'hui",
+    role: "Lead UX/UI Designer",
+    sector: "Service public · Social",
+    year: "2025",
+    color: "#9747FF",
+    kpis: [
+      { num: "+1 500", label: "structures utilisatrices" },
+      { num: "+600K", label: "dossiers gérés" },
+      { num: "0", label: "formation nécessaire" }
+    ],
+    meta: [
+      { label: "Client", value: "DNUM — Ministère des solidarités" },
+      { label: "Période", value: "2025 — aujourd'hui" },
+      { label: "Rôle", value: "Lead UX/UI Designer" },
+      { label: "Secteur", value: "Service public" }
+    ],
+    intro: {
+      heading: "Repenser l'outil national de domiciliation",
+      paragraphs: [
+        "DomiFa est l'outil national qui permet aux structures (CCAS, associations) de gérer la domiciliation de personnes sans domicile stable. L'enjeu : rendre l'interface plus claire, plus rapide, et conforme au Système de Design de l'État (DSFR).",
+        "Ma mission couvre la refonte UX complète : audit de l'existant, recherche utilisateur auprès des agents, conception des nouveaux parcours, et accompagnement de l'équipe de développement."
+      ]
+    },
+    tags: ["UX Research", "Service Design", "DSFR", "Figma", "Tests utilisateurs", "Journey Map", "Accessibilité RGAA"],
+    insights: [
+      { icon: "🎯", label: "Besoins", text: "Les agents passaient trop de temps sur des tâches simples. Les flux de création de dossier et de gestion des familles étaient surchargés." },
+      { icon: "🔍", label: "L'approche", text: "Interviews d'agents, observation en situation réelle, co-conception avec les équipes métier et tests utilisateurs itératifs." },
+      { icon: "✅", label: "Résultat", text: "Interfaces recentrées sur les tâches clés, conformes DSFR, avec une adoption immédiate sans formation des nouveaux agents." }
+    ],
+    sections: [
+      { heading: "Recherche utilisateur", text: "J'ai mené des entretiens approfondis avec des agents de CCAS et d'associations pour comprendre leurs réalités terrain. Ces sessions ont révélé des points de friction majeurs sur les parcours de domiciliation familiale et de distribution de courrier." },
+      { heading: "Conception & prototypage", text: "À partir des insights, j'ai conçu de nouveaux parcours en itérations courtes avec l'équipe produit. Chaque jalon a été prototypé sur Figma et testé auprès des utilisateurs finaux." }
+    ]
+  },
+  eurosport: {
+    id: "eurosport",
+    title: "Eurosport — CMS InNova & InPlan pour les journalistes",
+    client: "Warner Bros. Discovery",
+    period: "2022 — 2025",
+    role: "Product Designer Senior",
+    sector: "Média · Sport",
+    year: "2022",
+    color: "#F25D7B",
+    kpis: [
+      { num: "~100", label: "journalistes" },
+      { num: "15", label: "pays" },
+      { num: "0", label: "formation requise" }
+    ],
+    meta: [
+      { label: "Client", value: "Warner Bros. Discovery" },
+      { label: "Période", value: "2022 — 2025" },
+      { label: "Rôle", value: "Product Designer Senior" },
+      { label: "Secteur", value: "Média · Sport" }
+    ],
+    intro: {
+      heading: "Outiller les journalistes d'Eurosport à l'échelle mondiale",
+      paragraphs: [
+        "InNova et InPlan sont les CMS internes utilisés par les journalistes d'Eurosport pour produire et planifier le contenu éditorial sur 15 pays. L'objectif : une interface assez intuitive pour être adoptée sans formation.",
+        "J'ai pris en charge la refonte UX complète de ces deux outils, en travaillant en étroite collaboration avec les journalistes utilisateurs et les équipes tech."
+      ]
+    },
+    tags: ["CMS", "Product Design", "User Testing", "Design System", "Figma", "Internationalisation"],
+    insights: [
+      { icon: "🎯", label: "Besoins", text: "Les journalistes avaient besoin d'outils rapides et fiables pour produire du contenu sous pression, dans plusieurs langues et fuseaux horaires." },
+      { icon: "🔍", label: "L'approche", text: "Ateliers d'observation en salle de rédaction, shadowing des journalistes en direct, tests d'usabilité hebdomadaires." },
+      { icon: "✅", label: "Résultat", text: "Adoption sans formation des 100 journalistes dans les 15 pays. Réduction significative du temps de production des articles." }
+    ],
+    sections: [
+      { heading: "Contexte rédactionnel exigeant", text: "Travailler avec des journalistes en conditions réelles — en salle de rédaction, pendant les événements sportifs — m'a permis de comprendre la pression temporelle et les besoins réels." },
+      { heading: "Design system multilingue", text: "J'ai conçu un design system robuste capable de s'adapter aux différentes langues et longueurs de texte, tout en restant cohérent visuellement." }
+    ]
+  },
+  edf: {
+    id: "edf",
+    title: "e.quilibre — Application énergie pour 20M d'utilisateurs",
+    client: "Groupe EDF · Datanumia",
+    period: "2011 — 2022",
+    role: "Lead Designer",
+    sector: "Énergie · Connectivité",
+    year: "2016",
+    color: "#0070C0",
+    kpis: [
+      { num: "20M", label: "d'utilisateurs" },
+      { num: "11", label: "ans de mission" },
+      { num: "5+", label: "produits lancés" }
+    ],
+    meta: [
+      { label: "Client", value: "Groupe EDF — Datanumia" },
+      { label: "Période", value: "2011 — 2022" },
+      { label: "Rôle", value: "Lead Designer" },
+      { label: "Secteur", value: "Énergie · IoT" }
+    ],
+    intro: {
+      heading: "11 ans de design produit au cœur de la transition énergétique",
+      paragraphs: [
+        "Chez Datanumia, filiale du groupe EDF, j'ai piloté la conception de nombreux produits numériques liés à la gestion de l'énergie et à la connectivité : e.quilibre, Iboard, Feelpro, MTVE...",
+        "La mission phare : e.quilibre, l'application de suivi de consommation énergétique d'EDF, utilisée par 20 millions d'abonnés."
+      ]
+    },
+    tags: ["Lead Design", "Énergie", "Mobile", "IoT", "Design System", "Figma", "Sketch"],
+    insights: [
+      { icon: "🎯", label: "Besoins", text: "Permettre à des millions de particuliers et professionnels de suivre, maîtriser et optimiser leur consommation énergétique." },
+      { icon: "🔍", label: "L'approche", text: "Conception centrée sur la simplification de données complexes. Visualisations claires, alertes intelligentes, parcours personnalisés." },
+      { icon: "✅", label: "Résultat", text: "20M d'utilisateurs actifs sur e.quilibre. Plateforme de référence pour la gestion de l'énergie en France." }
+    ],
+    sections: [
+      { heading: "Lead Design sur 11 ans", text: "En tant que Lead Designer, j'ai défini la vision produit, constitué l'équipe design, mis en place les process de design system et piloté les projets de conception sur l'ensemble du portefeuille." }
+    ]
+  },
+  snac: {
+    id: "snac",
+    title: "SNAC — Refonte UX/UI du dépôt d'œuvres numériques",
+    client: "SNAC — Société des auteurs & compositeurs",
+    period: "2024",
+    role: "Lead UX/UI Designer (freelance)",
+    sector: "Culture · Droits d'auteur",
+    year: "2024",
+    color: "#F25D7B",
+    kpis: [
+      { num: "100%", label: "refonte UX/UI" },
+      { num: "1", label: "système de tokens" },
+      { num: "↑", label: "clarté interface" }
+    ],
+    meta: [
+      { label: "Client", value: "SNAC" },
+      { label: "Période", value: "2024" },
+      { label: "Rôle", value: "Lead UX/UI Designer" },
+      { label: "Secteur", value: "Culture · Droits" }
+    ],
+    intro: {
+      heading: "Moderniser la plateforme de dépôt d'œuvres",
+      paragraphs: [
+        "Le SNAC m'a confié la refonte complète de sa plateforme de dépôt numérique d'œuvres pour les auteurs et compositeurs. L'objectif : rendre le processus de protection des œuvres simple et rassurant.",
+        "J'ai également repensé le système de tokens de protection et amélioré la clarté des interfaces d'achat."
+      ]
+    },
+    tags: ["UX/UI", "Design System", "Tokens", "Figma", "Prototypage"],
+    insights: [
+      { icon: "🎯", label: "Besoins", text: "Les auteurs avaient du mal à comprendre le processus de dépôt et de protection de leurs œuvres. L'interface manquait de clarté." },
+      { icon: "🔍", label: "L'approche", text: "Refonte du parcours de dépôt, simplification du système de tokens, amélioration des micro-copies et des retours d'état." },
+      { icon: "✅", label: "Résultat", text: "Interface clarifiée, système de protection compréhensible, et expérience d'achat simplifiée pour les auteurs." }
+    ],
+    sections: [
+      { heading: "Simplifier la complexité juridique", text: "L'enjeu principal était de rendre accessible un processus administrativement complexe (dépôt, horodatage, tokens de protection) pour des utilisateurs non-techniques." }
+    ]
+  }
+};
+</script>
+
+
+<!-- ==========================================
+     JAVASCRIPT
+     ========================================== -->
+<script>
+// ---- PAGE ROUTER ----
+function showPage(pageId, navEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) { page.classList.add('active'); window.scrollTo(0,0); }
+  // Update nav
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  else if (pageId === 'home') document.getElementById('nav-home').classList.add('active');
+}
+
+function showProjectPage(projectId) {
+  const data = PROJECTS_DATA[projectId];
+  if (!data) return;
+  
+  // Breadcrumb
+  document.getElementById('breadcrumbTitle').textContent = data.title.split('—')[0].trim();
+  
+  // Hero
+  document.getElementById('projectClient').textContent = data.client;
+  document.getElementById('projectTitle').textContent = data.title;
+  
+  // KPIs
+  const kpisEl = document.getElementById('projectKpis');
+  kpisEl.innerHTML = data.kpis.map(k => `
+    <div class="kpi-item">
+      <div class="kpi-num">${k.num}</div>
+      <div class="kpi-label">${k.label}</div>
+    </div>
+  `).join('');
+  
+  // Meta bar
+  const metaEl = document.getElementById('projectMetaBar');
+  metaEl.innerHTML = data.meta.map(m => `
+    <div class="meta-item">
+      <div class="meta-label">${m.label}</div>
+      <div class="meta-value">${m.value}</div>
+    </div>
+  `).join('');
+  
+  // Intro
+  const introEl = document.getElementById('projectIntro');
+  introEl.innerHTML = `<h2>${data.intro.heading}</h2>${data.intro.paragraphs.map(p=>`<p>${p}</p>`).join('')}`;
+  
+  // Tags
+  document.getElementById('projectTags').innerHTML = data.tags.map(t=>`<span class="tag-chip">${t}</span>`).join('');
+  
+  // Hero image color
+  document.getElementById('projectImageHero').style.background = `linear-gradient(135deg, ${data.color}22, ${data.color}44)`;
+  
+  // 3 cols insights
+  document.getElementById('project3Cols').innerHTML = data.insights.map(ins=>`
+    <div class="project-insight">
+      <div class="insight-icon">${ins.icon}</div>
+      <div class="insight-label">${ins.label}</div>
+      <p class="insight-text">${ins.text}</p>
+    </div>
+  `).join('');
+  
+  // Sections
+  document.getElementById('projectSections').innerHTML = (data.sections||[]).map(s=>`
+    <div class="project-section">
+      <h3>${s.heading}</h3>
+      <p>${s.text}</p>
+    </div>
+  `).join('');
+  
+  // Screenshots placeholders
+  document.getElementById('projectScreenshots').innerHTML = [1,2,3].map(i=>`
+    <div class="screenshot-placeholder">Visuel ${i} — à importer</div>
+  `).join('');
+  
+  // Related projects (exclude current)
+  const others = Object.values(PROJECTS_DATA).filter(p=>p.id !== projectId).slice(0,2);
+  document.getElementById('relatedProjects').innerHTML = others.map(p=>`
+    <div class="portfolio-card medium" onclick="showProjectPage('${p.id}')" role="button" tabindex="0" style="cursor:pointer;" aria-label="Voir le projet ${p.title}">
+      <div class="portfolio-card-inner" style="background:linear-gradient(135deg,${p.color}22,${p.color}44);">
+        <div class="portfolio-card-cover"></div>
+        <div class="portfolio-card-content">
+          <p class="portfolio-card-client">${p.client}</p>
+          <h3 class="portfolio-card-title">${p.title}</h3>
+          <div class="portfolio-tags">${p.tags.slice(0,3).map(t=>`<span class="portfolio-tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  showPage('project');
+  updateNavLinks();
+}
+
+function updateNavLinks() {
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+}
+
+// ---- SCROLL ----
+function scrollTo(selector) {
+  const el = document.querySelector(selector);
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+// ---- STICKY HEADER ----
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 10) header.classList.add('scrolled');
+  else header.classList.remove('scrolled');
+});
+
+// ---- MOBILE MENU ----
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+burgerBtn.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  burgerBtn.classList.toggle('open', isOpen);
+  burgerBtn.setAttribute('aria-expanded', isOpen);
+  mobileMenu.setAttribute('aria-hidden', !isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  burgerBtn.classList.remove('open');
+  burgerBtn.setAttribute('aria-expanded', 'false');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+// Close on escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+});
+
+// ---- DIALOG BALLOON ROTATION ----
+const balloonMessages = [
+  "Bonjour ! Je crée des interfaces qui font sens ✨",
+  "UX Research · Service Design · Product Design 🎯",
+  "+15 ans d'expérience sur des produits à fort impact 🚀",
+  "Disponible pour missions freelance 📅",
+  "Je transforme la complexité en clarté 🔑",
+  "Discutons de votre prochain projet ! ☕"
+];
+let balloonIndex = 0;
+const balloonTextEl = document.getElementById('balloonText');
+
+function rotateBalloon() {
+  const textEl = balloonTextEl;
+  textEl.classList.add('fade');
+  setTimeout(() => {
+    balloonIndex = (balloonIndex + 1) % balloonMessages.length;
+    textEl.textContent = balloonMessages[balloonIndex];
+    textEl.classList.remove('fade');
+  }, 320);
+}
+setInterval(rotateBalloon, 3000);
+
+// ---- COUNTER ANIMATION ----
+function animateCounter(el, target, duration) {
+  const start = performance.now();
+  const isFloat = String(target).includes('.');
+  
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = Math.round(target * ease);
+    el.textContent = current;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(update);
+}
+
+function initCounters() {
+  const counters = document.querySelectorAll('.counter-num');
+  counters.forEach(el => {
+    const target = parseInt(el.dataset.target, 10);
+    animateCounter(el, target, 1500);
+  });
+}
+
+// ---- SCROLL REVEAL ----
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Trigger counters when stats section reveals
+      if (entry.target.classList.contains('stats-section')) {
+        setTimeout(initCounters, 200);
+      }
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ---- FORM ----
+function handleFormSubmit(btn) {
+  const firstName = document.getElementById('firstName').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  
+  if (!firstName || !email || !message) {
+    alert('Merci de remplir tous les champs requis.');
+    return;
+  }
+  
+  btn.textContent = '✓ Message envoyé !';
+  btn.style.background = '#22c55e';
+  btn.disabled = true;
+  
+  setTimeout(() => {
+    btn.textContent = 'Envoyer →';
+    btn.style.background = '';
+    btn.disabled = false;
+    document.getElementById('firstName').value = '';
+    document.getElementById('lastName').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('message').value = '';
+  }, 3000);
+}
+
+// ---- CV DOWNLOAD ----
+function downloadCV() {
+  alert('CV disponible sur demande — contactez-moi via le formulaire ou par email.');
+}
+
+// ---- INIT ----
+document.addEventListener('DOMContentLoaded', () => {
+  // Stagger hero animations
+  document.querySelector('.hero-text').style.animation = 'none';
+});
+
+// Handle keyboard nav on portfolio cards
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.classList.contains('portfolio-card')) {
+    e.target.click();
+  }
+});
+</script>
+
+<!-- Schema.org structured data pour SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Francis Dollez",
+  "jobTitle": "Lead Product Designer UX/UI",
+  "description": "Strategic Product Designer avec +15 ans d'expérience. Spécialiste UX Research, Service Design et interfaces complexes. Freelance auto-entrepreneur en France.",
+  "url": "https://francisdollez.fr",
+  "sameAs": [
+    "https://linkedin.com/in/francisdollez",
+    "https://www.malt.fr/profile/francisdollez"
+  ],
+  "knowsAbout": ["UX Design", "UI Design", "Product Design", "Service Design", "Design System", "Figma", "DSFR"],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freelance"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "FR",
+    "addressRegion": "Île-de-France"
+  }
+}
+</script>
+
+</body>
+</html>

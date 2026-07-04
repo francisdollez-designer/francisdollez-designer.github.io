@@ -1,0 +1,3962 @@
+{
+  "_meta": {
+    "version": "1.1",
+    "description": "Fridrich CFOP — données éditables. Modifiez librement alg, tip, shape, group.",
+    "shapes_order": [
+      "Dot",
+      "OCLL",
+      "T-shape",
+      "C-shape",
+      "W-shape",
+      "Square",
+      "P-shape",
+      "I-shape",
+      "Fish",
+      "Knight",
+      "Sune",
+      "Lightning",
+      "Awkward",
+      "L-shape"
+    ],
+    "fields": {
+      "id": "Identifiant unique (ne pas modifier)",
+      "num": "Numéro d'ordre pour l'affichage",
+      "name": "Nom affiché sur la carte",
+      "shape": "Forme géométrique (utilisée pour le filtre OLL)",
+      "group": "Groupe d'affichage (titre de section)",
+      "alg": "Formule principale — notation standard WCA",
+      "tip": "Commentaire/conseil affiché dans le popup",
+      "svg": "Chemin vers le SVG du cas (référence uniquement)",
+      "state": "État du cube: top[9] + tN/tS/tW/tE[3] — Y=couleur ref, G=gris"
+    }
+  },
+  "oll": [
+    {
+      "id": "oll01",
+      "num": 1,
+      "name": "OLL 1",
+      "shape": "Les T",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' F'",
+      "tip": "Le plus simple de tous les OLL",
+      "svg": "svg/oll/01.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll02",
+      "num": 2,
+      "name": "OLL 2",
+      "shape": "Les T",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' R U R' U' F'",
+      "tip": "Répétez le trigger une fois de plus",
+      "svg": "svg/oll/02.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll03",
+      "num": 3,
+      "name": "OLL 3",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' R U R' U' R U R' U' F'",
+      "tip": "Répétez le trigger 3 fois",
+      "svg": "svg/oll/03.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll04",
+      "num": 4,
+      "name": "OLL 4",
+      "shape": "Les P",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "f R U R' U' f'",
+      "tip": "À la place de F F', on a f f'",
+      "svg": "svg/oll/04.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll05",
+      "num": 5,
+      "name": "OLL 5",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "f R U R' U' R U R' U' f'",
+      "tip": "Répétez le trigger deux fois",
+      "svg": "svg/oll/05.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll06",
+      "num": 6,
+      "name": "OLL 6",
+      "shape": "Les P",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "f' L' U' L U f",
+      "tip": "L'inverse du trigger, avec la main gauche",
+      "svg": "svg/oll/06.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll07",
+      "num": 7,
+      "name": "OLL 7",
+      "shape": "Les petits L",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F' L' U' L U L' U' L U F",
+      "tip": "Symétrique du cas 2",
+      "svg": "svg/oll/07.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll08",
+      "num": 8,
+      "name": "OLL 8",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' F' U' F R U R' U' F'",
+      "tip": "Comme le cas 1 deux fois avec un U au milieu",
+      "svg": "svg/oll/08.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll09",
+      "num": 9,
+      "name": "OLL 9",
+      "shape": "Les S",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F' L' U' L U F y F R U R' U' F'",
+      "tip": "On s'inspire du cas 1",
+      "svg": "svg/oll/09.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll10",
+      "num": 10,
+      "name": "OLL 10",
+      "shape": "Les S",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "f R U R' U' f' U F R U R' U' F'",
+      "tip": "Cas 4 suivi du cas 1 avec un U au milieu",
+      "svg": "svg/oll/10.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll11",
+      "num": 11,
+      "name": "OLL 11",
+      "shape": "Les S",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "f R U R' U' f' U' F R U R' U' F'",
+      "tip": "Comme le cas 10 avec U' à la place de U",
+      "svg": "svg/oll/11.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll12",
+      "num": 12,
+      "name": "OLL 12",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' F' f R U R' U' f'",
+      "tip": "Cas 1 suivi du 4",
+      "svg": "svg/oll/12.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll13",
+      "num": 13,
+      "name": "OLL 13",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "R U2' R2' U' R2 U' R2' U2 R",
+      "tip": "Très rapide",
+      "svg": "svg/oll/13.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll14",
+      "num": 14,
+      "name": "OLL 14",
+      "shape": "Les petits L",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "r U r' R U R' U' r U' r'",
+      "tip": "Très facile à apprendre",
+      "svg": "svg/oll/14.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll15",
+      "num": 15,
+      "name": "OLL 15",
+      "shape": "Les petits L",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "l' U' l L' U' L U l' U l",
+      "tip": "Symétrique du cas 14",
+      "svg": "svg/oll/15.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll16",
+      "num": 16,
+      "name": "OLL 16",
+      "shape": "Les petits L",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "R' F R U R' U' F' U R",
+      "tip": "Regardez soigneusement le cas 1 et comparez",
+      "svg": "svg/oll/16.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll17",
+      "num": 17,
+      "name": "OLL 17",
+      "shape": "Croix",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "R U R' U' M' U R U' r'",
+      "tip": "Facile à retenir",
+      "svg": "svg/oll/17.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll18",
+      "num": 18,
+      "name": "OLL 18",
+      "shape": "Croix",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "M U R U R' U' M2 U R U' r'",
+      "tip": "Ressemble au cas 17. Assez rare",
+      "svg": "svg/oll/18.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll19",
+      "num": 19,
+      "name": "OLL 19",
+      "shape": "Les arêtes",
+      "group": "Trigger (R U R' U') — 1 à 19",
+      "alg": "F R U R' U' R F' r U R' U' r'",
+      "tip": "Attention au deuxième trigger, un peu différent",
+      "svg": "svg/oll/19.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll20",
+      "num": 20,
+      "name": "OLL 20",
+      "shape": "Les T",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "R U R' U' R' F R F'",
+      "tip": "Les deux tricks mis à la suite",
+      "svg": "svg/oll/20.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll21",
+      "num": 21,
+      "name": "OLL 21",
+      "shape": "Les S",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "r U R' U' r' F R F'",
+      "tip": "Comme le cas 20 avec des rotations r",
+      "svg": "svg/oll/21.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll22",
+      "num": 22,
+      "name": "OLL 22",
+      "shape": "Les S",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "F' r U R' U' r' F R",
+      "tip": "Comme le cas 21, mais le dernier F est mis au début",
+      "svg": "svg/oll/22.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll23",
+      "num": 23,
+      "name": "OLL 23",
+      "shape": "Les C",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "R' U' R' F R F' U R",
+      "tip": "Le R'U' est défait par le RU",
+      "svg": "svg/oll/23.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll24",
+      "num": 24,
+      "name": "OLL 24",
+      "shape": "Croix",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "R U2 R' R' F R F' U2 R' F R F'",
+      "tip": "Le R'R' est comme un grand R²",
+      "svg": "svg/oll/24.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll25",
+      "num": 25,
+      "name": "OLL 25",
+      "shape": "Les grands L",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "R U2 R' R' F R F' R U2 R'",
+      "tip": "Facile à retenir et rapide. Le R'R' est comme un R²",
+      "svg": "svg/oll/25.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll26",
+      "num": 26,
+      "name": "OLL 26",
+      "shape": "Croix",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "M U R U R' U' M' R' F R F'",
+      "tip": "Facile à retenir — ressemble à l'algorithme 17",
+      "svg": "svg/oll/26.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll27",
+      "num": 27,
+      "name": "OLL 27",
+      "shape": "Les grands L",
+      "group": "Trigger (R' F R F') — 20 à 27",
+      "alg": "R' F R' F' R2 U2 y R' F R F'",
+      "tip": "Attention, il y a R' et non R au début",
+      "svg": "svg/oll/27.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll28",
+      "num": 28,
+      "name": "OLL 28",
+      "shape": "Les W",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "R U R' U R U' R' U' R' F R F'",
+      "tip": "Très rapide à exécuter",
+      "svg": "svg/oll/28.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll29",
+      "num": 29,
+      "name": "OLL 29",
+      "shape": "Les W",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "L' U' L U' L' U L U L F' L' F",
+      "tip": "Symétrique du cas 28, avec la main gauche",
+      "svg": "svg/oll/29.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll30",
+      "num": 30,
+      "name": "OLL 30",
+      "shape": "Les grands L",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "R U R' U R d' R U' R' F' R' U' R U R' d R' U R B",
+      "tip": "Deux bons algorithmes, choisissez votre préféré",
+      "svg": "svg/oll/30.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll31",
+      "num": 31,
+      "name": "OLL 31",
+      "shape": "Les grands L",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "R U R' U R' F R F' U2 R' F R F'",
+      "tip": "Facile à retenir, similaire au cas 24",
+      "svg": "svg/oll/31.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll32",
+      "num": 32,
+      "name": "OLL 32",
+      "shape": "Les grands L",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "F R U R' U R U' R' F' y' U2 R' F R F'",
+      "tip": "On dirait le cas 1",
+      "svg": "svg/oll/32.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll33",
+      "num": 33,
+      "name": "OLL 33",
+      "shape": "Les S",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "r' U2 R U R' U r",
+      "tip": "Facile",
+      "svg": "svg/oll/33.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll34",
+      "num": 34,
+      "name": "OLL 34",
+      "shape": "Les S",
+      "group": "Trick (R U R' U) — 28 à 34",
+      "alg": "r U R' U R U2 r'",
+      "tip": "Petite variante du trick",
+      "svg": "svg/oll/34.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll35",
+      "num": 35,
+      "name": "OLL 35 — Fish",
+      "shape": "Les S",
+      "group": "Fish et dérivés — 35 à 38",
+      "alg": "R U R' U R U2 R'",
+      "tip": "Le fiche classique — très rapide",
+      "svg": "svg/oll/35.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll36",
+      "num": 36,
+      "name": "OLL 36 — Anti-Fish",
+      "shape": "Les S",
+      "group": "Fish et dérivés — 35 à 38",
+      "alg": "R U2 R' U' R U' R'",
+      "tip": "Le Fish inversé, aussi très rapide",
+      "svg": "svg/oll/36.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll37",
+      "num": 37,
+      "name": "OLL 37",
+      "shape": "Les S",
+      "group": "Sune et dérivés — 35 à 38",
+      "alg": "R' U2 R U R' U R y F R U R' U' F'",
+      "tip": "Sune modifié suivi de l'OLL T (cas 1)",
+      "svg": "svg/oll/37.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll38",
+      "num": 38,
+      "name": "OLL 38",
+      "shape": "Les S",
+      "group": "Sune et dérivés — 35 à 38",
+      "alg": "R U R' U R U2 R' F R U R' U' F'",
+      "tip": "Sune classique suivi du cas 1 (OLL T)",
+      "svg": "svg/oll/38.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll39",
+      "num": 39,
+      "name": "OLL 39",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "r U R' U R U' R' U R U2' r'",
+      "tip": "Incroyablement rapide",
+      "svg": "svg/oll/39.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll40",
+      "num": 40,
+      "name": "OLL 40",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "l' U' L U' L' U L U' L' U2 l",
+      "tip": "Symétrique du cas 39",
+      "svg": "svg/oll/40.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll41",
+      "num": 41,
+      "name": "OLL 41",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "r U2 R' U' R U' r'",
+      "tip": "Rapide — ressemble au cas 36 avec r à la place de R",
+      "svg": "svg/oll/41.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll42",
+      "num": 42,
+      "name": "OLL 42",
+      "shape": "Les T",
+      "group": "Cas 39 à 57",
+      "alg": "F R U' R' U' R U R' F'",
+      "tip": "Très rapide — première partie de la PLL T",
+      "svg": "svg/oll/42.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll43",
+      "num": 43,
+      "name": "OLL 43",
+      "shape": "Les S",
+      "group": "Cas 39 à 57",
+      "alg": "r' U' R U' R' U2 r",
+      "tip": "Rapide, ressemble aux Sunes (cas 34–38)",
+      "svg": "svg/oll/43.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll44",
+      "num": 44,
+      "name": "OLL 44",
+      "shape": "Croix",
+      "group": "Cas 39 à 57",
+      "alg": "M' U M U2 M' U M",
+      "tip": "Facile — regardez ce qui arrive à une arête",
+      "svg": "svg/oll/44.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll45",
+      "num": 45,
+      "name": "OLL 45",
+      "shape": "Les C",
+      "group": "Cas 39 à 57",
+      "alg": "R U R2 U' R' F R U R' U' F'",
+      "tip": "Deux bons algorithmes, choisissez le meilleur",
+      "svg": "svg/oll/45.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll46",
+      "num": 46,
+      "name": "OLL 46",
+      "shape": "Les petits L",
+      "group": "Cas 39 à 57",
+      "alg": "F U R U' R2 F' R U R U' R'",
+      "tip": "La dernière partie insère une paire F2L",
+      "svg": "svg/oll/46.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll47",
+      "num": 47,
+      "name": "OLL 47",
+      "shape": "Les petits L",
+      "group": "Cas 39 à 57",
+      "alg": "R' F R U R' F' R y' R U' R'",
+      "tip": "La dernière partie insère un F2L",
+      "svg": "svg/oll/47.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll48",
+      "num": 48,
+      "name": "OLL 48",
+      "shape": "Croix",
+      "group": "Cas 39 à 57",
+      "alg": "R2 D R' U2 R D' R' U2 R'",
+      "tip": "Structure répétitive de la séquence",
+      "svg": "svg/oll/48.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll49",
+      "num": 49,
+      "name": "OLL 49",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "R' U2 R2 U R' U R U2 x' U' R' U",
+      "tip": "Pas le plus agréable à exécuter",
+      "svg": "svg/oll/49.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll50",
+      "num": 50,
+      "name": "OLL 50",
+      "shape": "Les P",
+      "group": "Cas 39 à 57",
+      "alg": "R U B' U' R' U R B R'",
+      "tip": "Le B' n'est pas pratique — essayez avec le pouce",
+      "svg": "svg/oll/50.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll51",
+      "num": 51,
+      "name": "OLL 51",
+      "shape": "Les P",
+      "group": "Cas 39 à 57",
+      "alg": "R' U' F U R U' R' F' R",
+      "tip": "Peut-être un peu mieux que la variante y2",
+      "svg": "svg/oll/51.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll52",
+      "num": 52,
+      "name": "OLL 52",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "R B' R' U' R U B U' R'",
+      "tip": "Utilisez le pouce pour le B'",
+      "svg": "svg/oll/52.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll53",
+      "num": 53,
+      "name": "OLL 53",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "R' F R2 B' R2' F' R2 B R'",
+      "tip": "Utilisez le pouce pour le B'",
+      "svg": "svg/oll/53.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll54",
+      "num": 54,
+      "name": "OLL 54",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "R U R' U' R U' R' F' U' F R U R'",
+      "tip": "Fluide, pas besoin de regrips",
+      "svg": "svg/oll/54.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll55",
+      "num": 55,
+      "name": "OLL 55",
+      "shape": "Les petits L",
+      "group": "Cas 39 à 57",
+      "alg": "R2 U R' B' R U' R2 U R B R'",
+      "tip": "Après le R², le U est aisé sans regrip",
+      "svg": "svg/oll/55.svg",
+      "state": {
+        "top": [
+          "Y",
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "Y"
+        ]
+      }
+    },
+    {
+      "id": "oll56",
+      "num": 56,
+      "name": "OLL 56",
+      "shape": "Les grands L",
+      "group": "Cas 39 à 57",
+      "alg": "R' U' R y' x' R U' R' F R U R'",
+      "tip": "Très agréable après le y'x'. Alt: R U R' U' R' F R2 U R' U' F'",
+      "svg": "svg/oll/56.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tS": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tW": [
+          "Y",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "oll57",
+      "num": 57,
+      "name": "OLL 57",
+      "shape": "Croix",
+      "group": "Cas 39 à 57",
+      "alg": "R U R' y R' F R U' R' F' R",
+      "tip": "Alt: R U R' U R' F R F' R U² R'",
+      "svg": "svg/oll/57.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "Y",
+          "Y",
+          "Y",
+          "G",
+          "G",
+          "Y",
+          "G"
+        ],
+        "tN": [
+          "Y",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    }
+  ],
+  "pll": [
+    {
+      "id": "pll-ua",
+      "num": 1,
+      "name": "U-Perm A",
+      "group": "Permutations d'arêtes",
+      "alg": "R U' R U R U R U' R' U' R2",
+      "tip": "3 arêtes permutées dans le sens horaire",
+      "svg": "svg/pll/ua.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-ub",
+      "num": 2,
+      "name": "U-Perm B",
+      "group": "Permutations d'arêtes",
+      "alg": "R2 U R U R' U' R' U' R' U R'",
+      "tip": "3 arêtes permutées dans le sens anti-horaire",
+      "svg": "svg/pll/ub.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-h",
+      "num": 3,
+      "name": "H-Perm",
+      "group": "Permutations d'arêtes",
+      "alg": "M2 U M2 U2 M2 U M2",
+      "tip": "Échange deux paires d'arêtes opposées",
+      "svg": "svg/pll/h.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-z",
+      "num": 4,
+      "name": "Z-Perm",
+      "group": "Permutations d'arêtes",
+      "alg": "M' U M2 U M2 U M' U2 M2",
+      "tip": "Échange deux paires d'arêtes adjacentes",
+      "svg": "svg/pll/z.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-aa",
+      "num": 5,
+      "name": "A-Perm A",
+      "group": "Permutations de coins",
+      "alg": "x R' U R' D2 R U' R' D2 R2 x'",
+      "tip": "Cycle de 3 coins dans le sens horaire",
+      "svg": "svg/pll/aa.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-ab",
+      "num": 6,
+      "name": "A-Perm B",
+      "group": "Permutations de coins",
+      "alg": "x R2 D2 R U R' D2 R U' R x'",
+      "tip": "Cycle de 3 coins dans le sens anti-horaire",
+      "svg": "svg/pll/ab.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-e",
+      "num": 7,
+      "name": "E-Perm",
+      "group": "Permutations de coins",
+      "alg": "x' R U' R' D R U R' D' R U R' D R U' R' D' x",
+      "tip": "Échange 4 coins en diagonale",
+      "svg": "svg/pll/e.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-ja",
+      "num": 8,
+      "name": "J-Perm A",
+      "group": "Permutations mixtes",
+      "alg": "R' U L' U2 R U' R' U2 R L",
+      "tip": "Échange 2 coins + 2 arêtes adjacents",
+      "svg": "svg/pll/ja.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-jb",
+      "num": 9,
+      "name": "J-Perm B",
+      "group": "Permutations mixtes",
+      "alg": "R U R' F' R U R' U' R' F R2 U' R'",
+      "tip": "Symétrique du J-Perm A",
+      "svg": "svg/pll/jb.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-t",
+      "num": 10,
+      "name": "T-Perm",
+      "group": "Permutations mixtes",
+      "alg": "R U R' U' R' F R2 U' R' U' R U R' F'",
+      "tip": "Échange 2 coins + 2 arêtes opposés",
+      "svg": "svg/pll/t.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-f",
+      "num": 11,
+      "name": "F-Perm",
+      "group": "Permutations mixtes",
+      "alg": "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
+      "tip": "",
+      "svg": "svg/pll/f.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-ra",
+      "num": 12,
+      "name": "R-Perm A",
+      "group": "Permutations mixtes",
+      "alg": "R U' R' U' R U R D R' U' R D' R' U2 R'",
+      "tip": "",
+      "svg": "svg/pll/ra.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-rb",
+      "num": 13,
+      "name": "R-Perm B",
+      "group": "Permutations mixtes",
+      "alg": "R2 F R U R U' R' F' R U2 R' U2 R",
+      "tip": "Symétrique du R-Perm A",
+      "svg": "svg/pll/rb.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-v",
+      "num": 14,
+      "name": "V-Perm",
+      "group": "Permutations mixtes",
+      "alg": "R' U R' U' y R' F' R2 U' R' U R' F R F",
+      "tip": "",
+      "svg": "svg/pll/v.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-y",
+      "num": 15,
+      "name": "Y-Perm",
+      "group": "Permutations mixtes",
+      "alg": "F R U' R' U' R U R' F' R U R' U' R' F R F'",
+      "tip": "",
+      "svg": "svg/pll/y.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-ga",
+      "num": 16,
+      "name": "G-Perm A",
+      "group": "G-Perms",
+      "alg": "R2 U R' U R' U' R U' R2 U' D R' U R D'",
+      "tip": "",
+      "svg": "svg/pll/ga.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-gb",
+      "num": 17,
+      "name": "G-Perm B",
+      "group": "G-Perms",
+      "alg": "R' U' R U D' R2 U R' U R U' R U' R2 D",
+      "tip": "",
+      "svg": "svg/pll/gb.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-gc",
+      "num": 18,
+      "name": "G-Perm C",
+      "group": "G-Perms",
+      "alg": "R2 U' R U' R U R' U R2 U D' R U' R' D",
+      "tip": "Symétrique du G-Perm A",
+      "svg": "svg/pll/gc.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-gd",
+      "num": 19,
+      "name": "G-Perm D",
+      "group": "G-Perms",
+      "alg": "R U R' U' D R2 U' R U' R' U R' U R2 D'",
+      "tip": "Symétrique du G-Perm B",
+      "svg": "svg/pll/gd.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-na",
+      "num": 20,
+      "name": "N-Perm A",
+      "group": "N-Perms",
+      "alg": "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'",
+      "tip": "Le plus long PLL",
+      "svg": "svg/pll/na.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "pll-nb",
+      "num": 21,
+      "name": "N-Perm B",
+      "group": "N-Perms",
+      "alg": "R' U L' U2 R U' L R' U L' U2 R U' L",
+      "tip": "Symétrique du N-Perm A",
+      "svg": "svg/pll/nb.svg",
+      "state": {
+        "top": [
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y",
+          "Y"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    }
+  ],
+  "f2l": [
+    {
+      "id": "f2l-01",
+      "num": 1,
+      "name": "Base droite",
+      "group": "Coin et arête sur U",
+      "alg": "U R U' R'",
+      "tip": "Le cas le plus courant — à apprendre en premier",
+      "svg": "svg/f2l/01.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-02",
+      "num": 2,
+      "name": "Base gauche",
+      "group": "Coin et arête sur U",
+      "alg": "U' L' U L",
+      "tip": "Symétrique du cas de base",
+      "svg": "svg/f2l/02.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "Y"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-03",
+      "num": 3,
+      "name": "Arête retournée",
+      "group": "Coin et arête sur U",
+      "alg": "R U' R' U R U' R'",
+      "tip": "Coin et arête orientés correctement mais arête à l'envers",
+      "svg": "svg/f2l/03.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-04",
+      "num": 4,
+      "name": "Coin U, arête en place",
+      "group": "Coin et arête sur U",
+      "alg": "R U2 R' U' R U R'",
+      "tip": "",
+      "svg": "svg/f2l/04.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-05",
+      "num": 5,
+      "name": "Coin U, arête slot voisin",
+      "group": "Coin et arête sur U",
+      "alg": "U' R U2 R' U R U' R'",
+      "tip": "",
+      "svg": "svg/f2l/05.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-06",
+      "num": 6,
+      "name": "Les deux alignés sur U",
+      "group": "Coin et arête sur U",
+      "alg": "U R U' R' U' F' U F",
+      "tip": "",
+      "svg": "svg/f2l/06.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-07",
+      "num": 7,
+      "name": "Coin ok, arête sur U",
+      "group": "Coin en place — arête déplacée",
+      "alg": "R U' R' U R U' R'",
+      "tip": "",
+      "svg": "svg/f2l/07.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-08",
+      "num": 8,
+      "name": "Coin ok, arête retournée",
+      "group": "Coin en place — arête déplacée",
+      "alg": "R U R' U' R U R'",
+      "tip": "",
+      "svg": "svg/f2l/08.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "Y",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-09",
+      "num": 9,
+      "name": "Coin sur U, arête orientée",
+      "group": "Coin sur U — arête dans slot",
+      "alg": "R U2 R' U' R U R'",
+      "tip": "",
+      "svg": "svg/f2l/09.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "Y",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "f2l-10",
+      "num": 10,
+      "name": "Coin sur U, arête retournée",
+      "group": "Coin sur U — arête dans slot",
+      "alg": "R U' R' U2 R U' R'",
+      "tip": "",
+      "svg": "svg/f2l/10.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    }
+  ],
+  "croix": [
+    {
+      "id": "cx-01",
+      "num": 1,
+      "name": "Ligne → Croix",
+      "group": "Cas utiles",
+      "alg": "F R U R' U' F'",
+      "tip": "Utiliser quand 2 arêtes opposées sont déjà orientées",
+      "svg": "svg/croix/01.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "cx-02",
+      "num": 2,
+      "name": "L → Croix",
+      "group": "Cas utiles",
+      "alg": "F U R U' R' F'",
+      "tip": "Utiliser quand 2 arêtes adjacentes sont déjà orientées",
+      "svg": "svg/croix/02.svg",
+      "state": {
+        "top": [
+          "G",
+          "Y",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "Y",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "cx-03",
+      "num": 3,
+      "name": "Dot → Croix (étape 1)",
+      "group": "Cas utiles",
+      "alg": "F R U R' U' F'",
+      "tip": "Aucune arête orientée — appliquer deux fois en tournant",
+      "svg": "svg/croix/03.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    },
+    {
+      "id": "cx-04",
+      "num": 4,
+      "name": "Dot → Croix (étape 2)",
+      "group": "Cas utiles",
+      "alg": "f R U R' U' f'",
+      "tip": "Deuxième étape — variante avec f",
+      "svg": "svg/croix/04.svg",
+      "state": {
+        "top": [
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G",
+          "G"
+        ],
+        "tN": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tS": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tW": [
+          "G",
+          "G",
+          "G"
+        ],
+        "tE": [
+          "G",
+          "G",
+          "G"
+        ]
+      }
+    }
+  ]
+}

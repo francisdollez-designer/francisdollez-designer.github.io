@@ -1,0 +1,61 @@
+{
+  "projects": [
+    {
+      "id": "domifa",
+      "title": "DomiFa",
+      "client": "Ministère des Solidarités · DNUM",
+      "period": "2025 — aujourd'hui",
+      "role": "Lead Product Designer UX/UI",
+      "type": "freelance",
+      "headline": "+600 000 dossiers de personnes sans domicile stable",
+      "metrics": ["6 portails redesignés", "DSFR · RGAA", "+1 500 structures"],
+      "tags": [
+        {"label": "Product Design", "color": "ux"},
+        {"label": "DNUM", "color": "dark"},
+        {"label": "UX Design", "color": "ui"},
+        {"label": "User Centric", "color": "lead"}
+      ],
+      "color": "ux",
+      "featured": true
+    },
+    {
+      "id": "eurosport",
+      "title": "Eurosport",
+      "client": "Discovery · Warner Bros",
+      "period": "2022 — 2025",
+      "role": "Lead Product Designer",
+      "type": "cdi",
+      "headline": "CMS international lancé aux JO Paris 2024",
+      "metrics": ["~100 journalistes", "15 pays", "Adoption sans formation"],
+      "tags": [
+        {"label": "Product Design", "color": "ux"},
+        {"label": "Média", "color": "ui"},
+        {"label": "User Centric", "color": "lead"}
+      ],
+      "color": "ui",
+      "featured": true
+    },
+    {
+      "id": "datanumia",
+      "title": "EDF · Datanumia",
+      "client": "Groupe EDF",
+      "period": "2011 — 2022",
+      "role": "Lead UX/UI Designer",
+      "type": "cdi",
+      "headline": "20 millions d'utilisateurs · 87% de satisfaction",
+      "metrics": ["20M utilisateurs", "87% satisfaction", "200M visites/an"],
+      "tags": [
+        {"label": "Lead Design", "color": "lead"},
+        {"label": "Énergie", "color": "red"},
+        {"label": "B2B · B2C", "color": "dark"}
+      ],
+      "color": "lead",
+      "featured": true
+    }
+  ],
+  "stats": [
+    {"value": "20M", "label": "utilisateurs EDF", "sub": "87% de satisfaction"},
+    {"value": "15 ans", "label": "d'expérience senior", "sub": "EDF · Eurosport · DNUM"},
+    {"value": "JO 2024", "label": "CMS Eurosport", "sub": "en conditions live"}
+  ]
+}
