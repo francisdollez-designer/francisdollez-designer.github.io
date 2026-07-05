@@ -49,17 +49,17 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   transition-delay:calc(var(--d) * 35ms);
 }
 .fab-label{
-  background:#fff;color:var(--dark);font-size:12px;font-weight:700;
+  background:#fff;color:var(--dark);font-size:16px;font-weight:700;
   padding:6px 12px;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.14);
   white-space:nowrap;
 }
 .fab-mini{
-  width:46px;height:46px;border-radius:50%;background:#fff;
+  width:70px;height:70px;border-radius:50%;background:#fff;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   box-shadow:0 3px 12px rgba(0,0,0,.16);border:2px solid transparent;
   -webkit-tap-highlight-color:transparent;flex-shrink:0;
 }
-.fab-mini .ncube{width:24px;height:24px}
+.fab-mini .ncube{width:35px;height:35px}
 .fab-mini.active{border-color:var(--ref)}
 .fab-main{
   width:58px;height:58px;border-radius:50%;background:var(--dark);
@@ -114,7 +114,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 /* ── CARD ── */
 .card{
   background:var(--bg);border-radius:var(--r);
-  padding:10px 50px 8px;display:flex;flex-direction:column;
+  padding:10px 40px 8px;display:flex;flex-direction:column;
   align-items:center;gap:5px;cursor:pointer;
   border:2px solid transparent;text-align:center;
   transition:border-color .12s,box-shadow .12s,transform .1s;
@@ -264,7 +264,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .col-btn.active{border-color:var(--c);background:#fff}
 .leg{display:flex;flex-direction:column;gap:9px}
 .moves-cat-h{
-  font-size:12px;font-weight:800;color:var(--mid);
+  font-size:16px;font-weight:800;color:var(--mid);
   text-transform:uppercase;letter-spacing:.08em;margin:22px 2px 10px;
 }
 .moves-cat-h:first-child{margin-top:0}
@@ -315,7 +315,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
         <span>Méthode Fridrich</span>
       </button>
       <button class="menu-link" data-view="moves" onclick="goPage('moves')">
-        <span>Mouvements</span>
+        <span>Liste de mouvements</span>
       </button>
       <button class="menu-link" data-view="settings" onclick="goPage('settings')">
         <span>Paramètres</span>
@@ -358,8 +358,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 <div class="fab-scrim" id="fabScrim" onclick="fabClose()"></div>
 <div class="fab-nav" id="fabNav">
   <div class="fab-item" style="--d:3">
-    <span class="fab-label">Croix</span>
-    <button class="fab-mini" data-tab="croix" onclick="selectTab('croix')"><div class="ncube" id="nc-croix"></div></button>
+      <span class="fab-label">Croix</span>
+    <button class="fab-mini" data-tab="croix" onclick="selectTab('croix')"> <div class="ncube" id="nc-croix"></div></button>
   </div>
   <div class="fab-item" style="--d:2">
     <span class="fab-label">F2L</span>
@@ -397,7 +397,7 @@ const META = {
   oll:   { title:'OLL — Orient Last Layer',   sub:'57 cas · orienter la dernière couche en une séquence' },
   pll:   { title:'PLL — Permut Last Layer',   sub:'21 cas · permuter la dernière couche' },
   f2l:   { title:'F2L — First Two Layers',    sub:'Insérer coin + arête simultanément' },
-  croix: { title:'Croix — Première couche',   sub:'Former la croix sur la face blanche' },
+  croix: { title:'Croix — Première couche',   sub:'La croix est faisable en 7 mouvements' },
 };
 
 // ══════════════════════════════════════════════════════
@@ -464,7 +464,7 @@ function showFab(visible){
 
 function updateHeader(){
   const titles = {
-    app:'Méthode Fridrich', moves:'Mouvements',
+    app:'Méthode Fridrich', moves:'Listes de mouvements',
     settings:'Paramètres', beginner:'Méthode débutant'
   };
   document.getElementById('headerTitle').textContent = titles[curView] || 'Méthode Fridrich';
@@ -501,8 +501,7 @@ function renderMovesPage(){
     </div>`).join('');
   m.innerHTML = `<div class="section-wrap">
     <div class="section-head">
-      <div class="section-title">Mouvements</div>
-      <div class="section-sub">Légende complète de la notation WCA</div>
+      <div class="section-sub">Listes complètes des mouvements illustrer par des schéma simple</div>
     </div>
     ${html}
   </div>`;
