@@ -62,7 +62,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .fab-mini .ncube{width:35px;height:35px}
 .fab-mini.active{border-color:var(--ref)}
 .fab-main{
-  width:58px;height:58px;border-radius:50%;background:var(--dark);
+  width:45px;height:45px;border-radius:50%;background:var(--dark);
   border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
   box-shadow:0 4px 18px rgba(0,0,0,.28);-webkit-tap-highlight-color:transparent;
 }
@@ -358,7 +358,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 
 <div class="fab-scrim" id="fabScrim" onclick="fabClose()"></div>
 <div class="fab-nav" id="fabNav">
- 
   <div class="fab-item" style="--d:3">
       <span class="fab-label">Croix</span>
     <button class="fab-mini" data-tab="croix" onclick="selectTab('croix')"> <div class="ncube" id="nc-croix"></div></button>
@@ -383,10 +382,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <rect x="14" y="14" width="7" height="7" rx="2" fill="#fff"/>
     </svg>
   </button>
-  
 </div>
-
-
 
 <script>
 // ══════════════════════════════════════════════════════
@@ -665,10 +661,8 @@ function cc(c){ return c==='Y' ? REF : c==='G' ? '#a2acae' : c; }
 
 // Retourne l'illustration Figma réelle si disponible pour ce cas (actuellement PLL),
 // sinon le rendu généré à partir de state (fallback).
-// Le jaune fixe (#FFCC41) des illustrations PLL est remplacé à la volée par la
-// couleur de référence choisie (REF), pour rester cohérent avec les OLL.
 function pieceSVG(c, sz){
-  if (PLLSVG[c.id]) return PLLSVG[c.id].replaceAll('#FFCC41', REF);
+  if (PLLSVG[c.id]) return PLLSVG[c.id];
   return cubesvg(c.state, sz);
 }
 
