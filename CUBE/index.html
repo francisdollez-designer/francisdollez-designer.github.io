@@ -33,7 +33,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .fab-nav{
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(16px + var(--safe));
-  z-index:99;display:flex;align-items:center;gap:2px;
+  z-index:150;display:flex;align-items:center;gap:2px;
   background:#fff;border-radius:24px;padding:6px;
   box-shadow:0 4px 20px rgba(0,0,0,.18);
 }
@@ -673,7 +673,7 @@ function pieceSVG(c, sz){
 // pour éviter qu'un remplacement n'en écrase un autre en cours de route.
 function recolorPLL(svg){
   const scheme = COLOR_SCHEMES[REF] || COLOR_SCHEMES['#FFCC41'];
-  return svg
+  let out = svg
     .replaceAll(DEFAULT_SIDES.front, '§F§')
     .replaceAll(DEFAULT_SIDES.back,  '§B§')
     .replaceAll(DEFAULT_SIDES.left,  '§L§')
@@ -683,6 +683,15 @@ function recolorPLL(svg){
     .replaceAll('§B§', scheme.back)
     .replaceAll('§L§', scheme.left)
     .replaceAll('§R§', scheme.right);
+
+  // Sur fond Rouge ou Bleu, les flèches noires/brunes se lisent mal :
+  // on les repasse en blanc pour garder un bon contraste.
+  if (REF === '#E92929' || REF === '#0094FE') {
+    out = out
+      .replaceAll('fill="black"', 'fill="#ffffff"')
+      .replaceAll('fill="#912F2F"', 'fill="#ffffff"');
+  }
+  return out;
 }
 
 function cubesvg(s, sz){
