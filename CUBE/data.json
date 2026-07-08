@@ -1070,7 +1070,7 @@
       "name": "OLL 25",
       "shape": "Poisson",
       "group": "Trigger (R' F R F') — 20 à 27",
-      "alg": "R U2 R' R' F R F' R U2 R'",
+      "alg": "R U2 R2 F R F' R U2 R'",
       "tip": "Facile à retenir et rapide. Le R'R' est comme un R²",
       "svg": "svg/oll/25.svg",
       "state": {
@@ -2483,6 +2483,7 @@
         ]
       }
     }
+    
   ],
   "pll": [
     {
