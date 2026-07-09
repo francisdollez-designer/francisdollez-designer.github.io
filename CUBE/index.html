@@ -390,6 +390,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <button class="menu-x" onclick="menuClose()">✕</button>
     </div>
     <nav class="menu-nav">
+      <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
+        <span>Chrono</span>
+      </button>
       <button class="menu-link" data-view="beginner" onclick="goPage('beginner')">
         <span>Méthode débutant</span><span class="menu-soon">Bientôt</span>
       </button>
@@ -399,9 +402,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <button class="menu-link" data-view="moves" onclick="goPage('moves')">
         <span>Liste de mouvements</span>
       </button>
-      <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
-        <span>Chrono</span>
-      </button>
+      
       <button class="menu-link" data-view="settings" onclick="goPage('settings')">
         <span>Paramètres</span>
       </button>
