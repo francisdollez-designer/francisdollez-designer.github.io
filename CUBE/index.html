@@ -278,11 +278,16 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   display:flex;flex-direction:column;align-items:center;gap:28px;
   padding:8px 14px 110px;max-width:460px;margin:0 auto;
 }
+.chrono-wrap.chrono-center{
+  min-height:calc(100dvh - 54px);
+  justify-content:center;
+}
 .chrono-time{
   font-size:clamp(56px,15vw,88px);font-weight:900;letter-spacing:-.02em;
   color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;
   text-align:center;
 }
+.chrono-time .t-sub{font-size:.42em;font-weight:800;opacity:.8;letter-spacing:0}
 .chrono-btn-stack{display:flex;flex-direction:column;gap:12px;width:100%}
 .chrono-btn{
   width:100%;padding:19px;border-radius:50px;border:none;cursor:pointer;
@@ -342,16 +347,25 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   background:color-mix(in srgb,var(--ref) 40%,transparent);
   padding:4px 12px;border-radius:20px;
 }
+.history-del{
+  position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;
+  color:var(--mid);width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .12s,color .12s;-webkit-tap-highlight-color:transparent;
+}
+.history-del:hover{background:#e4e4e4;color:#c0392b}
+.history-del svg{width:16px;height:16px}
 .history-date-head{
   font-size:12px;font-weight:800;color:var(--mid);width:100%;
-  text-transform:uppercase;letter-spacing:.07em;margin:18px 2px 2px;
+  text-transform:uppercase;letter-spacing:.07em;margin:8px 2px 0;
 }
 .history-date-head:first-child{margin-top:0}
 .history-row-compact{
-  background:var(--bg);border-radius:var(--r);padding:14px;width:100%;
+  background:var(--bg);border-radius:var(--r);padding:14px;width:100%;position:relative;
   display:flex;align-items:center;justify-content:center;
 }
 .history-row-compact .history-time{font-size:24px}
+.history-row-compact .history-del{top:50%;transform:translateY(-50%);right:12px}
 
 /* ── LOADING ── */
 .loading{
@@ -682,9 +696,21 @@ function initChrono(){
 function loadRecords(){
   try{ CHRONO_RECORDS = JSON.parse(localStorage.getItem(CHRONO_KEY) || '[]'); }
   catch(e){ CHRONO_RECORDS = []; }
+  let needsSave = false;
+  CHRONO_RECORDS.forEach(r => {
+    if(!r.id){ r.id = r.date + '-' + Math.random().toString(36).slice(2,7); needsSave = true; }
+  });
+  if(needsSave) saveRecords();
 }
 function saveRecords(){
   localStorage.setItem(CHRONO_KEY, JSON.stringify(CHRONO_RECORDS));
+}
+
+function deleteRecord(id){
+  if(!confirm('Supprimer ce temps ?')) return;
+  CHRONO_RECORDS = CHRONO_RECORDS.filter(r => r.id !== id);
+  saveRecords();
+  renderChronoPage();
 }
 
 function genScramble(len = 18){
@@ -717,6 +743,15 @@ function formatTime(ms){
     : `${sec}.${pad2(cs)}`;
 }
 
+// Découpe le temps en "grande" partie + centièmes plus petits (effet dynamique)
+function formatTimeHTML(ms){
+  const full = formatTime(ms);
+  const lastDot = full.lastIndexOf('.');
+  const main = full.slice(0, lastDot);
+  const sub = full.slice(lastDot + 1);
+  return `${main}<span class="t-sub">.${sub}</span>`;
+}
+
 function formatDateFR(iso){
   const d = new Date(iso);
   return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
@@ -732,8 +767,8 @@ function renderChronoPage(){
 // ── Écran 01 : présentation ──
 function renderChronoMain(){
   const m = document.getElementById('main');
-  m.innerHTML = `<div class="chrono-wrap">
-    <div class="chrono-time">0.00</div>
+  m.innerHTML = `<div class="chrono-wrap chrono-center">
+    <div class="chrono-time">0<span class="t-sub">.00</span></div>
     <div class="chrono-btn-stack">
       <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">Démarrer</button>
       <button class="chrono-btn chrono-btn-secondary" onclick="newScramble()">Réinitialiser</button>
@@ -776,11 +811,11 @@ function startChrono(){
   chronoRunning = true;
   chronoStartTs = performance.now();
   document.getElementById('chronoRunOv').classList.add('open');
-  document.getElementById('chronoRunTime').textContent = '0.00';
+  document.getElementById('chronoRunTime').innerHTML = '0<span class="t-sub">.00</span>';
   const tick = () => {
     if(!chronoRunning) return;
     const elapsed = performance.now() - chronoStartTs;
-    document.getElementById('chronoRunTime').textContent = formatTime(elapsed);
+    document.getElementById('chronoRunTime').innerHTML = formatTimeHTML(elapsed);
     chronoRAF = requestAnimationFrame(tick);
   };
   chronoRAF = requestAnimationFrame(tick);
@@ -797,7 +832,8 @@ function stopChrono(){
     ? Math.min(...CHRONO_RECORDS.map(r => r.ms)) : null;
   const isRecord = bestBefore === null || elapsed < bestBefore;
 
-  CHRONO_RECORDS.push({ ms: elapsed, date: new Date().toISOString(), scramble: curScramble });
+  const id = Date.now() + '-' + Math.random().toString(36).slice(2,7);
+  CHRONO_RECORDS.push({ id, ms: elapsed, date: new Date().toISOString(), scramble: curScramble });
   saveRecords();
 
   lastResult = { ms: elapsed, isRecord };
@@ -809,9 +845,9 @@ function stopChrono(){
 function renderChronoResult(){
   const m = document.getElementById('main');
   const msg = lastResult?.isRecord ? '🎉 Bravo ! Nouveau record battu !' : '';
-  m.innerHTML = `<div class="chrono-wrap">
+  m.innerHTML = `<div class="chrono-wrap chrono-center">
     ${msg ? `<div class="result-message">${msg}</div>` : ''}
-    <div class="chrono-time">${formatTime(lastResult?.ms || 0)}</div>
+    <div class="chrono-time">${formatTimeHTML(lastResult?.ms || 0)}</div>
     <div class="chrono-btn-stack">
       <button class="chrono-btn chrono-btn-primary" onclick="resultNewScramble()">Nouveau mélange</button>
     </div>
@@ -825,6 +861,11 @@ function resultNewScramble(){
   renderChronoPage();
 }
 
+const TRASH_SVG = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m-9 0 1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+</svg>`;
+
 // ── Écran 05 : historique — meilleures performances ──
 function renderHistoryBest(){
   const m = document.getElementById('main');
@@ -832,6 +873,7 @@ function renderHistoryBest(){
   const rows = sorted.length
     ? sorted.map((r,i) => `
         <div class="history-row">
+          <button class="history-del" onclick="deleteRecord('${r.id}')" aria-label="Supprimer">${TRASH_SVG}</button>
           ${i===0 ? `<div class="history-badge">🎉 Meilleurs temps</div>` : ''}
           <div class="history-time">${formatTime(r.ms)}</div>
           <div class="history-date">${formatDateFR(r.date)}</div>
@@ -862,13 +904,14 @@ function renderHistoryDate(){
         <div class="history-date-head">${key}</div>
         ${groups[key].map(r => `
           <div class="history-row-compact">
+            <button class="history-del" onclick="deleteRecord('${r.id}')" aria-label="Supprimer">${TRASH_SVG}</button>
             <div class="history-time">${formatTime(r.ms)}</div>
           </div>`).join('')}`).join('')
     : `<div class="empty-block">Aucun résultat pour l'instant.</div>`;
 
   m.innerHTML = `<div class="chrono-wrap">
     ${historyTabsHTML()}
-    ${body}
+    <div class="history-list">${body}</div>
   </div>`;
   m.scrollTop = 0;
 }
