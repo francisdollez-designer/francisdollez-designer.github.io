@@ -271,88 +271,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   color:#1a1a1a;min-width:44px;text-align:center;display:inline-block;flex-shrink:0;
 }
 
-/* ══════════════════════════════════════════════════════
-   CHRONO
-   ══════════════════════════════════════════════════════ */
-.chrono-wrap{
-  display:flex;flex-direction:column;align-items:center;gap:28px;
-  padding:8px 14px 110px;max-width:460px;margin:0 auto;
-}
-.chrono-time{
-  font-size:clamp(56px,15vw,88px);font-weight:900;letter-spacing:-.02em;
-  color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;
-  text-align:center;
-}
-.chrono-btn-stack{display:flex;flex-direction:column;gap:12px;width:100%}
-.chrono-btn{
-  width:100%;padding:19px;border-radius:50px;border:none;cursor:pointer;
-  font-size:18px;font-weight:800;-webkit-tap-highlight-color:transparent;
-  transition:transform .1s,opacity .15s;
-}
-.chrono-btn:active{transform:scale(.97)}
-.chrono-btn-primary{background:var(--ref);color:var(--dark)}
-.chrono-btn-secondary{background:var(--bg);color:var(--dark)}
-
-.scramble-card{
-  background:var(--bg);border-radius:var(--r);padding:20px 18px;
-  display:flex;flex-direction:column;gap:12px;align-items:center;width:100%;
-}
-.scramble-text{
-  font-size:15px;font-weight:800;letter-spacing:.03em;text-align:center;
-  line-height:1.7;color:var(--dark);word-break:break-all;
-}
-.scramble-text sup{font-size:10px;vertical-align:super}
-.scramble-link{
-  display:flex;align-items:center;gap:6px;background:none;border:none;
-  cursor:pointer;font-size:13px;font-weight:700;color:var(--mid);
-  padding:8px 14px;border-radius:20px;transition:background .12s;
-  -webkit-tap-highlight-color:transparent;
-}
-.scramble-link:hover{background:#e8e8e8}
-.scramble-link svg{width:17px;height:17px;flex-shrink:0}
-
-/* Écran chrono en cours — plein écran, fond coloré */
-.chrono-run-ov{
-  position:fixed;inset:0;z-index:150;background:var(--ref);
-  display:none;flex-direction:column;align-items:center;justify-content:center;gap:56px;
-  padding:24px;
-}
-.chrono-run-ov.open{display:flex}
-.chrono-run-ov .chrono-time{font-size:clamp(64px,20vw,120px)}
-.chrono-run-ov .chrono-btn{max-width:260px;background:#fff;color:var(--dark)}
-
-.result-message{
-  font-size:16px;font-weight:800;color:var(--dark);text-align:center;
-  line-height:1.4;padding:0 10px;
-}
-
-/* Sous-nav chrono (Timer / Résultats) — même style que fab-nav */
-.chrono-nav-icon{width:26px;height:26px;pointer-events:none}
-
-/* Onglets historique (réutilise .chips / .chip) */
-.history-list{display:flex;flex-direction:column;width:100%;gap:10px}
-.history-row{
-  background:var(--bg);border-radius:var(--r);padding:16px;position:relative;
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-}
-.history-time{font-size:32px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
-.history-date{font-size:13px;color:var(--mid);font-weight:600}
-.history-badge{
-  align-self:center;font-size:11px;font-weight:800;color:var(--dark);
-  background:color-mix(in srgb,var(--ref) 40%,transparent);
-  padding:4px 12px;border-radius:20px;
-}
-.history-date-head{
-  font-size:12px;font-weight:800;color:var(--mid);width:100%;
-  text-transform:uppercase;letter-spacing:.07em;margin:18px 2px 2px;
-}
-.history-date-head:first-child{margin-top:0}
-.history-row-compact{
-  background:var(--bg);border-radius:var(--r);padding:14px;width:100%;
-  display:flex;align-items:center;justify-content:center;
-}
-.history-row-compact .history-time{font-size:24px}
-
 /* ── LOADING ── */
 .loading{
   display:flex;align-items:center;justify-content:center;
@@ -384,9 +302,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       </button>
       <button class="menu-link" data-view="moves" onclick="goPage('moves')">
         <span>Liste de mouvements</span>
-      </button>
-      <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
-        <span>Chrono</span>
       </button>
       <button class="menu-link" data-view="settings" onclick="goPage('settings')">
         <span>Paramètres</span>
@@ -445,34 +360,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   </button>
 </nav>
 
-<!-- ══ CHRONO : sous-nav Timer / Résultats (même style que fab-nav) ══ -->
-<nav class="fab-nav" id="chronoNav" style="display:none">
-  <button class="fab-item active" data-ctab="timer">
-    <div class="chrono-nav-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 9v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M9 2h6M12 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <span class="fab-label">Timer</span>
-  </button>
-  <button class="fab-item" data-ctab="history">
-    <div class="chrono-nav-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <span class="fab-label">Résultats</span>
-  </button>
-</nav>
-
-<!-- ══ CHRONO : écran plein écran pendant la résolution ══ -->
-<div class="chrono-run-ov" id="chronoRunOv">
-  <div class="chrono-time" id="chronoRunTime">0.00</div>
-  <button class="chrono-btn" onclick="stopChrono()">Stop</button>
-</div>
-
 <script>
 // ══════════════════════════════════════════════════════
 //  STATE
@@ -481,18 +368,7 @@ let DB = null;
 let REF = '#ffbb27';
 let curTab = 'oll';
 let curFilter = 'all';
-let curView = 'app'; // 'app' | 'moves' | 'settings' | 'beginner' | 'chrono'
-
-// ── Chrono ──
-let chronoTab = 'timer';      // 'timer' | 'history'
-let chronoScreen = 'main';    // 'main' | 'result'
-let historyMode = 'best';     // 'best' | 'date'
-let curScramble = '';
-let chronoRunning = false;
-let chronoStartTs = 0;
-let chronoRAF = null;
-let lastResult = null;        // { ms, isRecord }
-let CHRONO_RECORDS = [];
+let curView = 'app'; // 'app' | 'moves' | 'settings' | 'beginner'
 
 const META = {
   oll:   { title:'OLL — Orient Last Layer',   sub:'57 cas · orienter la dernière couche en une séquence' },
@@ -537,7 +413,7 @@ function go(tab){
   curTab = tab;
   curFilter = 'all';
   curView = 'app';
-  document.querySelectorAll('#fabNav .fab-item').forEach(b =>
+  document.querySelectorAll('.fab-item').forEach(b =>
     b.classList.toggle('active', b.dataset.tab === tab));
   updateHeader();
   updateMenuActive();
@@ -571,13 +447,13 @@ function bindTap(el, fn){
     fn();
   });
 }
-document.querySelectorAll('#fabNav .fab-item').forEach(b =>
+document.querySelectorAll('.fab-item').forEach(b =>
   bindTap(b, () => selectTab(b.dataset.tab)));
 
 function updateHeader(){
   const titles = {
     app:'Méthode Fridrich', moves:'Listes de mouvements',
-    settings:'Paramètres', beginner:'Méthode débutant', chrono:'Chrono'
+    settings:'Paramètres', beginner:'Méthode débutant'
   };
   document.getElementById('headerTitle').textContent = titles[curView] || 'Méthode Fridrich';
 }
@@ -592,23 +468,10 @@ function goPage(view){
   updateHeader();
   updateMenuActive();
   showFab(view === 'app');
-  showChronoNav(view === 'chrono');
   if(view==='app') render();
   else if(view==='moves') renderMovesPage();
   else if(view==='settings') renderSettingsPage();
   else if(view==='beginner') renderBeginnerPage();
-  else if(view==='chrono'){
-    chronoTab = 'timer';
-    chronoScreen = 'main';
-    document.querySelectorAll('#chronoNav .fab-item').forEach(b =>
-      b.classList.toggle('active', b.dataset.ctab === 'timer'));
-    initChrono();
-    renderChronoPage();
-  }
-}
-
-function showChronoNav(visible){
-  document.getElementById('chronoNav').style.display = visible ? '' : 'none';
 }
 
 function renderMovesPage(){
@@ -668,234 +531,6 @@ function renderBeginnerPage(){
   </div>`;
   m.scrollTop = 0;
 }
-
-// ══════════════════════════════════════════════════════
-//  CHRONO
-// ══════════════════════════════════════════════════════
-const CHRONO_KEY = 'cfop_chrono_records';
-
-function initChrono(){
-  loadRecords();
-  if(!curScramble) curScramble = genScramble();
-}
-
-function loadRecords(){
-  try{ CHRONO_RECORDS = JSON.parse(localStorage.getItem(CHRONO_KEY) || '[]'); }
-  catch(e){ CHRONO_RECORDS = []; }
-}
-function saveRecords(){
-  localStorage.setItem(CHRONO_KEY, JSON.stringify(CHRONO_RECORDS));
-}
-
-function genScramble(len = 18){
-  const FACES = ['U','D','L','R','F','B'];
-  const MODS  = ['', "'", '2'];
-  const axisOf = f => ({U:'y',D:'y',L:'x',R:'x',F:'z',B:'z'}[f]);
-  const seq = [];
-  let lastFace = null, lastAxis = null;
-  while(seq.length < len){
-    const f = FACES[Math.floor(Math.random() * FACES.length)];
-    if(f === lastFace) continue;
-    if(axisOf(f) === lastAxis && Math.random() < 0.7) continue;
-    const mod = MODS[Math.floor(Math.random() * MODS.length)];
-    seq.push(f + mod);
-    lastFace = f; lastAxis = axisOf(f);
-  }
-  return seq.join(' ');
-}
-
-function pad2(n){ return String(n).padStart(2,'0'); }
-
-function formatTime(ms){
-  const totalCs = Math.floor(ms / 10);
-  const cs = totalCs % 100;
-  const totalSec = Math.floor(totalCs / 100);
-  const sec = totalSec % 60;
-  const min = Math.floor(totalSec / 60);
-  return min > 0
-    ? `${min}.${pad2(sec)}.${pad2(cs)}`
-    : `${sec}.${pad2(cs)}`;
-}
-
-function formatDateFR(iso){
-  const d = new Date(iso);
-  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
-}
-
-// ── Dispatch ──
-function renderChronoPage(){
-  if(chronoScreen === 'result') return renderChronoResult();
-  if(chronoTab === 'timer') return renderChronoMain();
-  return historyMode === 'best' ? renderHistoryBest() : renderHistoryDate();
-}
-
-// ── Écran 01 : présentation ──
-function renderChronoMain(){
-  const m = document.getElementById('main');
-  m.innerHTML = `<div class="chrono-wrap">
-    <div class="chrono-time">0.00</div>
-    <div class="chrono-btn-stack">
-      <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">Démarrer</button>
-      <button class="chrono-btn chrono-btn-secondary" onclick="newScramble()">Réinitialiser</button>
-    </div>
-    <div class="scramble-card">
-      <div class="scramble-text">${fmt(curScramble)}</div>
-      <button class="scramble-link" onclick="openScramblePopup()">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-        </svg>
-        Voir le mélange
-      </button>
-    </div>
-  </div>`;
-  m.scrollTop = 0;
-}
-
-function newScramble(){
-  curScramble = genScramble();
-  renderChronoMain();
-}
-
-// ── Popup mélange (réutilise le popOv existant) ──
-function openScramblePopup(){
-  document.getElementById('pName').textContent = 'Mélange à réaliser';
-  document.getElementById('pTag').style.display = 'none';
-  document.getElementById('pShape').style.display = 'none';
-  document.getElementById('pCube').style.display = 'none';
-  document.getElementById('pAlg').innerHTML = fmt(curScramble);
-  document.getElementById('pMoves').innerHTML = buildMovesHTML(curScramble);
-  const tipEl = document.getElementById('pTip');
-  tipEl.style.display = 'none';
-  document.getElementById('popOv').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-// ── Écran 03 : chrono en cours ──
-function startChrono(){
-  chronoRunning = true;
-  chronoStartTs = performance.now();
-  document.getElementById('chronoRunOv').classList.add('open');
-  document.getElementById('chronoRunTime').textContent = '0.00';
-  const tick = () => {
-    if(!chronoRunning) return;
-    const elapsed = performance.now() - chronoStartTs;
-    document.getElementById('chronoRunTime').textContent = formatTime(elapsed);
-    chronoRAF = requestAnimationFrame(tick);
-  };
-  chronoRAF = requestAnimationFrame(tick);
-}
-
-function stopChrono(){
-  if(!chronoRunning) return;
-  chronoRunning = false;
-  if(chronoRAF) cancelAnimationFrame(chronoRAF);
-  const elapsed = performance.now() - chronoStartTs;
-  document.getElementById('chronoRunOv').classList.remove('open');
-
-  const bestBefore = CHRONO_RECORDS.length
-    ? Math.min(...CHRONO_RECORDS.map(r => r.ms)) : null;
-  const isRecord = bestBefore === null || elapsed < bestBefore;
-
-  CHRONO_RECORDS.push({ ms: elapsed, date: new Date().toISOString(), scramble: curScramble });
-  saveRecords();
-
-  lastResult = { ms: elapsed, isRecord };
-  chronoScreen = 'result';
-  renderChronoPage();
-}
-
-// ── Écran 04 : résultat ──
-function renderChronoResult(){
-  const m = document.getElementById('main');
-  const msg = lastResult?.isRecord ? '🎉 Bravo ! Nouveau record battu !' : '';
-  m.innerHTML = `<div class="chrono-wrap">
-    ${msg ? `<div class="result-message">${msg}</div>` : ''}
-    <div class="chrono-time">${formatTime(lastResult?.ms || 0)}</div>
-    <div class="chrono-btn-stack">
-      <button class="chrono-btn chrono-btn-primary" onclick="resultNewScramble()">Nouveau mélange</button>
-    </div>
-  </div>`;
-  m.scrollTop = 0;
-}
-
-function resultNewScramble(){
-  curScramble = genScramble();
-  chronoScreen = 'main';
-  renderChronoPage();
-}
-
-// ── Écran 05 : historique — meilleures performances ──
-function renderHistoryBest(){
-  const m = document.getElementById('main');
-  const sorted = [...CHRONO_RECORDS].sort((a,b) => a.ms - b.ms);
-  const rows = sorted.length
-    ? sorted.map((r,i) => `
-        <div class="history-row">
-          ${i===0 ? `<div class="history-badge">🎉 Meilleurs temps</div>` : ''}
-          <div class="history-time">${formatTime(r.ms)}</div>
-          <div class="history-date">${formatDateFR(r.date)}</div>
-        </div>`).join('')
-    : `<div class="empty-block">Aucun résultat pour l'instant.</div>`;
-
-  m.innerHTML = `<div class="chrono-wrap">
-    ${historyTabsHTML()}
-    <div class="history-list">${rows}</div>
-  </div>`;
-  m.scrollTop = 0;
-}
-
-// ── Écran 06 : historique — par date ──
-function renderHistoryDate(){
-  const m = document.getElementById('main');
-  const sorted = [...CHRONO_RECORDS].sort((a,b) => new Date(b.date) - new Date(a.date));
-  const groupOrder = [];
-  const groups = {};
-  sorted.forEach(r => {
-    const key = formatDateFR(r.date);
-    if(!groups[key]){ groups[key] = []; groupOrder.push(key); }
-    groups[key].push(r);
-  });
-
-  const body = groupOrder.length
-    ? groupOrder.map(key => `
-        <div class="history-date-head">${key}</div>
-        ${groups[key].map(r => `
-          <div class="history-row-compact">
-            <div class="history-time">${formatTime(r.ms)}</div>
-          </div>`).join('')}`).join('')
-    : `<div class="empty-block">Aucun résultat pour l'instant.</div>`;
-
-  m.innerHTML = `<div class="chrono-wrap">
-    ${historyTabsHTML()}
-    ${body}
-  </div>`;
-  m.scrollTop = 0;
-}
-
-function historyTabsHTML(){
-  return `<div class="filter-bar" style="padding:0;width:100%;justify-content:center">
-    <div class="chips">
-      <button class="chip${historyMode==='best'?' active':''}" onclick="setHistoryMode('best')">Meilleures performances</button>
-      <button class="chip${historyMode==='date'?' active':''}" onclick="setHistoryMode('date')">Par date</button>
-    </div>
-  </div>`;
-}
-
-function setHistoryMode(mode){
-  historyMode = mode;
-  renderChronoPage();
-}
-
-function setChronoTab(tab){
-  chronoTab = tab;
-  chronoScreen = 'main';
-  document.querySelectorAll('#chronoNav .fab-item').forEach(b =>
-    b.classList.toggle('active', b.dataset.ctab === tab));
-  renderChronoPage();
-}
-document.querySelectorAll('#chronoNav .fab-item').forEach(b =>
-  bindTap(b, () => setChronoTab(b.dataset.ctab)));
 
 function render(){
   if(!DB) return;
@@ -976,9 +611,7 @@ function openPopup(id){
   if(!c) return;
   const moves = parseMoves(c.alg).length;
   document.getElementById('pName').textContent  = c.name;
-  document.getElementById('pTag').style.display = '';
   document.getElementById('pTag').textContent   = curTab.toUpperCase() + ' · ' + moves + ' mouvements';
-  document.getElementById('pCube').style.display = '';
   const shapeEl = document.getElementById('pShape');
   shapeEl.textContent = c.shape || '';
   shapeEl.style.display = c.shape ? 'inline-block' : 'none';
