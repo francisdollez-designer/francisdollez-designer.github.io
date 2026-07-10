@@ -34,7 +34,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(16px + var(--safe));
   z-index:99;display:flex;align-items:center;gap:2px;
-  background:#fff;border-radius:24px;padding:6px;
+  background:#fff;border-radius:24px;padding:12px;
   box-shadow:0 4px 20px rgba(0,0,0,.18);
 }
 /* Web : ancrée en bas à droite au lieu de centrée */
@@ -48,7 +48,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   transition:background .15s ease;
 }
 .fab-item.active{background:color-mix(in srgb,var(--ref) 40%,transparent);}
-.fab-item .ncube{width:30px;height:30px;pointer-events:none}
+.fab-item .ncube{width:40px;height:40px;pointer-events:none}
 .fab-label{
   font-size:12px;font-weight:700;color:var(--dark);
   white-space:nowrap;pointer-events:none;
@@ -553,6 +553,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <button class="menu-x" onclick="menuClose()">✕</button>
     </div>
     <nav class="menu-nav">
+       <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
+        <span>Chrono</span>
+      </button>
       <button class="menu-link" data-view="beginner" onclick="goPage('beginner')">
         <span>Méthode débutant</span><span class="menu-soon">Bientôt</span>
       </button>
@@ -561,9 +564,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       </button>
       <button class="menu-link" data-view="moves" onclick="goPage('moves')">
         <span>Liste de mouvements</span>
-      </button>
-      <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
-        <span>Chrono</span>
       </button>
       <button class="menu-link" data-view="settings" onclick="goPage('settings')">
         <span>Paramètres</span>
@@ -826,6 +826,7 @@ function renderSettingsPage(){
       <div class="section-title">Paramètres</div>
       <div class="section-sub">Personnalise l'affichage du cube</div>
     </div>
+    
     <div class="menu-sec">
       <div class="menu-sec-h">Couleur de référence (face du dessus)</div>
       <div class="col-row">
@@ -837,6 +838,7 @@ function renderSettingsPage(){
         <button class="col-btn" data-c="#0094FE" style="--c:#0094FE" onclick="setRef(this)">Bleu</button>
       </div>
     </div>
+    
   </div>`;
   m.querySelectorAll('.col-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.c.toLowerCase() === REF.toLowerCase()));
@@ -931,7 +933,7 @@ function formatDateFR(iso){
 
 // ── Phrases fun pendant le chrono (paliers volontairement décalés à chaque run) ──
 const CHRONO_MESSAGES = [
-  { max:3,  msgs:["Allez, c'est parti pour ton meilleur temps !","GO GO GO 🚀","On y croit !"] },
+  { max:4,  msgs:["Allez, c'est parti pour ton meilleur temps !","GO GO GO 🚀","On y croit !","Difficile démarage"] },
   { max:7,  msgs:["Tu dois déjà avoir fini la croix !","La croix, ça avance ?"] },
   { max:12, msgs:["Les F2L t'attendent...","Concentre-toi, tu gères !"] },
   { max:20, msgs:["Allez, la dernière paire de F2L !","Plus que l'OLL et le PLL !"] },
@@ -1125,7 +1127,7 @@ function renderChronoMain(){
       <div class="chrono-time chrono-time-hero">0<span class="t-sub">.00</span></div>
     </div>
     <div class="chrono-btn-stack">
-      <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">Démarrer</button>
+      <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">C'est partie !</button>
     </div>
       <div class="scramble-card">
       <div class="scramble-text">${fmt(curScramble)}</div>
@@ -1235,7 +1237,7 @@ function renderChronoResult(){
     <div class="result-message">${pendingResult?.msg || ''}</div> 
     <div class="chrono-btn-row">
       <button class="chrono-btn chrono-btn-danger" onclick="discardResult()">Supprimer</button>
-      <button class="chrono-btn chrono-btn-primary" onclick="keepResult()">Garder</button>
+      <button class="chrono-btn chrono-btn-primary" onclick="keepResult()">Sauvegarder</button>
     </div>
   `;
 
@@ -1703,9 +1705,9 @@ function buildMovesHTML(formula){
 // ══════════════════════════════════════════════════════
 function renderNavCubes(){
   const D={
-    'nc-croix':{top:['G','Y','G','Y','G','Y','G','Y','G'],tN:['G','Y','G'],tS:['G','Y','G'],tW:['G','Y','G'],tE:['G','Y','G']},
+    'nc-croix':{top:['G','Y','G','Y','Y','Y','G','Y','G'],tN:['G','G','G'],tS:['G','G','G'],tW:['G','G','G'],tE:['G','G','G']},
     'nc-f2l':  {top:['Y','G','G','G','G','G','G','G','Y'],tN:['Y','G','G'],tS:['G','G','Y'],tW:['G','G','G'],tE:['G','G','G']},
-    'nc-oll':  {top:['G','Y','G','Y','Y','Y','G','Y','G'],tN:['G','Y','G'],tS:['G','Y','G'],tW:['G','Y','G'],tE:['G','Y','G']},
+    'nc-oll':  {top:['Y','Y','Y','Y','Y','Y','Y','Y','Y'],tN:['G','G','G'],tS:['G','G','G'],tW:['G','G','G'],tE:['G','G','G']},
     'nc-pll':  {top:Array(9).fill('Y'),tN:['G','G','G'],tS:['G','G','G'],tW:['G','G','G'],tE:['G','G','G']},
   };
   Object.entries(D).forEach(([id,s])=>{
