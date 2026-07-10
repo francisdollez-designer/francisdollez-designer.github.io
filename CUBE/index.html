@@ -42,12 +42,19 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   .fab-nav{left:auto;right:24px;transform:none}
 }
 .fab-item{
+  position:relative;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
   width:64px;padding:8px 4px;border-radius:18px;border:none;background:none;
   cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  transition:background .15s ease;
 }
-.fab-item.active{background:color-mix(in srgb,var(--ref) 40%,transparent);}
+.fab-item::after{
+  content:'';position:absolute;left:50%;bottom:1px;
+  width:26px;height:3px;border-radius:3px;background:var(--ref);
+  opacity:0;transform:translateX(-50%) scaleX(0);
+  transition:opacity .15s ease,transform .15s ease;
+}
+.fab-item:hover::after{opacity:1;transform:translateX(-50%) scaleX(.65)}
+.fab-item.active::after{opacity:1;transform:translateX(-50%) scaleX(1)}
 .fab-item .ncube{width:40px;height:40px;pointer-events:none}
 .fab-label{
   font-size:12px;font-weight:700;color:var(--dark);
@@ -230,6 +237,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   color:var(--dark);transition:background .12s;
   -webkit-tap-highlight-color:transparent;
 }
+.menu-label{display:flex;align-items:center;gap:11px}
+.menu-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.title-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:9px;vertical-align:middle;flex-shrink:0}
 .menu-link:hover{background:#f5f5f5}
 .menu-link.active{background:color-mix(in srgb,var(--ref) 16%,transparent)}
 .menu-soon{
@@ -554,19 +564,16 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
     </div>
     <nav class="menu-nav">
        <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
-        <span>Chrono</span>
+        <span class="menu-label"><span class="menu-dot" style="background:#FFCC41"></span>Chrono</span>
       </button>
       <button class="menu-link" data-view="beginner" onclick="goPage('beginner')">
-        <span>Méthode débutant</span><span class="menu-soon">Bientôt</span>
+        <span class="menu-label"><span class="menu-dot" style="background:#58DB74"></span>Méthode débutant</span><span class="menu-soon">Bientôt</span>
       </button>
       <button class="menu-link" data-view="app" onclick="goPage('app')">
-        <span>Méthode Fridrich</span>
-      </button>
-      <button class="menu-link" data-view="moves" onclick="goPage('moves')">
-        <span>Liste de mouvements</span>
+        <span class="menu-label"><span class="menu-dot" style="background:#5DA8FF"></span>Méthode Fridrich</span>
       </button>
       <button class="menu-link" data-view="settings" onclick="goPage('settings')">
-        <span>Paramètres</span>
+        <span class="menu-label"><span class="menu-dot" style="background:#B3B3B3"></span>Paramètres</span>
       </button>
     </nav>
   </div>
@@ -665,7 +672,7 @@ let DB = null;
 let REF = '#ffbb27';
 let curTab = 'oll';
 let curFilter = 'all';
-let curView = 'app'; // 'app' | 'moves' | 'settings' | 'beginner' | 'chrono'
+let curView = 'app'; // 'app' | 'settings' | 'beginner' | 'chrono'
 
 // ── Chrono ──
 let chronoTab = 'timer';      // 'timer' | 'history'
@@ -760,12 +767,16 @@ function bindTap(el, fn){
 document.querySelectorAll('#fabNav .fab-item').forEach(b =>
   bindTap(b, () => selectTab(b.dataset.tab)));
 
+const VIEW_COLORS = { app:'#5DA8FF', settings:'#B3B3B3', beginner:'#58DB74', chrono:'#FFCC41' };
 function updateHeader(){
   const titles = {
-    app:'Méthode Fridrich', moves:'Listes de mouvements',
+    app:'Méthode Fridrich',
     settings:'Paramètres', beginner:'Méthode débutant', chrono:'Chrono'
   };
-  document.getElementById('headerTitle').textContent = titles[curView] || 'Méthode Fridrich';
+  const t = titles[curView] || 'Méthode Fridrich';
+  const c = VIEW_COLORS[curView] || '#5DA8FF';
+  document.getElementById('headerTitle').innerHTML =
+    `<span class="title-dot" style="background:${c}"></span>${t}`;
 }
 function updateMenuActive(){
   document.querySelectorAll('.menu-link[data-view]').forEach(b =>
@@ -780,7 +791,6 @@ function goPage(view){
   showFab(view === 'app');
   showChronoNav(view === 'chrono');
   if(view==='app') render();
-  else if(view==='moves') renderMovesPage();
   else if(view==='settings') renderSettingsPage();
   else if(view==='beginner') renderBeginnerPage();
   else if(view==='chrono'){
@@ -797,26 +807,18 @@ function showChronoNav(visible){
   document.getElementById('chronoNav').style.display = visible ? '' : 'none';
 }
 
-function renderMovesPage(){
-  const m = document.getElementById('main');
+function movesGroupsHTML(){
   const groups = [
     {h:'Faces', toks:['L',"L'",'L2','R',"R'",'R2','U',"U'",'U2','D',"D'",'D2','F',"F'",'F2','B',"B'",'B2']},
     {h:'Tranches centrales', toks:['M',"M'",'M2','E',"E'",'E2']},
     {h:'Tranches larges', toks:['l',"l'",'l2','r',"r'",'r2','u',"u'",'u2','d',"d'",'d2','f',"f'",'f2','b',"b'",'b2']},
     {h:'Rotations du cube', toks:['x',"x'",'x2','y',"y'",'y2','z',"z'",'z2']},
   ];
-  const html = groups.map(g => `
+  return groups.map(g => `
     <div class="moves-cat-h">${g.h}</div>
     <div class="moves-grid">
       ${g.toks.map(t => `<div class="mv-item">${moveSVG(t)}</div>`).join('')}
     </div>`).join('');
-  m.innerHTML = `<div class="section-wrap">
-    <div class="section-head">
-      <div class="section-sub">Listes complètes des mouvements illustrer par des schéma simple</div>
-    </div>
-    ${html}
-  </div>`;
-  m.scrollTop = 0;
 }
 
 function renderSettingsPage(){
@@ -826,7 +828,7 @@ function renderSettingsPage(){
       <div class="section-title">Paramètres</div>
       <div class="section-sub">Personnalise l'affichage du cube</div>
     </div>
-    
+
     <div class="menu-sec">
       <div class="menu-sec-h">Couleur de référence (face du dessus)</div>
       <div class="col-row">
@@ -838,7 +840,12 @@ function renderSettingsPage(){
         <button class="col-btn" data-c="#0094FE" style="--c:#0094FE" onclick="setRef(this)">Bleu</button>
       </div>
     </div>
-    
+
+    <div class="menu-sec" style="margin-top:8px">
+      <div class="menu-sec-h">Liste de mouvements</div>
+      ${movesGroupsHTML()}
+    </div>
+
   </div>`;
   m.querySelectorAll('.col-btn').forEach(b =>
     b.classList.toggle('active', b.dataset.c.toLowerCase() === REF.toLowerCase()));
