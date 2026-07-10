@@ -47,10 +47,10 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
   transition:background .15s ease;
 }
-.fab-item.active{background:color-mix(in srgb,var(--ref) 45%,transparent)}
+.fab-item.active{background:color-mix(in srgb,var(--ref) 40%,transparent);}
 .fab-item .ncube{width:30px;height:30px;pointer-events:none}
 .fab-label{
-  font-size:10px;font-weight:700;color:var(--dark);
+  font-size:12px;font-weight:700;color:var(--dark);
   white-space:nowrap;pointer-events:none;
 }
 
@@ -285,18 +285,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 }
 /* Écran 01 : mélange en haut, chrono géant au centre, Démarrer plaqué en bas */
 .chrono-wrap.chrono-main-layout{
-  min-height:calc(100dvh - 54px);
+  min-height:calc(100dvh - 200px);
 }
 .chrono-time-zone{
   flex:1;width:100%;display:flex;align-items:center;justify-content:center;
-  min-height:120px;
+  min-height:550px;
 }
 .chrono-time{
-  font-size:clamp(56px,15vw,88px);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(200px,15vw,200px);font-weight:900;letter-spacing:-.02em;
   color:var(--dark);line-height:1;font-variant-numeric:tabular-nums;
   text-align:center;
 }
-.chrono-time.chrono-time-hero{font-size:clamp(72px,26vw,150px)}
+.chrono-time.chrono-time-hero{font-size:clamp(200px,26vw,200px)}
 .chrono-time .t-sub{font-size:.42em;font-weight:800;opacity:.8;letter-spacing:0}
 .chrono-btn-stack{display:flex;flex-direction:column;gap:12px;width:100%}
 .chrono-btn-row{display:flex;gap:12px;width:100%}
@@ -338,10 +338,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   touch-action:manipulation;
 }
 .chrono-run-ov.open{display:flex}
-.chrono-run-ov .chrono-time{font-size:clamp(64px,20vw,120px);margin-top:16px}
+.chrono-run-ov .chrono-time{font-size:clamp(200px,20vw,200px);margin-top:16px}
 .chrono-run-msg{
-  font-size:17px;font-weight:800;color:var(--dark);text-align:center;
-  line-height:1.4;padding:0 16px;min-height:24px;max-width:340px;
+  border-radius: 200px;
+  font-size:20px;font-weight:800;color:var(--dark);text-align:center;
+  line-height:1.4;padding:8px 16px;min-height:24px;max-width:340px;
 }
 .chrono-run-hint{
   position:absolute;bottom:calc(28px + var(--safe));font-size:12px;font-weight:700;
@@ -349,7 +350,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 }
 
 .result-message{
-  font-size:16px;font-weight:800;color:var(--dark);text-align:center;
+  font-size:20px;font-weight:800;color:var(--dark);text-align:center;
   line-height:1.4;padding:0 10px;
 }
 
@@ -492,41 +493,41 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   background:var(--bg);border-radius:var(--r);padding:16px;position:relative;
   display:flex;flex-direction:column;align-items:center;gap:4px;
 }
-.history-time{font-size:32px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
-.history-date{font-size:13px;color:var(--mid);font-weight:600}
+.history-time{font-size:45px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
+.history-date{font-size:22px;color:var(--dark);font-weight:500}
 .history-badge{
   align-self:center;font-size:11px;font-weight:800;color:var(--dark);
   background:color-mix(in srgb,var(--ref) 40%,transparent);
   padding:4px 12px;border-radius:20px;
 }
 .history-msg{
-  font-size:12px;font-style:italic;color:var(--mid);text-align:center;
+  font-size:16px;font-style:italic;color:var(--mid);text-align:center;
   margin-top:2px;max-width:90%;
 }
 .history-scramble{
-  font-size:11px;color:var(--mid);text-align:center;line-height:1.6;
+  font-size:14px;color:var(--mid);text-align:center;line-height:1.6;
   margin-top:6px;padding-top:6px;border-top:1px solid rgba(0,0,0,.06);
   width:100%;word-break:break-word;
 }
-.history-scramble sup{font-size:8px}
+.history-scramble sup{font-size:10px}
 .history-del{
   position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;
-  color:var(--mid);width:28px;height:28px;border-radius:50%;
+  color:var(--mid);width:40px;height:40px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   transition:background .12s,color .12s;-webkit-tap-highlight-color:transparent;
 }
 .history-del:hover{background:#e4e4e4;color:#c0392b}
-.history-del svg{width:16px;height:16px}
+.history-del svg{width:25px;height:25px}
 .history-date-head{
-  font-size:12px;font-weight:800;color:var(--mid);width:100%;
-  text-transform:uppercase;letter-spacing:.07em;margin:8px 2px 0;
+  font-size:22px;font-weight:500;color:var(--dark);width:100%;
+  text-transform:None;letter-spacing:.07em;margin:8px 2px 0;
 }
 .history-date-head:first-child{margin-top:0}
 .history-row-compact{
   background:var(--bg);border-radius:var(--r);padding:14px 16px;width:100%;position:relative;
   display:flex;flex-direction:column;align-items:center;gap:4px;
 }
-.history-row-compact .history-time{font-size:26px}
+.history-row-compact .history-time{font-size:45px}
 .history-row-compact .history-scramble{margin-top:8px}
 
 /* ── LOADING ── */
@@ -645,8 +646,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 
 <!-- ══ CHRONO : écran plein écran pendant la résolution — touch = stop ══ -->
 <div class="chrono-run-ov" id="chronoRunOv" onclick="stopChrono()">
-  <div class="chrono-run-msg" id="chronoRunMsg"></div>
   <div class="chrono-time" id="chronoRunTime">0<span class="t-sub">.00</span></div>
+  <div class="chrono-run-msg" id="chronoRunMsg"></div>
   <div class="chrono-run-hint">Touche l'écran pour arrêter</div>
 </div>
 
@@ -1119,7 +1120,14 @@ function renderChronoPage(){
 function renderChronoMain(){
   const m = document.getElementById('main');
   m.innerHTML = `<div class="chrono-wrap chrono-main-layout">
-    <div class="scramble-card">
+  
+    <div class="chrono-time-zone">
+      <div class="chrono-time chrono-time-hero">0<span class="t-sub">.00</span></div>
+    </div>
+    <div class="chrono-btn-stack">
+      <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">Démarrer</button>
+    </div>
+      <div class="scramble-card">
       <div class="scramble-text">${fmt(curScramble)}</div>
       <div class="scramble-links">
         <button class="scramble-link" onclick="openScramblePopup()">
@@ -1137,12 +1145,6 @@ function renderChronoMain(){
           Nouveau mélange
         </button>
       </div>
-    </div>
-    <div class="chrono-time-zone">
-      <div class="chrono-time chrono-time-hero">0<span class="t-sub">.00</span></div>
-    </div>
-    <div class="chrono-btn-stack">
-      <button class="chrono-btn chrono-btn-primary" onclick="startChrono()">Démarrer</button>
     </div>
   </div>`;
   m.scrollTop = 0;
@@ -1228,11 +1230,12 @@ function renderChronoResult(){
     : randomNeutralFX();
 
   document.getElementById('chronoResultContent').innerHTML = `
+  
     <div class="chrono-time chrono-pop">${formatTimeHTML(pendingResult?.ms || 0)}</div>
-    <div class="result-message">${pendingResult?.msg || ''}</div>
+    <div class="result-message">${pendingResult?.msg || ''}</div> 
     <div class="chrono-btn-row">
-      <button class="chrono-btn chrono-btn-primary" onclick="keepResult()">Garder</button>
       <button class="chrono-btn chrono-btn-danger" onclick="discardResult()">Supprimer</button>
+      <button class="chrono-btn chrono-btn-primary" onclick="keepResult()">Garder</button>
     </div>
   `;
 
