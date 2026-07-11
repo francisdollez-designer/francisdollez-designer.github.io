@@ -610,10 +610,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 /* Onglets historique (réutilise .chips / .chip) */
 .history-list{display:flex;flex-direction:column;width:100%;gap:10px}
 @media (min-width:860px){
+  .history-wrap{max-width:1100px}
   .history-list{
     display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-    gap:14px;align-items:start;
+    gap:14px;
   }
+  .history-row,.history-row-compact{height:100%}
   .history-date-head{grid-column:1/-1}
 }
 .history-row{
@@ -1715,7 +1717,7 @@ function renderHistoryBest(){
         </div>`).join('')
     : `<div class="empty-block">Aucun résultat pour l'instant.</div>`;
 
-  m.innerHTML = `<div class="chrono-wrap">
+  m.innerHTML = `<div class="chrono-wrap history-wrap">
     ${historyTabsHTML()}
     <div class="history-list">${rows}</div>
   </div>`;
@@ -1752,7 +1754,7 @@ function renderHistoryDate(){
           </div>`).join('')}`).join('')
     : `<div class="empty-block">Aucun résultat pour cette période.</div>`;
 
-  m.innerHTML = `<div class="chrono-wrap">
+  m.innerHTML = `<div class="chrono-wrap history-wrap">
     ${historyTabsHTML()}
     ${historyPeriodFilterHTML()}
     <div class="history-list">${body}</div>
