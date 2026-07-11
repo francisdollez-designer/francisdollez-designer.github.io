@@ -229,8 +229,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   width:30px;height:30px;border-radius:50%;font-size:15px;
   display:flex;align-items:center;justify-content:center;
 }
-.menu-sec{display:flex;flex-direction:column;gap:10px}
-.menu-sec-h{font-size:10px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.1em}
+.menu-sec{display:flex;flex-direction:column;gap:12px}
+.menu-sec-h{font-size:13px;font-weight:800;color:var(--dark);text-transform:uppercase;letter-spacing:.06em}
 .menu-nav{display:flex;flex-direction:column;gap:4px}
 .menu-link{
   display:flex;align-items:center;justify-content:space-between;
@@ -252,18 +252,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   font-size:9px;font-weight:700;color:#aaa;background:#f0f0f0;
   padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;
 }
-.col-row{display:flex;flex-wrap:wrap;gap:8px}
+.col-row{display:flex;flex-wrap:wrap;gap:10px}
 .col-btn{
-  display:flex;align-items:center;gap:6px;padding:6px 12px;
-  border-radius:20px;border:2px solid #eee;cursor:pointer;
-  font-size:12px;font-weight:700;background:#f7f7f7;
+  display:flex;align-items:center;gap:8px;padding:10px 16px;
+  border-radius:24px;border:2px solid #eee;cursor:pointer;
+  font-size:14px;font-weight:700;color:var(--dark);background:var(--bg);
   transition:border-color .12s,background .12s;
 }
 .col-btn::before{
-  content:'';width:12px;height:12px;border-radius:50%;
+  content:'';width:16px;height:16px;border-radius:50%;
   background:var(--c);border:1.5px solid rgba(0,0,0,.1);flex-shrink:0;
 }
-.col-btn.active{border-color:var(--c);background:#fff}
+.col-btn.active{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,#fff);font-weight:800}
 .leg{display:flex;flex-direction:column;gap:9px}
 .moves-cat-h{
   font-size:16px;font-weight:800;color:var(--mid);
@@ -661,6 +661,24 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 }
 .home-card-big{grid-column:1/-1;flex-direction:row;align-items:center}
 .home-card-label{font-size:14px;font-weight:800;color:var(--dark)}
+.home-hero{
+  padding:22px 4px 26px;text-align:left;
+}
+.home-hello{font-size:32px;font-weight:900;letter-spacing:-.02em;color:var(--dark);line-height:1.15}
+.home-quote{font-size:17px;font-weight:600;color:var(--mid);margin-top:8px;line-height:1.4}
+
+.lottie-box-xs{width:34px;height:34px}
+.topflop-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.topflop-card{background:var(--bg);border-radius:var(--r);padding:14px}
+.topflop-head{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:800;color:var(--dark);margin-bottom:6px}
+.topflop-row{
+  display:flex;align-items:center;gap:8px;padding:8px 2px;
+  border-bottom:1px solid rgba(0,0,0,.06);cursor:pointer;
+}
+.topflop-row:last-child{border-bottom:none;padding-bottom:2px}
+.topflop-rank{width:16px;font-size:12px;font-weight:800;color:var(--mid);flex-shrink:0}
+.topflop-time{flex:1;font-size:14px;font-weight:800;color:var(--dark);font-variant-numeric:tabular-nums}
+.topflop-date{font-size:10px;color:var(--mid);white-space:nowrap}
 @media (min-width:860px){
   .home-grid{grid-template-columns:repeat(3,1fr)}
   .home-card-big{grid-column:auto;flex-direction:column;align-items:flex-start}
@@ -957,7 +975,7 @@ async function init(){
     if(!r.ok) throw new Error(r.status);
     DB = await r.json();
     renderNavCubes();
-    go('oll');
+    goPage('home');
   } catch(e) {
     document.getElementById('main').innerHTML =
       `<div class="loading" style="flex-direction:column;gap:8px;color:#e55">
@@ -1052,6 +1070,7 @@ function updateMenuActive(){
 
 function goPage(view){
   curView = view;
+  destroyActiveLotties();
   menuClose();
   updateHeader();
   updateMenuActive();
@@ -1102,11 +1121,7 @@ function movesGroupsHTML(){
 
 function renderSettingsPage(){
   const m = document.getElementById('main');
-  m.innerHTML = `<div class="section-wrap">
-    <div class="section-head">
-      <div class="section-title">Paramètres</div>
-      <div class="section-sub">Personnalise l'affichage du cube</div>
-    </div>
+  m.innerHTML = `<div class="section-wrap" style="display:flex;flex-direction:column;gap:26px;padding-top:6px">
 
     <div class="menu-sec">
       <div class="menu-sec-h">Ton prénom</div>
@@ -1126,7 +1141,7 @@ function renderSettingsPage(){
       </div>
     </div>
 
-    <div class="menu-sec" style="margin-top:8px">
+    <div class="menu-sec">
       <div class="menu-sec-h">Liste de mouvements</div>
       ${movesGroupsHTML()}
     </div>
@@ -1642,18 +1657,23 @@ function stopChrono(){
   const elapsed = performance.now() - chronoStartTs;
   document.getElementById('chronoRunOv').classList.remove('open');
 
-  const bestBefore = CHRONO_RECORDS.length
-    ? Math.min(...CHRONO_RECORDS.map(r => r.ms)) : null;
-  const worstBefore = CHRONO_RECORDS.length
-    ? Math.max(...CHRONO_RECORDS.map(r => r.ms)) : null;
-  const isRecord = bestBefore === null || elapsed < bestBefore;
-  const isWorst  = worstBefore !== null && elapsed > worstBefore;
+  const { topRank, flopRank } = getPerfRank(elapsed, CHRONO_RECORDS);
+  const isRecord = topRank <= 3;
+  const isWorst  = !isRecord && flopRank <= 3;
 
   // Rien n'est sauvegardé tant que l'utilisateur n'a pas choisi Garder / Supprimer
-  pendingResult = { ms: elapsed, msg: pickConclusion(elapsed, isRecord, isWorst), isRecord, isWorst };
+  pendingResult = { ms: elapsed, msg: pickConclusion(elapsed, isRecord, isWorst), isRecord, isWorst, topRank, flopRank };
   resultViewMode = false;
   chronoScreen = 'result';
   renderChronoPage();
+}
+
+// Classement top/flop d'un temps par rapport aux temps déjà enregistrés
+// (sans compter le temps lui-même) : topRank=1 → le plus rapide, flopRank=1 → le plus lent.
+function getPerfRank(ms, existingRecords){
+  const faster = existingRecords.filter(r => r.ms < ms).length;
+  const slower = existingRecords.filter(r => r.ms > ms).length;
+  return { topRank: faster + 1, flopRank: slower + 1 };
 }
 
 // ── Écran 04 : résultat — overlay plein écran, fond dynamique, Garder / Supprimer ──
@@ -1663,8 +1683,12 @@ function renderChronoResult(){
   const stateKey   = isRecord ? 'record' : (isWorst ? 'worst' : 'normal');
   const stateClass = isRecord ? 'celebrate' : (isWorst ? 'sad' : '');
 
-  const pool  = stateKey === 'record' ? RECORD_FX : stateKey === 'worst' ? WORST_FX : NORMAL_FX;
-  const build = pool[Math.floor(Math.random() * pool.length)];
+  // Les top3 / flop3 ont chacun leur animation dédiée (par rang), pour
+  // qu'on puisse vraiment en profiter à chaque fois plutôt qu'au hasard.
+  let build;
+  if(isRecord) build = RECORD_FX[Math.min(pendingResult.topRank, 3) - 1];
+  else if(isWorst) build = WORST_FX[Math.min(pendingResult.flopRank, 3) - 1];
+  else build = NORMAL_FX[Math.floor(Math.random() * NORMAL_FX.length)];
   const variant = build();
 
   destroyActiveLotties();
@@ -1740,9 +1764,11 @@ function replayResult(id){
   const r = CHRONO_RECORDS.find(x => x.id === id);
   if(!r) return;
   const sorted = [...CHRONO_RECORDS].sort((a,b) => a.ms - b.ms);
-  const isRecord = sorted.length > 0 && sorted[0].id === r.id;
-  const isWorst  = sorted.length > 1 && sorted[sorted.length - 1].id === r.id;
-  pendingResult = { ms:r.ms, msg:r.msg, isRecord, isWorst };
+  const topRank = sorted.findIndex(x => x.id === r.id) + 1;
+  const flopRank = sorted.length - topRank + 1;
+  const isRecord = topRank <= 3;
+  const isWorst  = !isRecord && flopRank <= 3;
+  pendingResult = { ms:r.ms, msg:r.msg, isRecord, isWorst, topRank, flopRank };
   resultViewMode = true;
   chronoScreen = 'result';
   renderChronoPage();
@@ -1812,10 +1838,48 @@ function setHistoryMonth(v){ historyFilterMonth = v; renderChronoPage(); }
 // ══════════════════════════════════════════════════════
 // Écran Accueil — salutation + accès directs
 // ══════════════════════════════════════════════════════
+// ── Top / Flop — réutilisé par la Home et la page Progression ──
+function topFlopHTML(limit = 3){
+  const sorted = [...CHRONO_RECORDS].sort((a,b) => a.ms - b.ms);
+  if(sorted.length < 2) return '';
+  const top = sorted.slice(0, limit);
+  const flop = [...sorted].reverse().slice(0, limit);
+  const row = (r, i) => `
+    <div class="topflop-row" onclick="replayResult('${r.id}')">
+      <span class="topflop-rank">${i+1}</span>
+      <span class="topflop-time">${formatTime(r.ms)}</span>
+      <span class="topflop-date">${formatDateFR(r.date)}</span>
+    </div>`;
+  return `<div class="topflop-grid">
+    <div class="topflop-card">
+      <div class="topflop-head"><span class="lottie-box lottie-box-xs" id="lottieTopIcon"></span><span>Top ${top.length}</span></div>
+      ${top.map(row).join('')}
+    </div>
+    <div class="topflop-card">
+      <div class="topflop-head"><span class="lottie-box lottie-box-xs" id="lottieFlopIcon"></span><span>Flop ${flop.length}</span></div>
+      ${flop.map(row).join('')}
+    </div>
+  </div>`;
+}
+function mountTopFlopLotties(){
+  mountLottie('lottieTopIcon', LOTTIE_SOLVE, { loop:true, speed:.8 });
+  mountLottie('lottieFlopIcon', LOTTIE_MELT, { loop:true, speed:.8 });
+}
+
+const HOME_QUOTES = [
+  "Chaque résolution te rapproche du sub-20.",
+  "Le meilleur moment pour un nouveau record, c'est maintenant.",
+  "Un cube mélangé n'attend qu'une chose : toi.",
+  "La régularité bat la vitesse. Continue comme ça.",
+  "Ta prochaine résolution pourrait être la meilleure.",
+];
+
 function renderHomePage(){
   const m = document.getElementById('main');
+  destroyActiveLotties();
   const s = computeChronoStats();
-  const hello = USER_NAME ? `Bonjour ${USER_NAME}` : 'Bonjour !';
+  const hello = USER_NAME ? `Bonjour ${USER_NAME} 👋` : 'Bonjour 👋';
+  const quote = HOME_QUOTES[Math.floor(Math.random() * HOME_QUOTES.length)];
 
   const statsHTML = s ? `
     <div class="stat-grid" style="margin-bottom:18px">
@@ -1838,10 +1902,12 @@ function renderHomePage(){
     </div>` : `
     <div class="empty-block" style="margin-bottom:18px">Lance ton premier chrono pour voir tes stats ici.</div>`;
 
+  const topFlop = topFlopHTML(3);
+
   m.innerHTML = `<div class="section-wrap">
-    <div class="section-head">
-      <div class="section-title">${hello}</div>
-      <div class="section-sub">Prêt·e à casser ton record ?</div>
+    <div class="home-hero">
+      <div class="home-hello">${hello}</div>
+      <div class="home-quote">${quote}</div>
     </div>
 
     <div class="home-grid">
@@ -1860,7 +1926,9 @@ function renderHomePage(){
     </div>
 
     ${statsHTML}
+    ${topFlop}
   </div>`;
+  mountTopFlopLotties();
   m.scrollTop = 0;
 }
 
@@ -1962,6 +2030,7 @@ function progressChartSVG(times){
 
 function renderProgressPage(){
   const m = document.getElementById('main');
+  destroyActiveLotties();
   const s = computeChronoStats();
 
   if(!s){
@@ -2054,6 +2123,9 @@ function renderProgressPage(){
       </div>
     </div>
 
+    <div class="moves-cat-h">Top / Flop</div>
+    ${topFlopHTML(3)}
+
     <div class="moves-cat-h">Temps investi</div>
     <div class="fact-card">
       <div class="fact-big">${totalHours >= 1 ? totalHours.toFixed(1) + ' h' : Math.round(totalMin) + ' min'}</div>
@@ -2077,6 +2149,7 @@ function renderProgressPage(){
     </div>` : ''}
 
   </div>`;
+  mountTopFlopLotties();
   m.scrollTop = 0;
 }
 
