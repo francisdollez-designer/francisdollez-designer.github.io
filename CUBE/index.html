@@ -646,6 +646,26 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .stat-value{font-size:24px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
 .stat-label{font-size:12px;font-weight:700;color:var(--mid)}
 
+/* ══════════════════════════════════════════════════════
+   Écran Accueil
+   ══════════════════════════════════════════════════════ */
+.name-input{
+  width:100%;padding:14px 16px;border-radius:var(--r);border:1.5px solid #eee;
+  background:var(--bg);font-size:15px;font-weight:700;color:var(--dark);
+}
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.home-card{
+  background:var(--bg);border:none;border-radius:var(--r);padding:18px 14px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:12px;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;text-align:left;
+}
+.home-card-big{grid-column:1/-1;flex-direction:row;align-items:center}
+.home-card-label{font-size:14px;font-weight:800;color:var(--dark)}
+@media (min-width:860px){
+  .home-grid{grid-template-columns:repeat(3,1fr)}
+  .home-card-big{grid-column:auto;flex-direction:column;align-items:flex-start}
+}
+
 .progress-chart-card{background:var(--bg);border-radius:var(--r);padding:16px;width:100%}
 .progress-chart-head{
   display:flex;align-items:center;justify-content:space-between;
@@ -729,7 +749,10 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <button class="menu-x" onclick="menuClose()">✕</button>
     </div>
     <nav class="menu-nav">
-       <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
+       <button class="menu-link" data-view="home" onclick="goPage('home')">
+        <span class="menu-label"><span class="menu-icon" style="background:#FF9A1F26;color:#C56C00"><svg viewBox="0 0 24 24" fill="none"><path d="M3 11l9-8 9 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accueil</span>
+      </button>
+      <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
         <span class="menu-label"><span class="menu-icon" style="background:#FFCC4126;color:#B98A00"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 13V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 2h6M12 2v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>Chrono</span>
       </button>
       <button class="menu-link" data-view="beginner" onclick="goPage('beginner')">
@@ -895,6 +918,11 @@ function mountLottie(containerId, data, opts={}){
 // ══════════════════════════════════════════════════════
 let DB = null;
 let REF = '#ffbb27';
+let USER_NAME = localStorage.getItem('cfop_user_name') || '';
+function setUserName(v){
+  USER_NAME = v.trim();
+  localStorage.setItem('cfop_user_name', USER_NAME);
+}
 let curTab = 'oll';
 let curFilter = 'all';
 let curView = 'app'; // 'app' | 'settings' | 'beginner' | 'chrono'
@@ -997,7 +1025,10 @@ const ICON_TIMER = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13"
 const ICON_CUBE = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 7l9 5 9-5M12 12v10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
 const ICON_GEAR = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M12 19v2M4.2 7.8l1.6 1M18.2 15.2l1.6 1M3 12h2M19 12h2M4.2 16.2l1.6-1M18.2 8.8l1.6-1M7.8 4.2l1 1.6M15.2 18.2l1 1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
 
+const ICON_HOME = `<svg viewBox="0 0 24 24" fill="none"><path d="M3 11l9-8 9 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 const VIEW_ICONS = {
+  home:     { icon: ICON_HOME,  bg:'#FF9A1F26', fg:'#C56C00' },
   chrono:   { icon: ICON_TIMER, bg:'#FFCC4126', fg:'#B98A00' },
   beginner: { icon: ICON_CUBE,  bg:'#58DB7426', fg:'#1E9A47' },
   app:      { icon: ICON_CUBE,  bg:'#5DA8FF26', fg:'#1D6FE0' },
@@ -1006,7 +1037,7 @@ const VIEW_ICONS = {
 
 function updateHeader(){
   const titles = {
-    app:'Méthode Fridrich',
+    home:'Accueil', app:'Méthode Fridrich',
     settings:'Paramètres', beginner:'Méthode débutant', chrono:'Chrono'
   };
   const t = titles[curView] || 'Méthode Fridrich';
@@ -1026,7 +1057,8 @@ function goPage(view){
   updateMenuActive();
   showFab(view === 'app');
   showChronoNav(view === 'chrono');
-  if(view==='app') render();
+  if(view==='home') renderHomePage();
+  else if(view==='app') render();
   else if(view==='settings') renderSettingsPage();
   else if(view==='beginner') renderBeginnerPage();
   else if(view==='chrono'){
@@ -1037,6 +1069,17 @@ function goPage(view){
     initChrono();
     renderChronoPage();
   }
+}
+
+// Accès direct à un onglet (Croix/F2L/OLL/PLL) depuis la home
+function goToTab(tab){
+  goPage('app');
+  selectTab(tab);
+}
+// Accès direct à un onglet du Chrono (Timer/Résultats/Progression) depuis la home
+function goToChronoTab(tab){
+  goPage('chrono');
+  setChronoTab(tab);
 }
 
 function showChronoNav(visible){
@@ -1063,6 +1106,12 @@ function renderSettingsPage(){
     <div class="section-head">
       <div class="section-title">Paramètres</div>
       <div class="section-sub">Personnalise l'affichage du cube</div>
+    </div>
+
+    <div class="menu-sec">
+      <div class="menu-sec-h">Ton prénom</div>
+      <input type="text" class="name-input" id="userNameInput" placeholder="Ton prénom"
+        value="${USER_NAME.replace(/"/g,'&quot;')}" oninput="setUserName(this.value)" maxlength="24">
     </div>
 
     <div class="menu-sec">
@@ -1759,6 +1808,61 @@ function historyPeriodFilterHTML(){
 }
 function setHistoryYear(v){ historyFilterYear = v; renderChronoPage(); }
 function setHistoryMonth(v){ historyFilterMonth = v; renderChronoPage(); }
+
+// ══════════════════════════════════════════════════════
+// Écran Accueil — salutation + accès directs
+// ══════════════════════════════════════════════════════
+function renderHomePage(){
+  const m = document.getElementById('main');
+  const s = computeChronoStats();
+  const hello = USER_NAME ? `Bonjour ${USER_NAME}` : 'Bonjour !';
+
+  const statsHTML = s ? `
+    <div class="stat-grid" style="margin-bottom:18px">
+      <div class="stat-card">
+        <div class="stat-value">${formatTime(s.best)}</div>
+        <div class="stat-label">🏆 Meilleur temps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.ao5 ? formatTime(Math.round(s.ao5)) : '—'}</div>
+        <div class="stat-label">Moyenne ao5</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.streak}</div>
+        <div class="stat-label">🔥 Jour${s.streak>1?'s':''} d'affilée</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.n}</div>
+        <div class="stat-label">Résolutions</div>
+      </div>
+    </div>` : `
+    <div class="empty-block" style="margin-bottom:18px">Lance ton premier chrono pour voir tes stats ici.</div>`;
+
+  m.innerHTML = `<div class="section-wrap">
+    <div class="section-head">
+      <div class="section-title">${hello}</div>
+      <div class="section-sub">Prêt·e à casser ton record ?</div>
+    </div>
+
+    <div class="home-grid">
+      <button class="home-card home-card-big" onclick="goToChronoTab('timer')">
+        <span class="menu-icon" style="background:#FFCC4126;color:#B98A00">${ICON_TIMER}</span>
+        <span class="home-card-label">Lancer le Chrono</span>
+      </button>
+      <button class="home-card" onclick="goToTab('oll')">
+        <span class="menu-icon" style="background:#f0c04026;color:#8a6a00">${ICON_CUBE}</span>
+        <span class="home-card-label">Résolutions OLL</span>
+      </button>
+      <button class="home-card" onclick="goToChronoTab('progress')">
+        <span class="menu-icon" style="background:#5DA8FF26;color:#1D6FE0"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M4 19V6M4 19l5-6 4 3 6-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="home-card-label">Ma progression</span>
+      </button>
+    </div>
+
+    ${statsHTML}
+  </div>`;
+  m.scrollTop = 0;
+}
 
 // ══════════════════════════════════════════════════════
 // Écran 07 : Progression — stats, moyenne, courbe, faits amusants
