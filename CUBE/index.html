@@ -22,7 +22,9 @@ html,body{height:100%;background:var(--page);color:var(--dark);
 header{display:flex;align-items:center;justify-content:space-between;
   padding:0 20px;height:54px;background:var(--page);
   flex-shrink:0;border-bottom:1px solid #e8e8e8;z-index:10}
-.app-title{font-size:18px;font-weight:800;letter-spacing:-.03em}
+.app-title{font-size:18px;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
+.header-icon{width:26px;height:26px}
+.header-icon svg{width:15px;height:15px}
 .burger{background:none;border:none;cursor:pointer;padding:8px;
   display:flex;flex-direction:column;gap:5px}
 .burger span{display:block;width:22px;height:2px;background:var(--dark);border-radius:2px}
@@ -945,16 +947,26 @@ function bindTap(el, fn){
 document.querySelectorAll('#fabNav .fab-item').forEach(b =>
   bindTap(b, () => selectTab(b.dataset.tab)));
 
-const VIEW_COLORS = { app:'#5DA8FF', settings:'#B3B3B3', beginner:'#58DB74', chrono:'#FFCC41' };
+const ICON_TIMER = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 13V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9 2h6M12 2v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+const ICON_CUBE = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 7l9 5 9-5M12 12v10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const ICON_GEAR = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/><path d="M12 3v2M12 19v2M4.2 7.8l1.6 1M18.2 15.2l1.6 1M3 12h2M19 12h2M4.2 16.2l1.6-1M18.2 8.8l1.6-1M7.8 4.2l1 1.6M15.2 18.2l1 1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+
+const VIEW_ICONS = {
+  chrono:   { icon: ICON_TIMER, bg:'#FFCC4126', fg:'#B98A00' },
+  beginner: { icon: ICON_CUBE,  bg:'#58DB7426', fg:'#1E9A47' },
+  app:      { icon: ICON_CUBE,  bg:'#5DA8FF26', fg:'#1D6FE0' },
+  settings: { icon: ICON_GEAR,  bg:'#B3B3B326', fg:'#6B6B6B' },
+};
+
 function updateHeader(){
   const titles = {
     app:'Méthode Fridrich',
     settings:'Paramètres', beginner:'Méthode débutant', chrono:'Chrono'
   };
   const t = titles[curView] || 'Méthode Fridrich';
-  const c = VIEW_COLORS[curView] || '#5DA8FF';
+  const v = VIEW_ICONS[curView] || VIEW_ICONS.app;
   document.getElementById('headerTitle').innerHTML =
-    `<span class="title-dot" style="background:${c}"></span>${t}`;
+    `<span class="menu-icon header-icon" style="background:${v.bg};color:${v.fg}">${v.icon}</span>${t}`;
 }
 function updateMenuActive(){
   document.querySelectorAll('.menu-link[data-view]').forEach(b =>
