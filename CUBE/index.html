@@ -634,6 +634,44 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   background:#f7f7f7;font-size:13px;font-weight:700;color:var(--dark);
   -webkit-appearance:none;appearance:none;
 }
+
+/* ══════════════════════════════════════════════════════
+   Écran Progression — stats, courbe, faits amusants
+   ══════════════════════════════════════════════════════ */
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%}
+.stat-card{
+  background:var(--bg);border-radius:var(--r);padding:16px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;
+}
+.stat-value{font-size:24px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
+.stat-label{font-size:12px;font-weight:700;color:var(--mid)}
+
+.progress-chart-card{background:var(--bg);border-radius:var(--r);padding:16px;width:100%}
+.progress-chart-head{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;font-weight:800;color:var(--dark);margin-bottom:10px;
+}
+.progress-chart-legend{display:flex;align-items:center;font-size:11px;font-weight:600;color:var(--mid)}
+.progress-chart-legend .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;margin-left:10px}
+.progress-chart-legend .dot:first-child{margin-left:0}
+.progress-chart-svg{width:100%;height:130px;display:block}
+
+.progress-banner{
+  background:color-mix(in srgb,var(--ref) 20%,transparent);
+  border-radius:var(--r);padding:14px 16px;font-size:14px;font-weight:700;
+  color:var(--dark);text-align:center;width:100%;
+}
+
+.fact-card{background:var(--bg);border-radius:var(--r);padding:18px;width:100%;display:flex;flex-direction:column;gap:6px}
+.fact-big{font-size:32px;font-weight:900;color:var(--dark)}
+.fact-text{font-size:14px;color:var(--mid);line-height:1.5}
+.fact-fun .fact-text{color:var(--dark)}
+.phrase-item{font-size:14px;font-style:italic;color:var(--mid);padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.phrase-item:last-child{border-bottom:none;padding-bottom:0}
+
+@media (min-width:860px){
+  .stat-grid{grid-template-columns:repeat(4,1fr)}
+}
 .history-time{font-size:45px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
 .history-date{font-size:22px;color:var(--dark);font-weight:500}
 .history-badge{
@@ -776,6 +814,14 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       </svg>
     </div>
     <span class="fab-label">Résultats</span>
+  </button>
+  <button class="fab-item" data-ctab="progress">
+    <div class="chrono-nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 19h16M4 19V6M4 19l5-6 4 3 6-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="fab-label">Progression</span>
   </button>
 </nav>
 
@@ -1454,6 +1500,7 @@ function renderChronoPage(){
   if(chronoScreen === 'result') return renderChronoResult();
   closeChronoResultOv();
   if(chronoTab === 'timer') return renderChronoMain();
+  if(chronoTab === 'progress') return renderProgressPage();
   return historyMode === 'best' ? renderHistoryBest() : renderHistoryDate();
 }
 
@@ -1712,6 +1759,222 @@ function historyPeriodFilterHTML(){
 }
 function setHistoryYear(v){ historyFilterYear = v; renderChronoPage(); }
 function setHistoryMonth(v){ historyFilterMonth = v; renderChronoPage(); }
+
+// ══════════════════════════════════════════════════════
+// Écran 07 : Progression — stats, moyenne, courbe, faits amusants
+// ══════════════════════════════════════════════════════
+
+// Notation scientifique lisible : 4.3 × 10¹⁹
+function toSuperscript(num){
+  const map = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'};
+  return String(num).split('').map(c => map[c] || c).join('');
+}
+function formatSci(n){
+  if(n < 1000) return Math.round(n).toString();
+  const exp = Math.floor(Math.log10(n));
+  const mantissa = n / Math.pow(10, exp);
+  return `${mantissa.toFixed(1)} × 10${toSuperscript(exp)}`;
+}
+
+function computeChronoStats(){
+  const all = [...CHRONO_RECORDS].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const n = all.length;
+  if(!n) return null;
+
+  const times = all.map(r => r.ms);
+  const sum = times.reduce((a,b) => a + b, 0);
+  const avg = sum / n;
+  const best = Math.min(...times);
+  const worst = Math.max(...times);
+
+  const last5 = times.slice(-5);
+  const last12 = times.slice(-12);
+  const ao5 = last5.length === 5 ? last5.reduce((a,b)=>a+b,0) / 5 : null;
+  const ao12 = last12.length === 12 ? last12.reduce((a,b)=>a+b,0) / 12 : null;
+
+  // Série de jours consécutifs avec au moins une résolution, jusqu'à aujourd'hui
+  const daySet = new Set(all.map(r => new Date(r.date).toDateString()));
+  let streak = 0;
+  let cursor = new Date();
+  while(daySet.has(cursor.toDateString())){
+    streak++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+
+  const todayStr = new Date().toDateString();
+  const todayCount = all.filter(r => new Date(r.date).toDateString() === todayStr).length;
+  const weekAgo = Date.now() - 7 * 86400000;
+  const weekCount = all.filter(r => new Date(r.date).getTime() >= weekAgo).length;
+
+  const byDay = {};
+  all.forEach(r => {
+    const k = new Date(r.date).toDateString();
+    byDay[k] = (byDay[k] || 0) + 1;
+  });
+  let bestDayCount = 0;
+  Object.values(byDay).forEach(c => { if(c > bestDayCount) bestDayCount = c; });
+
+  const first10 = times.slice(0, Math.min(10, n));
+  const last10 = times.slice(-Math.min(10, n));
+  const firstAvg = first10.reduce((a,b)=>a+b,0) / first10.length;
+  const lastAvg = last10.reduce((a,b)=>a+b,0) / last10.length;
+  const improvementPct = n >= 4 ? Math.round((1 - lastAvg / firstAvg) * 100) : null;
+
+  const lastMessages = all.slice(-5).reverse().map(r => r.msg).filter(Boolean);
+
+  return { n, avg, best, worst, ao5, ao12, streak, todayCount, weekCount, bestDayCount, improvementPct, totalMs: sum, lastMessages };
+}
+
+// Petite courbe SVG (sparkline) des derniers temps — plus haut = plus rapide
+function progressChartSVG(times){
+  const w = 600, h = 150, pad = 10;
+  const n = times.length;
+  const min = Math.min(...times), max = Math.max(...times);
+  const range = Math.max(1, max - min);
+  const stepX = (w - pad * 2) / (n - 1);
+  const pts = times.map((t,i) => [
+    pad + i * stepX,
+    pad + ((t - min) / range) * (h - pad * 2),
+  ]);
+  const path = pts.map((p,i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
+  const areaPath = `${path} L${pts[pts.length-1][0].toFixed(1)},${h-pad} L${pts[0][0].toFixed(1)},${h-pad} Z`;
+  const bestIdx = times.indexOf(min), worstIdx = times.lastIndexOf(max);
+  const dots = pts.map((p,i) => {
+    const isBest = i === bestIdx, isWorst = i === worstIdx;
+    const c = isBest ? '#08E326' : isWorst ? '#B71234' : '#5DA8FF';
+    const r = (isBest || isWorst) ? 4.5 : 2.5;
+    return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${r}" fill="${c}"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${w} ${h}" class="progress-chart-svg" preserveAspectRatio="none">
+    <defs><linearGradient id="progGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5DA8FF" stop-opacity=".35"/>
+      <stop offset="100%" stop-color="#5DA8FF" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${areaPath}" fill="url(#progGrad)"/>
+    <path d="${path}" fill="none" stroke="#5DA8FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
+  </svg>`;
+}
+
+function renderProgressPage(){
+  const m = document.getElementById('main');
+  const s = computeChronoStats();
+
+  if(!s){
+    m.innerHTML = `<div class="chrono-wrap">
+      <div class="section-head" style="padding-top:4px">
+        <div class="section-title">Progression</div>
+      </div>
+      <div class="empty-block">Lance quelques chronos pour voir ta progression apparaître ici.</div>
+    </div>`;
+    m.scrollTop = 0;
+    return;
+  }
+
+  const chronological = [...CHRONO_RECORDS].sort((a,b) => new Date(a.date) - new Date(b.date));
+  const recentTimes = chronological.slice(-30).map(r => r.ms);
+
+  // Fait amusant : nombre de combinaisons possibles d'un Rubik's Cube 3x3
+  const TOTAL_PERMS = 43252003274489856000;
+  const yearsToExhaust = TOTAL_PERMS * (s.avg / 1000) / (365.25 * 86400);
+  const universeAge = 13.8e9;
+  const universeRatio = yearsToExhaust / universeAge;
+
+  const totalMin = s.totalMs / 60000;
+  const totalHours = totalMin / 60;
+  const episodeEquiv = Math.round(totalMin / 45);
+
+  m.innerHTML = `<div class="chrono-wrap">
+
+    <div class="section-head" style="padding-top:4px">
+      <div class="section-title">Progression</div>
+      <div class="section-sub">${s.n} résolution${s.n>1?'s':''} enregistrée${s.n>1?'s':''}</div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">${formatTime(s.best)}</div>
+        <div class="stat-label">🏆 Meilleur temps</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${formatTime(Math.round(s.avg))}</div>
+        <div class="stat-label">Temps moyen</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.ao5 ? formatTime(Math.round(s.ao5)) : '—'}</div>
+        <div class="stat-label">Moyenne ao5</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.ao12 ? formatTime(Math.round(s.ao12)) : '—'}</div>
+        <div class="stat-label">Moyenne ao12</div>
+      </div>
+    </div>
+
+    <div class="progress-chart-card">
+      <div class="progress-chart-head">
+        <span>Derniers temps</span>
+        <span class="progress-chart-legend">
+          <span class="dot" style="background:#08E326"></span>Meilleur
+          <span class="dot" style="background:#B71234"></span>Pire
+        </span>
+      </div>
+      ${recentTimes.length >= 2
+        ? progressChartSVG(recentTimes)
+        : `<div class="empty-block" style="padding:20px 0">Encore quelques chronos pour voir la courbe se dessiner.</div>`}
+    </div>
+
+    ${s.improvementPct !== null ? `
+    <div class="progress-banner">
+      ${s.improvementPct > 0
+        ? `📈 Tu es <strong>${s.improvementPct}% plus rapide</strong> que sur tes 10 premières résolutions !`
+        : `Continue, ta courbe va bientôt s'inverser 💪`}
+    </div>` : ''}
+
+    <div class="moves-cat-h">Régularité</div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value">${s.streak}</div>
+        <div class="stat-label">🔥 Jour${s.streak>1?'s':''} d'affilée</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.todayCount}</div>
+        <div class="stat-label">Résolutions aujourd'hui</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.weekCount}</div>
+        <div class="stat-label">Cette semaine</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">${s.bestDayCount}</div>
+        <div class="stat-label">Record en 1 jour</div>
+      </div>
+    </div>
+
+    <div class="moves-cat-h">Temps investi</div>
+    <div class="fact-card">
+      <div class="fact-big">${totalHours >= 1 ? totalHours.toFixed(1) + ' h' : Math.round(totalMin) + ' min'}</div>
+      <div class="fact-text">passées à résoudre le cube${episodeEquiv > 0 ? ` — l'équivalent d'environ <strong>${episodeEquiv} épisode${episodeEquiv>1?'s':''}</strong> de série (45 min).` : '.'}</div>
+    </div>
+
+    <div class="moves-cat-h">Un peu de vertige 🌀</div>
+    <div class="fact-card fact-fun">
+      <div class="fact-text">
+        Le Rubik's Cube possède <strong>${formatSci(TOTAL_PERMS)}</strong> combinaisons possibles.
+        Tu en as résolu <strong>${s.n}</strong> — à ton rythme actuel, il te faudrait environ
+        <strong>${formatSci(yearsToExhaust)} années</strong> pour toutes les essayer,
+        soit à peu près <strong>${universeRatio >= 1 ? formatSci(universeRatio) : '< 1'} fois l'âge de l'univers</strong>. 🌌
+      </div>
+    </div>
+
+    ${s.lastMessages.length ? `
+    <div class="moves-cat-h">Tes dernières phrases</div>
+    <div class="fact-card">
+      ${s.lastMessages.map(msg => `<div class="phrase-item">"${msg}"</div>`).join('')}
+    </div>` : ''}
+
+  </div>`;
+  m.scrollTop = 0;
+}
 
 // ── Écran 05 : historique — meilleures performances ──
 function renderHistoryBest(){
