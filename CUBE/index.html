@@ -21,7 +21,8 @@ html,body{height:100%;background:var(--page);color:var(--dark);
 .app{display:flex;flex-direction:column;height:100dvh}
 header{display:flex;align-items:center;justify-content:space-between;
   padding:0 20px;height:54px;background:var(--page);
-  flex-shrink:0;border-bottom:1px solid #e8e8e8;z-index:10}
+  flex-shrink:0;border-bottom:1px solid #e8e8e8;z-index:10;
+  transition:background .15s ease}
 .app-title{font-size:18px;font-weight:800;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
 .header-icon{width:26px;height:26px}
 .header-icon svg{width:15px;height:15px}
@@ -292,8 +293,14 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
    ══════════════════════════════════════════════════════ */
 .chrono-wrap{
   display:flex;flex-direction:column;align-items:center;gap:20px;
-  padding:14px 14px 110px;max-width:460px;margin:0 auto;
+  padding:16px 16px 110px;max-width:460px;margin:0 auto;
   position:relative;
+}
+/* Pages tableau de bord (Progression) : contenu pleine largeur et aligné
+   à gauche, homogène avec Accueil/OLL/PLL plutôt que centré comme le chrono */
+.chrono-wrap.dash-wrap{align-items:stretch;text-align:left}
+@media (min-width:860px){
+  .chrono-wrap.dash-wrap{max-width:640px;padding-left:0;padding-right:0}
 }
 .chrono-wrap.chrono-center{
   min-height:calc(100dvh - 54px);
@@ -645,6 +652,17 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 }
 .stat-value{font-size:24px;font-weight:900;color:var(--dark);font-variant-numeric:tabular-nums}
 .stat-label{font-size:12px;font-weight:700;color:var(--mid)}
+.stat-note{font-size:12px;color:var(--mid);line-height:1.5;padding:2px 2px 0;text-align:left}
+
+.tips-list{display:flex;flex-direction:column;gap:10px;width:100%}
+.tips-item{
+  display:flex;align-items:flex-start;gap:12px;background:var(--bg);
+  border-radius:var(--r);padding:14px 16px;font-size:14px;color:var(--dark);line-height:1.5;
+}
+.tips-num{
+  flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--ref);color:var(--ref-text);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;
+}
 
 /* ══════════════════════════════════════════════════════
    Écran Accueil
@@ -673,12 +691,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .home-last-time .t-sub{font-size:.68em;font-weight:700;opacity:.75}
 
 .home-cta{
-  display:flex;align-items:center;justify-content:center;gap:10px;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
   background:var(--ref);color:var(--ref-text);border-radius:70px;
-  padding:13px 20px;font-size:16px;font-weight:700;width:100%;
+  padding:13px 22px;font-size:16px;font-weight:700;width:fit-content;
+  align-self:center;
 }
 .home-cta svg{width:22px;height:22px}
-.home-cta-ghost{background:var(--page);border:1.5px solid #e5e5e5;color:var(--dark)}
 
 .home-tiles-row{display:flex;gap:14px;width:100%;margin-bottom:14px}
 .home-tile{
@@ -694,11 +712,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   box-shadow:0 0 4px rgba(0,0,0,.1);cursor:pointer;text-align:left;margin-bottom:18px;
 }
 .home-progress-head{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;color:var(--dark)}
-.home-progress-head svg{width:22px;height:22px;flex-shrink:0}
+.home-progress-picto{width:30px;height:28px;flex-shrink:0;display:flex}
+.home-progress-picto svg{width:100%;height:100%;display:block}
 
 @media (min-width:860px){
-  .home-tiles-row{max-width:600px}
-  .home-last-card,.home-progress-card{max-width:600px}
+  .home-tiles-row{max-width:600px;margin-left:auto;margin-right:auto}
+  .home-last-card,.home-progress-card{max-width:600px;margin-left:auto;margin-right:auto}
 }
 
 .lottie-box-xs{width:34px;height:34px}
@@ -844,7 +863,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 
 <!-- ══ APP ══ -->
 <div class="app">
-  <header>
+  <header id="appHeader">
     <h1 class="app-title" id="headerTitle">Méthode Fridrich</h1>
     <button class="burger" onclick="menuOpen()"><span></span><span></span><span></span></button>
   </header>
@@ -939,6 +958,67 @@ const MOSAIC_SVG_URL = 'data:image/svg+xml;utf8,' + encodeURIComponent(MOSAIC_SV
 
 // Illustration du cube (asset Figma fourni par l'utilisateur), utilisée
 // pour la carte "Mon dernier temps" de la Home.
+const ILLU_OLL_SVG = `<svg width="43" height="45" viewBox="0 0 43 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3544_1010)">
+<rect x="9.48811" y="7.84692" width="7.70029" height="1.42619" fill="#BDBDBD"/>
+<rect x="17.7288" y="7.84692" width="7.70029" height="1.42619" fill="#FFDE3A"/>
+<rect x="25.9694" y="7.84692" width="7.70029" height="1.42619" fill="#BDBDBD"/>
+<rect x="7.52155" y="33.9951" width="7.70029" height="1.42619" transform="rotate(-90 7.52155 33.9951)" fill="#FFDE3A"/>
+<rect x="7.52155" y="25.7544" width="7.70029" height="1.42619" transform="rotate(-90 7.52155 25.7544)" fill="#BDBDBD"/>
+<rect x="7.52155" y="17.5139" width="7.70029" height="1.42619" transform="rotate(-90 7.52155 17.5139)" fill="#FFDE3A"/>
+<rect x="9.48811" y="9.81348" width="7.70029" height="7.70029" fill="#BDBDBD"/>
+<rect x="17.7288" y="9.81348" width="7.70029" height="7.70029" fill="#BDBDBD"/>
+<rect x="25.9694" y="9.81348" width="7.70029" height="7.70029" fill="#FFDE3A"/>
+<rect x="9.48811" y="18.0542" width="7.70029" height="7.70029" fill="#FFDE3A"/>
+<rect x="17.7288" y="18.0542" width="7.70029" height="7.70029" fill="#FFDE3A"/>
+<rect x="25.9694" y="18.0542" width="7.70029" height="7.70029" fill="#FFDE3A"/>
+<rect x="9.48811" y="26.2947" width="7.70029" height="7.70029" fill="#BDBDBD"/>
+<rect x="17.7288" y="26.2947" width="7.70029" height="7.70029" fill="#BDBDBD"/>
+<rect x="25.9694" y="26.2947" width="7.70029" height="7.70029" fill="#FFDE3A"/>
+<rect x="34.2101" y="33.9951" width="7.70029" height="1.42619" transform="rotate(-90 34.2101 33.9951)" fill="#BDBDBD"/>
+<rect x="34.2101" y="25.7544" width="7.70029" height="1.42619" transform="rotate(-90 34.2101 25.7544)" fill="#BDBDBD"/>
+<rect x="34.2101" y="17.5139" width="7.70029" height="1.42619" transform="rotate(-90 34.2101 17.5139)" fill="#BDBDBD"/>
+<rect x="9.48811" y="34.5354" width="7.70029" height="1.42619" fill="#BDBDBD"/>
+<rect x="17.7288" y="34.5354" width="7.70029" height="1.42619" fill="#FFDE3A"/>
+<rect x="25.9694" y="34.5354" width="7.70029" height="1.42619" fill="#BDBDBD"/>
+</g>
+<defs><clipPath id="clip0_3544_1010"><rect width="42.5973" height="44.2788" fill="white"/></clipPath></defs>
+</svg>`;
+
+const ILLU_PLL_SVG = `<svg width="42" height="44" viewBox="0 0 42 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3544_1259)">
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 8.92268 38.1316)" fill="#FF9A1F"/>
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 17.3425 38.1316)" fill="#E92929"/>
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 25.7623 38.1316)" fill="#FF9A1F"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 5.08815 9.56958)" fill="#0094FE"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 5.08815 17.9961)" fill="#08E326"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 5.08815 26.4224)" fill="#0094FE"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 8.92267 34.2969)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 17.3425 34.2969)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 25.7623 34.2969)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 8.92267 25.8772)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 17.3425 25.8772)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 25.7623 25.8772)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 8.92267 17.4573)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 17.3425 17.4573)" fill="#FFCC41"/>
+<rect width="7.86768" height="7.86768" transform="matrix(1 0 0 -1 25.7623 17.4573)" fill="#FFCC41"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 34.1821 9.56958)" fill="#08E326"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 34.1821 17.9961)" fill="#0094FE"/>
+<rect width="7.87441" height="3.28241" transform="matrix(0 1 1 0 34.1821 26.4224)" fill="#08E326"/>
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 8.92268 9.01733)" fill="#E92929"/>
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 17.3425 9.01733)" fill="#08E326"/>
+<rect width="7.86768" height="3.28241" transform="matrix(1 0 0 -1 25.7623 9.01733)" fill="#E92929"/>
+<path d="M30.8683 22.376C30.8683 21.7314 30.3457 21.2089 29.7012 21.2089C29.0566 21.2089 28.5341 21.7314 28.5341 22.376C28.5341 23.0205 29.0566 23.5431 29.7012 23.5431C30.3457 23.5431 30.8683 23.0205 30.8683 22.376ZM12.2679 22.376C12.2679 21.7314 11.7454 21.2089 11.1009 21.2089C10.4563 21.2089 9.93377 21.7314 9.93377 22.376C9.93377 23.0205 10.4563 23.5431 11.1009 23.5431C11.7454 23.5431 12.2679 23.0205 12.2679 22.376ZM29.7012 22.376V22.1571H11.1009V22.376V22.5948H29.7012V22.376Z" fill="#313131"/>
+<path d="M21.0575 11.6899C20.4129 11.6899 19.8904 12.2124 19.8904 12.8569C19.8904 13.5015 20.4129 14.024 21.0575 14.024C21.7021 14.024 22.2246 13.5015 22.2246 12.8569C22.2246 12.2124 21.7021 11.6899 21.0575 11.6899ZM21.0575 30.2902C20.4129 30.2902 19.8904 30.8127 19.8904 31.4573C19.8904 32.1018 20.4129 32.6243 21.0575 32.6243C21.7021 32.6243 22.2246 32.1018 22.2246 31.4573C22.2246 30.8127 21.7021 30.2902 21.0575 30.2902ZM21.0575 12.8569H20.8387L20.8387 31.4573H21.0575H21.2763L21.2763 12.8569H21.0575Z" fill="#313131"/>
+</g>
+<defs><clipPath id="clip0_3544_1259"><rect width="42" height="43.6579" fill="white"/></clipPath></defs>
+</svg>`;
+
+const PICTO_PROGRESSION_SVG = `<svg width="36" height="33" viewBox="0 0 36 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="36" height="33" rx="16.5" fill="#D7EEFF"/>
+<path d="M10 10V23H26M10 23L15 17L19 20L25 12" stroke="#0094FE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
 const CUBE_ILLUSTRATION_SVG = `<svg width="76" height="79" viewBox="0 0 76 79" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_3544_762)">
 <mask id="mask0_3544_762" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="1" y="6" width="70" height="67">
@@ -1214,6 +1294,7 @@ async function init(){
     if(!r.ok) throw new Error(r.status);
     DB = await r.json();
     renderNavCubes();
+    loadRecords();
     goPage('home');
   } catch(e) {
     document.getElementById('main').innerHTML =
@@ -1302,6 +1383,13 @@ function updateHeader(){
   document.getElementById('headerTitle').innerHTML =
     `<span class="menu-icon header-icon" style="background:${v.bg};color:${v.fg}">${v.icon}</span>${t}`;
 }
+// Applique le même fond au header et au contenu pour une continuité visuelle
+// homogène sur toutes les pages (au lieu d'un header toujours blanc).
+function setPageBg(color){
+  const bg = color || '';
+  document.getElementById('main').style.background = bg;
+  document.getElementById('appHeader').style.background = bg || '';
+}
 function updateMenuActive(){
   document.querySelectorAll('.menu-link[data-view]').forEach(b =>
     b.classList.toggle('active', b.dataset.view === curView));
@@ -1310,7 +1398,7 @@ function updateMenuActive(){
 function goPage(view){
   curView = view;
   destroyActiveLotties();
-  document.getElementById('main').style.background = '';
+  setPageBg('');
   menuClose();
   updateHeader();
   updateMenuActive();
@@ -2139,14 +2227,14 @@ function renderHomePage(){
 
   const progressCardHTML = s ? `
     <button class="home-progress-card" onclick="goToChronoTab('progress')">
-      <div class="home-progress-head"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M4 19V6M4 19l5-6 4 3 6-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ma progression</div>
+      <div class="home-progress-head"><span class="home-progress-picto">${PICTO_PROGRESSION_SVG}</span>Ma progression</div>
       <div class="stat-grid">
         <div class="stat-card"><div class="stat-value">${formatTime(s.best)}</div><div class="stat-label">🏆 Meilleur temps</div></div>
         <div class="stat-card"><div class="stat-value">${formatTime(s.worst)}</div><div class="stat-label">😫 Pire temps</div></div>
         <div class="stat-card"><div class="stat-value">${s.streak}</div><div class="stat-label">🔥 Jour${s.streak>1?'s':''} d'affilée</div></div>
         <div class="stat-card"><div class="stat-value">${s.n}</div><div class="stat-label">Résolutions</div></div>
       </div>
-      <span class="home-cta home-cta-ghost">Voir le détail</span>
+      <span class="home-cta">Voir le détail</span>
     </button>` : `
     <div class="empty-block">Lance ton premier chrono pour voir tes stats ici.</div>`;
 
@@ -2162,11 +2250,11 @@ function renderHomePage(){
 
     <div class="home-tiles-row">
       <button class="home-tile" onclick="goToTab('oll')">
-        <div class="home-cube-ill home-cube-ill-sm">${CUBE_ILLUSTRATION_SVG}</div>
+        <div class="home-cube-ill home-cube-ill-sm">${ILLU_OLL_SVG}</div>
         <div class="home-tile-label">Résolutions OLL</div>
       </button>
       <button class="home-tile" onclick="goToTab('pll')">
-        <div class="home-cube-ill home-cube-ill-sm">${CUBE_ILLUSTRATION_SVG}</div>
+        <div class="home-cube-ill home-cube-ill-sm">${ILLU_PLL_SVG}</div>
         <div class="home-tile-label">Résolutions PLL</div>
       </button>
     </div>
@@ -2174,7 +2262,7 @@ function renderHomePage(){
     ${progressCardHTML}
     ${topFlop}
   </div>`;
-  m.style.background = 'color-mix(in srgb, var(--ref) 12%, #ffffff)';
+  setPageBg('color-mix(in srgb, var(--ref) 12%, #ffffff)');
   mountTopFlopLotties();
   m.scrollTop = 0;
 }
@@ -2275,13 +2363,50 @@ function progressChartSVG(times){
   </svg>`;
 }
 
+// Conseils statiques pour progresser — affichés sur la page Progression
+const SPEEDCUBE_TIPS = [
+  "Anticipe la paire suivante pendant que tu résous la précédente (look-ahead) : garde les yeux devant tes mains, pas dessus.",
+  "Travaille tes finger tricks : fais tourner les faces avec les doigts plutôt qu'en pivotant tout le poignet.",
+  "Isole 2 ou 3 algos OLL/PLL qui te ralentissent et répète-les à vide, sans mélanger le cube, jusqu'à ce qu'ils deviennent automatiques.",
+  "Suis ton ao12 plutôt que ton meilleur temps : c'est l'indicateur le plus fiable de ta progression réelle.",
+  "Préfère des sessions courtes et quotidiennes à une longue session hebdomadaire — la mémoire musculaire aime la répétition régulière.",
+  "Reste détendu : un cube tenu trop fort ralentit les finger tricks et augmente les pops.",
+];
+function tipsHTML(){
+  return `<div class="tips-list">
+    ${SPEEDCUBE_TIPS.map((t,i) => `<div class="tips-item"><span class="tips-num">${i+1}</span><span>${t}</span></div>`).join('')}
+  </div>`;
+}
+
+// Pool de faits amusants — un tiré au hasard à chaque affichage de la page,
+// pour varier le contenu plutôt qu'un seul fait toujours identique.
+function funFactHTML(s, TOTAL_PERMS, yearsToExhaust, universeRatio, totalMin){
+  const facts = [
+    () => `Le Rubik's Cube possède <strong>${formatSci(TOTAL_PERMS)}</strong> combinaisons possibles.
+      Tu en as résolu <strong>${s.n}</strong> — à ton rythme actuel, il te faudrait environ
+      <strong>${formatSci(yearsToExhaust)} années</strong> pour toutes les essayer,
+      soit à peu près <strong>${universeRatio >= 1 ? formatSci(universeRatio) : '< 1'} fois l'âge de l'univers</strong>. 🌌`,
+    () => {
+      const perYear = Math.round(31557600 / (s.avg / 1000));
+      return `À ton temps moyen actuel (${formatTime(Math.round(s.avg))}), tu pourrais enchaîner environ
+        <strong>${formatSci(perYear)} résolutions</strong> si tu résolvais le cube sans t'arrêter pendant une année entière. 🔁`;
+    },
+    () => {
+      const km = totalMin / 6; // ~6 min/km au jogging
+      return `Le temps total passé à résoudre le cube équivaut à un jogging léger d'environ
+        <strong>${km >= 1 ? km.toFixed(1) : (km*1000).toFixed(0) + ' m'}${km >= 1 ? ' km' : ''}</strong> — sans avoir bougé de ta chaise. 🏃`;
+    },
+  ];
+  return facts[Math.floor(Math.random() * facts.length)]();
+}
+
 function renderProgressPage(){
   const m = document.getElementById('main');
   destroyActiveLotties();
   const s = computeChronoStats();
 
   if(!s){
-    m.innerHTML = `<div class="chrono-wrap">
+    m.innerHTML = `<div class="chrono-wrap dash-wrap">
       <div class="section-head" style="padding-top:4px">
         <div class="section-title">Progression</div>
       </div>
@@ -2304,7 +2429,7 @@ function renderProgressPage(){
   const totalHours = totalMin / 60;
   const episodeEquiv = Math.round(totalMin / 45);
 
-  m.innerHTML = `<div class="chrono-wrap">
+  m.innerHTML = `<div class="chrono-wrap dash-wrap">
 
     <div class="section-head" style="padding-top:4px">
       <div class="section-title">Progression</div>
@@ -2329,6 +2454,7 @@ function renderProgressPage(){
         <div class="stat-label">Moyenne ao12</div>
       </div>
     </div>
+    <div class="stat-note">Ao5 : moyenne de tes 5 derniers temps. Ao12 : moyenne de tes 12 derniers temps — plus stable pour juger ta régularité que ton meilleur temps isolé.</div>
 
     <div class="progress-chart-card">
       <div class="progress-chart-head">
@@ -2373,6 +2499,9 @@ function renderProgressPage(){
     <div class="moves-cat-h">Top / Flop</div>
     ${topFlopHTML(3)}
 
+    <div class="moves-cat-h">Conseils pour t'améliorer</div>
+    ${tipsHTML()}
+
     <div class="moves-cat-h">Temps investi</div>
     <div class="fact-card">
       <div class="fact-big">${totalHours >= 1 ? totalHours.toFixed(1) + ' h' : Math.round(totalMin) + ' min'}</div>
@@ -2381,12 +2510,7 @@ function renderProgressPage(){
 
     <div class="moves-cat-h">Un peu de vertige 🌀</div>
     <div class="fact-card fact-fun">
-      <div class="fact-text">
-        Le Rubik's Cube possède <strong>${formatSci(TOTAL_PERMS)}</strong> combinaisons possibles.
-        Tu en as résolu <strong>${s.n}</strong> — à ton rythme actuel, il te faudrait environ
-        <strong>${formatSci(yearsToExhaust)} années</strong> pour toutes les essayer,
-        soit à peu près <strong>${universeRatio >= 1 ? formatSci(universeRatio) : '< 1'} fois l'âge de l'univers</strong>. 🌌
-      </div>
+      <div class="fact-text">${funFactHTML(s, TOTAL_PERMS, yearsToExhaust, universeRatio, totalMin)}</div>
     </div>
 
     ${s.lastMessages.length ? `
