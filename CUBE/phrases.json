@@ -1,0 +1,118 @@
+{
+  "_a_propos": "Bibliothèque centralisée de toutes les phrases de personnalisation de l'app Méthode Fridrich. Une seule source de vérité, facile à relire, enrichir ou faire traduire sans toucher au code.",
+
+  "motivation": {
+    "_usage": "Accueil — citation sous le 'Bonjour', une phrase tirée au hasard à chaque visite.",
+    "phrases": [
+      "Chaque résolution te rapproche du sub-20.",
+      "Le meilleur moment pour un nouveau record, c'est maintenant.",
+      "Un cube mélangé n'attend qu'une chose : toi.",
+      "La régularité bat la vitesse. Continue comme ça.",
+      "Ta prochaine résolution pourrait être la meilleure."
+    ]
+  },
+
+  "conseils": {
+    "_usage": "Page Progression (liste de conseils) + card 'Mon dernier temps' de la Home (un conseil tiré au hasard sous le bouton Lancer le chrono).",
+    "phrases": [
+      "Anticipe la paire suivante pendant que tu résous la précédente (look-ahead) : garde les yeux devant tes mains, pas dessus.",
+      "Travaille tes finger tricks : fais tourner les faces avec les doigts plutôt qu'en pivotant tout le poignet.",
+      "Isole 2 ou 3 algos OLL/PLL qui te ralentissent et répète-les à vide, sans mélanger le cube, jusqu'à ce qu'ils deviennent automatiques.",
+      "Suis ton ao12 plutôt que ton meilleur temps : c'est l'indicateur le plus fiable de ta progression réelle.",
+      "Préfère des sessions courtes et quotidiennes à une longue session hebdomadaire — la mémoire musculaire aime la répétition régulière.",
+      "Reste détendu : un cube tenu trop fort ralentit les finger tricks et augmente les pops."
+    ]
+  },
+
+  "chrono_en_cours": {
+    "_usage": "Phrases affichées pendant que le chrono tourne. Regroupées par palier de temps écoulé (en secondes) ; les seuils sont légèrement décalés au hasard (±2s) à chaque run pour éviter la répétition.",
+    "paliers": [
+      { "max_secondes": 4,        "phrases": ["Allez, c'est parti pour ton meilleur temps !", "GO GO GO 🚀", "On y croit !", "Difficile démarage"] },
+      { "max_secondes": 7,        "phrases": ["Tu dois déjà avoir fini la croix !", "La croix, ça avance ?"] },
+      { "max_secondes": 12,       "phrases": ["Les F2L t'attendent...", "Concentre-toi, tu gères !"] },
+      { "max_secondes": 20,       "phrases": ["Allez, la dernière paire de F2L !", "Plus que l'OLL et le PLL !"] },
+      { "max_secondes": 30,       "phrases": ["On garde le rythme 💪", "La ligne droite approche..."] },
+      { "max_secondes": 45,       "phrases": ["Presque à la minute...", "Tiens bon, ne lâche rien !"] },
+      { "max_secondes": 60,       "phrases": ["Dernière ligne droite !", "Allez, courage !"] },
+      { "max_secondes": 90,       "phrases": ["Alors, on traîne ?", "Il se passe quoi là ? 😅"] },
+      { "max_secondes": null,     "phrases": ["J'ai failli m'endormir 😴", "Le cube a gagné, on dirait...", "Bon... on y est presque ?"] }
+    ]
+  },
+
+  "reussite": {
+    "_usage": "Phrases de conclusion affichées à l'arrêt du chrono, sur l'écran résultat. Choisies selon la performance (record, pire temps, ou tranche de temps).",
+    "categories": {
+      "record": {
+        "_condition": "Nouveau meilleur temps",
+        "phrases": [
+          "🎉 Nouveau record ! Tu montes en Super Saiyan !",
+          "Record battu ! Même Tony Stark n'aurait pas fait mieux.",
+          "Plus rapide que Flash un jour de forme.",
+          "Un exploit digne de la Communauté de l'Anneau.",
+          "Tu utilises la Force, ça se voit.",
+          "Bravo, tu t'es surpassé !"
+        ]
+      },
+      "fast": {
+        "_condition": "< 10s",
+        "phrases": [
+          "Éclair ! Plus rapide que Flash.",
+          "Kaioken x20 activé, on dirait.",
+          "Tu voles comme le Faucon Millenium à pleine hyperpropulsion.",
+          "Presque aussi rapide qu'un Nazgûl sur son fell beast.",
+          "Whoosh, on n'a rien vu venir !"
+        ]
+      },
+      "good": {
+        "_condition": "10 à 20s",
+        "phrases": [
+          "Solide, digne d'un guerrier de Namek.",
+          "Efficace, comme Batman qui a tout préparé à l'avance.",
+          "Un rythme de hobbit pressé — organisé et sûr de lui.",
+          "Du niveau des Avengers, ce coup-ci.",
+          "Beau temps, propre et efficace."
+        ]
+      },
+      "average": {
+        "_condition": "20 à 40s",
+        "phrases": [
+          "La Genkidama arrive bientôt.",
+          "Ça se tient, comme une scène calme d'un film Ghibli.",
+          "Un temps honnête, façon épisode de transition.",
+          "Steady, comme Frodon en route vers le Mordor.",
+          "Ça passe, sans forcer."
+        ]
+      },
+      "slow": {
+        "_condition": "40 à 60s",
+        "phrases": [
+          "Façon Maître Roshi qui somnole.",
+          "Ça sentait la pause chocolatine en plein milieu.",
+          "Un peu comme Sam qui range les casseroles avant de repartir.",
+          "Ambiance Bruce Wayne qui hésite à sortir du manoir.",
+          "Bon, on va dire que ton cube était un peu rouillé."
+        ]
+      },
+      "verySlow": {
+        "_condition": "60s et plus",
+        "phrases": [
+          "Les Cell Games ont duré moins longtemps.",
+          "Même Krillin aurait fini avant toi, cette fois.",
+          "T'as eu le temps de traverser la Moria à pied.",
+          "Aussi long que le voyage de Sophie dans son château ambulant.",
+          "On dirait que Thanos a claqué des doigts et t'a ralenti."
+        ]
+      },
+      "worst": {
+        "_condition": "Pire temps jamais enregistré",
+        "phrases": [
+          "Aïe... même Frodon aurait fait demi-tour.",
+          "Le Château Ambulant est resté bloqué en chemin.",
+          "On dirait que Thanos a vraiment tout ralenti, cette fois.",
+          "Bon... on va dire que c'était un tour d'échauffement.",
+          "Aïe, c'est raté. On efface et on relance ?"
+        ]
+      }
+    }
+  }
+}
