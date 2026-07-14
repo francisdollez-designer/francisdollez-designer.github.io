@@ -293,14 +293,14 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
    ══════════════════════════════════════════════════════ */
 .chrono-wrap{
   display:flex;flex-direction:column;align-items:center;gap:20px;
-  padding:16px 16px 110px;max-width:460px;margin:0 auto;
+  padding:16px 16px 110px;margin:0 auto;
   position:relative;
 }
 /* Pages tableau de bord (Progression) : contenu pleine largeur et aligné
    à gauche, homogène avec Accueil/OLL/PLL plutôt que centré comme le chrono */
 .chrono-wrap.dash-wrap{align-items:stretch;text-align:left}
-@media (min-width:860px){
-  .chrono-wrap.dash-wrap{max-width:640px;padding-left:0;padding-right:0}
+@media {
+  .chrono-wrap.dash-wrap{padding-left:16;padding-right:16}
 }
 .chrono-wrap.chrono-center{
   min-height:calc(100dvh - 54px);
@@ -680,7 +680,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .home-cube-ill-sm{width:56px;height:58px;margin-bottom:4px}
 
 .home-last-card{
-  display:flex;flex-direction:column;gap:16px;width:100%;
+  display:wrap;flex-direction:column;gap:16px;width:100%;
   background:var(--bg);border:none;border-radius:16px;padding:20px;
   box-shadow:0 0 4px rgba(0,0,0,.1);cursor:pointer;text-align:left;margin-bottom:14px;
 }
@@ -720,18 +720,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   .home-last-card,.home-progress-card{margin-left:auto;margin-right:auto}
 }
 
-.lottie-box-xs{width:34px;height:34px}
+.lottie-box-xs{width:80px;height:80px}
 .topflop-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
 .topflop-card{background:var(--bg);border-radius:var(--r);padding:14px}
 .topflop-head{display:flex;align-items:center;gap:8px;font-size:24px;font-weight:800;color:var(--dark);margin-bottom:6px}
 .topflop-row{
-  display:flex;align-items:center;gap:8px;padding:8px 2px;
+  display:wrap;align-items:center;gap:8px;padding:8px 2px;
   border-bottom:1px solid rgba(0,0,0,.06);cursor:pointer;
 }
 .topflop-row:last-child{border-bottom:none;padding-bottom:2px}
-.topflop-rank{width:16px;font-size:16px;font-weight:800;color:var(--mid);flex-shrink:0}
-.topflop-time{flex:1;font-size:20px;font-weight:800;color:var(--dark);font-variant-numeric:tabular-nums}
-.topflop-date{font-size:12px;color:var(--mid);white-space:nowrap}
+.topflop-rank{width:16px;font-size:18px;font-weight:800;color:var(--mid);flex-shrink:0;padding-right: 8px;}
+.topflop-time{flex:1;font-size:20px;font-weight:800;color:var(--dark);font-variant-numeric:tabular-nums;padding-right: 8px;}
+.topflop-date{font-size:16px;color:var(--mid);white-space:nowrap}
 @media (min-width:860px){
   .home-grid{grid-template-columns:repeat(3,1fr)}
   .home-card-big{grid-column:auto;flex-direction:column;align-items:flex-start}
@@ -915,7 +915,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
         <path d="M4 19h16M4 19V6M4 19l5-6 4 3 6-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
-    <span class="fab-label">Progression</span>
+    <span class="fab-label">Stats</span>
   </button>
 </nav>
 
