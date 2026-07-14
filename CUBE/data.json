@@ -3,7 +3,6 @@
     "version": "1.1",
     "description": "Fridrich CFOP — données éditables. Modifiez librement alg, tip, shape, group.",
     "shapes_order": [
-  
       "T",
       "P",
       "C",
@@ -2483,7 +2482,6 @@
         ]
       }
     }
-    
   ],
   "pll": [
     {
@@ -3375,7 +3373,7 @@
       "num": 1,
       "name": "Base droite",
       "group": "Coin et arête sur U",
-      "alg": "U R U' R'",
+      "alg": "R U R'",
       "tip": "Le cas le plus courant — à apprendre en premier",
       "svg": "svg/f2l/01.svg",
       "state": {
@@ -3417,7 +3415,7 @@
       "num": 2,
       "name": "Base gauche",
       "group": "Coin et arête sur U",
-      "alg": "U' L' U L",
+      "alg": "F' U' F",
       "tip": "Symétrique du cas de base",
       "svg": "svg/f2l/02.svg",
       "state": {
@@ -3459,7 +3457,7 @@
       "num": 3,
       "name": "Arête retournée",
       "group": "Coin et arête sur U",
-      "alg": "R U' R' U R U' R'",
+      "alg": "U' F' U F",
       "tip": "Coin et arête orientés correctement mais arête à l'envers",
       "svg": "svg/f2l/03.svg",
       "state": {
@@ -3501,7 +3499,7 @@
       "num": 4,
       "name": "Coin U, arête en place",
       "group": "Coin et arête sur U",
-      "alg": "R U2 R' U' R U R'",
+      "alg": "U R U' R'",
       "tip": "",
       "svg": "svg/f2l/04.svg",
       "state": {
@@ -3543,7 +3541,7 @@
       "num": 5,
       "name": "Coin U, arête slot voisin",
       "group": "Coin et arête sur U",
-      "alg": "U' R U2 R' U R U' R'",
+      "alg": "U R U' R' U' F' U F",
       "tip": "",
       "svg": "svg/f2l/05.svg",
       "state": {
@@ -3585,7 +3583,7 @@
       "num": 6,
       "name": "Les deux alignés sur U",
       "group": "Coin et arête sur U",
-      "alg": "U R U' R' U' F' U F",
+      "alg": "U' F' U F U R U' R'",
       "tip": "",
       "svg": "svg/f2l/06.svg",
       "state": {
@@ -3627,7 +3625,7 @@
       "num": 7,
       "name": "Coin ok, arête sur U",
       "group": "Coin en place — arête déplacée",
-      "alg": "R U' R' U R U' R'",
+      "alg": "F' U F U' F' U F",
       "tip": "",
       "svg": "svg/f2l/07.svg",
       "state": {
@@ -3711,7 +3709,7 @@
       "num": 9,
       "name": "Coin sur U, arête orientée",
       "group": "Coin sur U — arête dans slot",
-      "alg": "R U2 R' U' R U R'",
+      "alg": "R U' R' U R U' R'",
       "tip": "",
       "svg": "svg/f2l/09.svg",
       "state": {
@@ -3753,7 +3751,7 @@
       "num": 10,
       "name": "Coin sur U, arête retournée",
       "group": "Coin sur U — arête dans slot",
-      "alg": "R U' R' U2 R U' R'",
+      "alg": "F' U' F U F' U' F",
       "tip": "",
       "svg": "svg/f2l/10.svg",
       "state": {

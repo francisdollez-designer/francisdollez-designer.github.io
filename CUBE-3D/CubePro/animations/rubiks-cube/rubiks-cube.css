@@ -1,0 +1,344 @@
+/* ======================================
+   RUBIK'S CUBE - PORTFOLIO 3D
+====================================== */
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin:0;
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+    radial-gradient(
+        circle,
+        #ffffff 0%,
+        #eeeeee 45%,
+        #d4d4d4 100%
+    );
+
+    font-family:Arial,sans-serif;
+
+    overflow:hidden;
+
+}
+
+
+
+.rubiks-scene {
+
+    width:var(--cube-size);
+    height:var(--cube-size);
+
+    perspective:1200px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    touch-action:none;
+
+}
+
+
+
+.rubiks-wrapper {
+
+    width:150px;
+
+    height:150px;
+
+    position:relative;
+
+    transform-style:preserve-3d;
+
+    cursor:grab;
+
+    will-change:transform;
+
+}
+
+
+
+.rubiks-wrapper:active {
+
+    cursor:grabbing;
+
+}
+
+
+
+
+.rubiks-cube {
+
+    width:150px;
+
+    height:150px;
+
+    position:absolute;
+
+    transform-style:preserve-3d;
+
+}
+
+
+
+
+
+.cubie {
+
+    position:absolute;
+
+    width:50px;
+
+    height:50px;
+
+    transform-style:preserve-3d;
+
+}
+
+
+
+
+
+.face {
+
+    position:absolute;
+
+    width:50px;
+
+    height:50px;
+
+
+    border-radius:6px;
+
+
+    border:2px solid rgba(0,0,0,.35);
+
+
+    box-shadow:
+
+    inset 0 0 15px rgba(255,255,255,.35),
+
+    0 5px 15px rgba(0,0,0,.25);
+
+
+}
+
+
+
+
+
+.front {
+
+transform:
+translateZ(25px);
+
+}
+
+
+.back {
+
+transform:
+rotateY(180deg)
+translateZ(25px);
+
+}
+
+
+.right {
+
+transform:
+rotateY(90deg)
+translateZ(25px);
+
+}
+
+
+.left {
+
+transform:
+rotateY(-90deg)
+translateZ(25px);
+
+}
+
+
+.top {
+
+transform:
+rotateX(90deg)
+translateZ(25px);
+
+}
+
+
+.bottom {
+
+transform:
+rotateX(-90deg)
+translateZ(25px);
+
+}
+
+
+
+
+/* Couleurs */
+
+.red {
+
+background:#e53935;
+
+}
+
+
+.orange {
+
+background:#fb8c00;
+
+}
+
+
+.blue {
+
+background:#1e88e5;
+
+}
+
+
+.green {
+
+background:#43a047;
+
+}
+
+
+.yellow {
+
+background:#fdd835;
+
+}
+
+
+.white {
+
+background:#fafafa;
+
+}
+
+
+
+/* Flottement */
+
+.rubiks-floating {
+
+
+filter:
+
+drop-shadow(
+0 25px 25px rgba(0,0,0,.25)
+);
+
+
+}
+
+
+
+
+
+.shadow {
+
+
+position:absolute;
+
+
+bottom:20px;
+
+
+width:170px;
+
+height:30px;
+
+
+background:
+
+rgba(0,0,0,.25);
+
+
+filter:blur(20px);
+
+
+border-radius:50%;
+
+
+animation:
+
+shadowMove 5s infinite ease-in-out;
+
+
+}
+
+
+
+@keyframes shadowMove {
+
+
+0%,100% {
+
+transform:scale(.8);
+
+opacity:.3;
+
+}
+
+
+50% {
+
+transform:scale(1.15);
+
+opacity:.15;
+
+}
+
+
+}
+.rubiks-scene {
+    transform-style: preserve-3d;
+}
+
+
+.rubiks-wrapper {
+    transform-origin:center center;
+}
+
+
+.rubiks-cube {
+    transform:
+        translate(-25px,-25px);
+}
+.face {
+
+    background-clip:padding-box;
+
+}
+
+
+.top,
+.bottom {
+
+    filter:brightness(1.15);
+
+}
