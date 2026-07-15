@@ -3384,12 +3384,23 @@ function textColorFor(hex){
   return L > 0.42 ? '#2a2a2a' : '#ffffff';
 }
 
+// Couleur d'accent utilisée pour les boutons, CTA et éléments de nav —
+// identique à REF, sauf pour le Blanc : un blanc pur y perdrait tout contraste
+// (boutons/pictos invisibles sur fond clair), donc on bascule sur un noir
+// anthracite (pas 100% noir) pour rester accessible. Les illustrations
+// (F2L, PLL, "dernier temps"...) continuent d'utiliser REF tel quel, car
+// elles doivent représenter la vraie couleur du cube, pas une couleur d'UI.
+const UI_ACCENT_ON_WHITE = '#2a2a2a';
+function uiAccent(){
+  return REF === '#ffffff' ? UI_ACCENT_ON_WHITE : REF;
+}
+
 function setRef(btn){
   document.querySelectorAll('.col-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   REF = btn.dataset.c;
-  document.documentElement.style.setProperty('--ref', REF);
-  document.documentElement.style.setProperty('--ref-text', textColorFor(REF));
+  document.documentElement.style.setProperty('--ref', uiAccent());
+  document.documentElement.style.setProperty('--ref-text', textColorFor(uiAccent()));
   renderNavCubes();
   if(curView==='app') render();
   else if(curView==='settings') renderSettingsPage();
@@ -3415,11 +3426,23 @@ const COLOR_SCHEMES = {
   '#0094FE': { front:'#E92929', back:'#FF9A1F', left:'#ffffff', right:'#FFCC41' }, // Bleu
 };
 
+// Schéma dédié aux illustrations F2L : uniquement 3 couleurs visibles
+// (Face avant, Face droite, et le dessus de la pièce), le noir/gris des
+// pièces inactives n'étant jamais concerné.
+const F2L_SCHEMES = {
+  '#FFCC41': { front:'#E92929', right:'#08E326', up:'#ffffff' }, // Jaune (défaut = vue actuelle des PLL)
+  '#E92929': { front:'#0094FE', right:'#ffffff', up:'#FF9A1F' }, // Rouge
+  '#ffffff': { front:'#E92929', right:'#0094FE', up:'#FFCC41' }, // Blanc
+  '#FF9A1F': { front:'#ffffff', right:'#0094FE', up:'#E92929' }, // Orange
+  '#0094FE': { front:'#ffffff', right:'#E92929', up:'#08E326' }, // Bleu
+  '#08E326': { front:'#ffffff', right:'#FF9A1F', up:'#0094FE' }, // Vert
+};
+
 // Retourne l'illustration Figma réelle si disponible pour ce cas (actuellement PLL),
 // sinon le rendu généré à partir de state (fallback).
 function pieceSVG(c, sz){
   if (PLLSVG[c.id]) return recolorCaseSVG(PLLSVG[c.id], true);
-  if (F2LSVG[c.id]) return recolorCaseSVG(F2LSVG[c.id], false);
+  if (F2LSVG[c.id]) return recolorF2LSVG(F2LSVG[c.id]);
   return cubesvg(c.state, sz);
 }
 
@@ -3454,6 +3477,20 @@ function recolorCaseSVG(svg, fixArrowContrast){
       .replaceAll('fill="#912F2F"', 'fill="#ffffff"');
   }
   return out;
+}
+
+// Recoloration dédiée aux illustrations F2L : ne touche que les 3 couleurs
+// visibles (avant/droite/dessus) selon F2L_SCHEMES — jamais le noir/gris qui
+// représente les pièces inactives.
+function recolorF2LSVG(svg){
+  const scheme = F2L_SCHEMES[REF] || F2L_SCHEMES['#FFCC41'];
+  return svg
+    .replaceAll(DEFAULT_SIDES.front, '§F§')
+    .replaceAll(DEFAULT_SIDES.right, '§R§')
+    .replaceAll('fill="white"', 'fill="§U§"')
+    .replaceAll('§F§', scheme.front)
+    .replaceAll('§R§', scheme.right)
+    .replaceAll('§U§', scheme.up);
 }
 
 function cubesvg(s, sz){
@@ -4918,10 +4955,16 @@ function renderNavCubes(){
     'nc-oll':  {top:['Y','Y','Y','Y','Y','Y','Y','Y','Y'],tN:['G','G','G'],tS:['G','G','G'],tW:['G','G','G'],tE:['G','G','G']},
     'nc-pll':  {top:Array(9).fill('Y'),tN:['G','G','G'],tS:['G','G','G'],tW:['G','G','G'],tE:['G','G','G']},
   };
+  // Icônes de navigation génériques (pas une illustration de cas réel) :
+  // on emprunte temporairement REF pour dessiner avec la couleur d'accent
+  // accessible (anthracite si Blanc) plutôt que le blanc littéral.
+  const realRef = REF;
+  REF = uiAccent();
   Object.entries(D).forEach(([id,s])=>{
     const el=document.getElementById(id);
     if(el) el.innerHTML=cubesvg(s,24);
   });
+  REF = realRef;
 }
 </script>
 </body>
