@@ -28,15 +28,7 @@
       "tip": "Commentaire/conseil affiché dans le popup",
       "svg": "Chemin vers le SVG du cas (référence uniquement)",
       "state": "État du cube: top[9] + tN/tS/tW/tE[3] — Y=couleur ref, G=gris"
-    },
-    "f2l_shapes_order": [
-      "Cas de base",
-      "Trigger R",
-      "Trigger F",
-      "Mixte R+F",
-      "Extraction (pièces bloquées)",
-      "Cas avancés"
-    ]
+    }
   },
   "oll": [
     {
@@ -3380,7 +3372,7 @@
       "id": "f2l-01",
       "num": 1,
       "name": "Base droite",
-      "group": "Cas de base",
+      "group": "Coin et arête sur U",
       "alg": "R U R'",
       "tip": "Le cas le plus courant — à apprendre en premier",
       "svg": "svg/f2l/01.svg",
@@ -3416,14 +3408,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Cas de base"
+      }
     },
     {
       "id": "f2l-02",
       "num": 2,
       "name": "Base gauche",
-      "group": "Cas de base",
+      "group": "Coin et arête sur U",
       "alg": "F' U' F",
       "tip": "Symétrique du cas de base",
       "svg": "svg/f2l/02.svg",
@@ -3459,14 +3450,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Cas de base"
+      }
     },
     {
       "id": "f2l-03",
       "num": 3,
       "name": "Arête retournée",
-      "group": "Trigger F",
+      "group": "Coin et arête sur U",
       "alg": "U' F' U F",
       "tip": "Coin et arête orientés correctement mais arête à l'envers",
       "svg": "svg/f2l/03.svg",
@@ -3502,14 +3492,13 @@
           "Y",
           "G"
         ]
-      },
-      "shape": "Trigger F"
+      }
     },
     {
       "id": "f2l-04",
       "num": 4,
       "name": "Coin U, arête en place",
-      "group": "Trigger R",
+      "group": "Coin et arête sur U",
       "alg": "U R U' R'",
       "tip": "",
       "svg": "svg/f2l/04.svg",
@@ -3545,14 +3534,13 @@
           "Y",
           "G"
         ]
-      },
-      "shape": "Trigger R"
+      }
     },
     {
       "id": "f2l-05",
       "num": 5,
       "name": "Coin U, arête slot voisin",
-      "group": "Mixte R+F",
+      "group": "Coin et arête sur U",
       "alg": "U R U' R' U' F' U F",
       "tip": "",
       "svg": "svg/f2l/05.svg",
@@ -3588,14 +3576,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Mixte R+F"
+      }
     },
     {
       "id": "f2l-06",
       "num": 6,
       "name": "Les deux alignés sur U",
-      "group": "Mixte R+F",
+      "group": "Coin et arête sur U",
       "alg": "U' F' U F U R U' R'",
       "tip": "",
       "svg": "svg/f2l/06.svg",
@@ -3631,14 +3618,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Mixte R+F"
+      }
     },
     {
       "id": "f2l-07",
       "num": 7,
       "name": "Coin ok, arête sur U",
-      "group": "Trigger F",
+      "group": "Coin en place — arête déplacée",
       "alg": "F' U F U' F' U F",
       "tip": "",
       "svg": "svg/f2l/07.svg",
@@ -3674,14 +3660,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Trigger F"
+      }
     },
     {
       "id": "f2l-08",
       "num": 8,
       "name": "Coin ok, arête retournée",
-      "group": "Trigger R",
+      "group": "Coin en place — arête déplacée",
       "alg": "R U R' U' R U R'",
       "tip": "",
       "svg": "svg/f2l/08.svg",
@@ -3717,14 +3702,13 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Trigger R"
+      }
     },
     {
       "id": "f2l-09",
       "num": 9,
       "name": "Coin sur U, arête orientée",
-      "group": "Trigger R",
+      "group": "Coin sur U — arête dans slot",
       "alg": "R U' R' U R U' R'",
       "tip": "",
       "svg": "svg/f2l/09.svg",
@@ -3760,14 +3744,13 @@
           "Y",
           "G"
         ]
-      },
-      "shape": "Trigger R"
+      }
     },
     {
       "id": "f2l-10",
       "num": 10,
       "name": "Coin sur U, arête retournée",
-      "group": "Trigger F",
+      "group": "Coin sur U — arête dans slot",
       "alg": "F' U' F U F' U' F",
       "tip": "",
       "svg": "svg/f2l/10.svg",
@@ -3803,22 +3786,22 @@
           "G",
           "G"
         ]
-      },
-      "shape": "Trigger F"
-    },
+      }
+    }
+  ],
+  "croix": [
     {
-      "id": "f2l-11",
-      "num": 11,
-      "name": "Triple trigger R",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "R U R' U' R U R' U' R U R'",
-      "tip": "Trois répétitions du même trigger, insertion progressive",
-      "svg": "svg/f2l/11.svg",
+      "id": "cx-01",
+      "num": 1,
+      "name": "Ligne → Croix",
+      "group": "Cas utiles",
+      "alg": "F R U R' U' F'",
+      "tip": "Utiliser quand 2 arêtes opposées sont déjà orientées",
+      "svg": "svg/croix/01.svg",
       "state": {
         "top": [
           "G",
-          "G",
+          "Y",
           "G",
           "G",
           "G",
@@ -3829,7 +3812,7 @@
         ],
         "tN": [
           "G",
-          "G",
+          "Y",
           "G"
         ],
         "tS": [
@@ -3843,25 +3826,24 @@
           "G"
         ],
         "tE": [
-          "Y",
+          "G",
           "G",
           "G"
         ]
       }
     },
     {
-      "id": "f2l-12",
-      "num": 12,
-      "name": "Extraction — tranche R",
-      "group": "Extraction (pièces bloquées)",
-      "shape": "Extraction (pièces bloquées)",
-      "alg": "R U' R' d R' U R",
-      "tip": "d extrait la pièce coincée avant de la replacer",
-      "svg": "svg/f2l/12.svg",
+      "id": "cx-02",
+      "num": 2,
+      "name": "L → Croix",
+      "group": "Cas utiles",
+      "alg": "F U R U' R' F'",
+      "tip": "Utiliser quand 2 arêtes adjacentes sont déjà orientées",
+      "svg": "svg/croix/02.svg",
       "state": {
         "top": [
           "G",
-          "G",
+          "Y",
           "G",
           "G",
           "G",
@@ -3872,7 +3854,7 @@
         ],
         "tN": [
           "G",
-          "G",
+          "Y",
           "G"
         ],
         "tS": [
@@ -3882,25 +3864,24 @@
         ],
         "tW": [
           "G",
-          "G",
+          "Y",
           "G"
         ],
         "tE": [
-          "Y",
+          "G",
           "G",
           "G"
         ]
       }
     },
     {
-      "id": "f2l-13",
-      "num": 13,
-      "name": "Triple trigger F",
-      "group": "Trigger F",
-      "shape": "Trigger F",
-      "alg": "U F' U F U F' U2 F",
-      "tip": "Variante F du trigger répété, terminée par U2",
-      "svg": "svg/f2l/13.svg",
+      "id": "cx-03",
+      "num": 3,
+      "name": "Dot → Croix (étape 1)",
+      "group": "Cas utiles",
+      "alg": "F R U R' U' F'",
+      "tip": "Aucune arête orientée — appliquer deux fois en tournant",
+      "svg": "svg/croix/03.svg",
       "state": {
         "top": [
           "G",
@@ -3929,21 +3910,20 @@
           "G"
         ],
         "tE": [
-          "Y",
+          "G",
           "G",
           "G"
         ]
       }
     },
     {
-      "id": "f2l-14",
-      "num": 14,
-      "name": "Extraction — tranche F",
-      "group": "Extraction (pièces bloquées)",
-      "shape": "Extraction (pièces bloquées)",
-      "alg": "U F' U' F d' F U F'",
-      "tip": "d' extrait la pièce coincée côté F",
-      "svg": "svg/f2l/14.svg",
+      "id": "cx-04",
+      "num": 4,
+      "name": "Dot → Croix (étape 2)",
+      "group": "Cas utiles",
+      "alg": "f R U R' U' f'",
+      "tip": "Deuxième étape — variante avec f",
+      "svg": "svg/croix/04.svg",
       "state": {
         "top": [
           "G",
@@ -3972,740 +3952,11 @@
           "G"
         ],
         "tE": [
-          "Y",
           "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-15",
-      "num": 15,
-      "name": "Trigger R, finition U2",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "U' R U' R' U' R U2 R'",
-      "tip": "Enchaînement R avec une finition en double tour",
-      "svg": "svg/f2l/15.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-16",
-      "num": 16,
-      "name": "Extraction — tranche R (variante)",
-      "group": "Extraction (pièces bloquées)",
-      "shape": "Extraction (pièces bloquées)",
-      "alg": "U' R U R' d R' U' R",
-      "tip": "d extrait la pièce coincée avant de la replacer",
-      "svg": "svg/f2l/16.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-17",
-      "num": 17,
-      "name": "Extraction — tranche R (variante 2)",
-      "group": "Extraction (pièces bloquées)",
-      "shape": "Extraction (pièces bloquées)",
-      "alg": "R U' R' U d R' U' R",
-      "tip": "d extrait la pièce coincée avant de la replacer",
-      "svg": "svg/f2l/17.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-18",
-      "num": 18,
-      "name": "Extraction — tranche F (variante)",
-      "group": "Extraction (pièces bloquées)",
-      "shape": "Extraction (pièces bloquées)",
-      "alg": "F' U F U' d' F U F'",
-      "tip": "d' extrait la pièce coincée côté F",
-      "svg": "svg/f2l/18.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-19",
-      "num": 19,
-      "name": "Double U2, trigger F",
-      "group": "Trigger F",
-      "shape": "Trigger F",
-      "alg": "U F' U2 F U F' U2 F",
-      "tip": "Deux finitions en double tour côté F",
-      "svg": "svg/f2l/19.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-20",
-      "num": 20,
-      "name": "Double U2, trigger R",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "U' R U2 R' U' R U2 R'",
-      "tip": "Deux finitions en double tour côté R",
-      "svg": "svg/f2l/20.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-21",
-      "num": 21,
-      "name": "Trigger F, finition U2",
-      "group": "Trigger F",
-      "shape": "Trigger F",
-      "alg": "U F' U' F U F' U2 F",
-      "tip": "Enchaînement F avec une finition en double tour",
-      "svg": "svg/f2l/21.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-22",
-      "num": 22,
-      "name": "Trigger R, finition U2 (variante)",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "U' R U R' U' R U2 R'",
-      "tip": "Enchaînement R avec une finition en double tour",
-      "svg": "svg/f2l/22.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-23",
-      "num": 23,
-      "name": "Double trigger R",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "U' R U' R' U R U R'",
-      "tip": "Deux triggers R enchaînés",
-      "svg": "svg/f2l/23.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-24",
-      "num": 24,
-      "name": "Double trigger F",
-      "group": "Trigger F",
-      "shape": "Trigger F",
-      "alg": "U F' U F U' F' U' F",
-      "tip": "Deux triggers F enchaînés",
-      "svg": "svg/f2l/24.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-25",
-      "num": 25,
-      "name": "Double trigger R (variante)",
-      "group": "Trigger R",
-      "shape": "Trigger R",
-      "alg": "U' R U R' U R U R'",
-      "tip": "Deux triggers R enchaînés",
-      "svg": "svg/f2l/25.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-26",
-      "num": 26,
-      "name": "Double trigger F (variante)",
-      "group": "Trigger F",
-      "shape": "Trigger F",
-      "alg": "U F' U' F U' F' U' F",
-      "tip": "Deux triggers F enchaînés",
-      "svg": "svg/f2l/26.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-27",
-      "num": 27,
-      "name": "Mixte F puis R",
-      "group": "Mixte R+F",
-      "shape": "Mixte R+F",
-      "alg": "U F' U2 F U' R U R'",
-      "tip": "Alterne trigger F et trigger R dans le même enchaînement",
-      "svg": "svg/f2l/27.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-28",
-      "num": 28,
-      "name": "Mixte R puis F",
-      "group": "Mixte R+F",
-      "shape": "Mixte R+F",
-      "alg": "U' R U2 R' U F' U' F",
-      "tip": "Alterne trigger R et trigger F dans le même enchaînement",
-      "svg": "svg/f2l/28.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-29",
-      "num": 29,
-      "name": "Triple trigger R, variante longue",
-      "group": "Cas avancés",
-      "shape": "Cas avancés",
-      "alg": "R U R' U2 R U R' U' R U R'",
-      "tip": "Trois triggers R avec une finition en double tour au milieu",
-      "svg": "svg/f2l/29.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
-          "G",
-          "G"
-        ]
-      }
-    },
-    {
-      "id": "f2l-30",
-      "num": 30,
-      "name": "Cas avec rotation",
-      "group": "Cas avancés",
-      "shape": "Cas avancés",
-      "alg": "y' R' U' R U2 R' U' R U R' U' R",
-      "tip": "Nécessite une rotation y' du cube avant l'insertion",
-      "svg": "svg/f2l/30.svg",
-      "state": {
-        "top": [
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G",
-          "G"
-        ],
-        "tN": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tS": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tW": [
-          "G",
-          "G",
-          "G"
-        ],
-        "tE": [
-          "Y",
           "G",
           "G"
         ]
       }
     }
-  ],
-  "croix": {
-    "intro": "La croix n'est pas une formule, c'est un jeu d'observation : tu cherches les 4 pièces à deux couleurs qui contiennent la couleur du dessous, et tu les amènes à leur place, orientées correctement, une par une.",
-    "step1_title": "1 · Savoir ce qu'on cherche",
-    "step1_text": "Ta couleur de croix est toujours l'opposée de ta couleur de référence (celle du dessus, utilisée pour OLL/PLL). Si tu prends Jaune comme référence, ta croix se fait en Blanc — c'est d'ailleurs cette couleur que tu retrouves sous chaque pièce dans tes illustrations F2L : c'est la couleur de croix, en dessous des pièces que tu insères ensuite.",
-    "step2_title": "2 · Repérer les 4 bonnes pièces",
-    "step2_text": "Le cube a 12 arêtes, mais seulement 4 portent la couleur de croix. Elles peuvent être n'importe où : dans la couche du dessus, sur le côté, ou déjà en bas mais mal placées.",
-    "test_title": "3 · Le test à faire pour chaque arête",
-    "test_items": [
-      {
-        "label": "Position",
-        "desc": "sa face croix regarde vers le bas, vers le centre du dessous."
-      },
-      {
-        "label": "Orientation",
-        "desc": "son autre face touche le centre latéral de la même couleur qu'elle."
-      }
-    ],
-    "test_warning": "Si un seul des deux est faux (bonne position mais arête retournée, ou bonne couleur mais du mauvais côté), la croix n'est pas correcte — même si ça \"a l'air\" bon vu du dessous.",
-    "cases_title": "4 · La méthode concrète (pas d'algo à apprendre)",
-    "cases_intro": "Pour chaque arête, trois cas possibles :",
-    "cases": [
-      {
-        "num": 1,
-        "title": "Elle est dans la couche du dessus",
-        "desc": "Le cas le plus simple : tourne le dessus jusqu'à l'aligner avec son centre latéral, puis fais-la descendre."
-      },
-      {
-        "num": 2,
-        "title": "Elle est déjà en bas, mais mal placée ou retournée",
-        "desc": "Sors-la en la remontant d'un côté (elle rejoint la couche du dessus), puis traite-la comme le cas 1."
-      },
-      {
-        "num": 3,
-        "title": "Elle est sur le côté (couche du milieu)",
-        "desc": "Fais-la remonter dans la couche du dessus d'un tour, puis traite-la comme le cas 1."
-      }
-    ],
-    "cases_outro": "Tu répètes ça pour les 4 arêtes. L'ordre n'a aucune importance : c'est pour ça que ça ne se mémorise pas comme un algo, ça se lit à chaque fois sur le cube.",
-    "tip_title": "Le vrai objectif d'entraînement",
-    "tip_text": "Le seul vrai indicateur de progression sur la croix, c'est le nombre de mouvements pour la finir (les speedcubeurs visent 8 mouvements ou moins), pas une liste de cas à connaître par cœur."
-  }
+  ]
 }
