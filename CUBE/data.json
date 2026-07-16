@@ -4668,12 +4668,11 @@
     }
   ],
   "croix": {
-    "intro": "La croix n'est pas une formule, c'est un jeu d'observation : tu cherches les 4 pièces à deux couleurs qui contiennent la couleur du dessous, et tu les amènes à leur place, orientées correctement, une par une.",
-    "step1_title": "1 · Savoir ce qu'on cherche",
-    "step1_text": "Ta couleur de croix est toujours l'opposée de ta couleur de référence (celle du dessus, utilisée pour OLL/PLL). Si tu prends Jaune comme référence, ta croix se fait en Blanc — c'est d'ailleurs cette couleur que tu retrouves sous chaque pièce dans tes illustrations F2L : c'est la couleur de croix, en dessous des pièces que tu insères ensuite.",
-    "step2_title": "2 · Repérer les 4 bonnes pièces",
-    "step2_text": "Le cube a 12 arêtes, mais seulement 4 portent la couleur de croix. Elles peuvent être n'importe où : dans la couche du dessus, sur le côté, ou déjà en bas mais mal placées.",
-    "test_title": "3 · Le test à faire pour chaque arête",
+    "intro": "La croix, c'est de l'observation, pas du calcul : 4 pièces à deux couleurs (des « arêtes ») à amener autour du centre du dessous.",
+    "step1_title": "Une seule place possible",
+    "step1_text": "Chaque arête n'a qu'un seul bon emplacement sur tout le cube. L'arête blanc-rouge, par exemple, ne va qu'à un seul endroit : là où elle touche à la fois le centre blanc ET le centre rouge.",
+    "strip_caption": "On place les 4 arêtes une par une, jusqu'à la croix complète.",
+    "test_title": "Le test à faire pour chaque arête",
     "test_items": [
       {
         "label": "Position",
@@ -4685,7 +4684,7 @@
       }
     ],
     "test_warning": "Si un seul des deux est faux (bonne position mais arête retournée, ou bonne couleur mais du mauvais côté), la croix n'est pas correcte — même si ça \"a l'air\" bon vu du dessous.",
-    "cases_title": "4 · La méthode concrète (pas d'algo à apprendre)",
+    "cases_title": "La méthode concrète (pas d'algo à apprendre)",
     "cases_intro": "Pour chaque arête, trois cas possibles :",
     "cases": [
       {
@@ -4705,7 +4704,9 @@
       }
     ],
     "cases_outro": "Tu répètes ça pour les 4 arêtes. L'ordre n'a aucune importance : c'est pour ça que ça ne se mémorise pas comme un algo, ça se lit à chaque fois sur le cube.",
+    "trick_title": "Le seul cas qui peut coincer : l'arête retournée sur place",
+    "trick_text": "Une arête peut sembler bien placée alors qu'elle est juste retournée (2 couleurs inversées). Si tu bloques sur ce cas précis, un petit moyen mnémotechnique peut aider en attendant que l'œil vienne tout seul : l'histoire de la « porte coulissante ». Place la pièce devant toi (blanc toujours en haut), puis : 1) tourne la poignée, 2) ouvre la porte coulissante, 3) rentre, 4) referme la porte coulissante derrière toi.",
     "tip_title": "Le vrai objectif d'entraînement",
-    "tip_text": "Le seul vrai indicateur de progression sur la croix, c'est le nombre de mouvements pour la finir (les speedcubeurs visent 8 mouvements ou moins), pas une liste de cas à connaître par cœur."
+    "tip_text": "La croix se fait en 7 mouvements dans l'immense majorité des cas — vise ce nombre plutôt qu'une liste de cas à connaître par cœur. Si tu n'y arrives pas, entraîne-toi avec une pré-inspection plus longue. Astuce pratique : fais ta croix sur la face du DESSOUS (pas le dessus) — tu prépares déjà les F2L sans temps mort au moment de retourner le cube."
   }
 }
