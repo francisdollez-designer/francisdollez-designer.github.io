@@ -297,6 +297,31 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .mv{display:flex;align-items:center;justify-content:center}
 .mv svg{width:50px;height:auto;display:block}
 
+/* ── MODE ENTRAÎNEMENT DÉDIÉ ── */
+.train-stage-row{display:flex;gap:4px;background:#fff;border-radius:50px;padding:4px}
+.train-stage-btn{
+  flex:1;border:none;background:none;cursor:pointer;padding:8px 4px;
+  border-radius:50px;font-size:12px;font-weight:800;color:var(--mid);
+  -webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;
+}
+.train-stage-btn.active{background:var(--ref);color:var(--ref-text)}
+
+.train-timer-block{text-align:center;padding:4px 0}
+.train-timer{font-size:44px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--dark);line-height:1.1}
+.train-timer-state{font-size:12px;color:var(--mid);font-weight:600;margin-top:2px}
+
+.train-hidden-cube{
+  width:130px;height:130px;border-radius:var(--r);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;font-weight:900;color:#ccc;
+}
+
+.train-hint-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.train-hint-label{font-size:13px;color:var(--mid);font-weight:700}
+
+.train-controls{display:flex;gap:10px}
+.train-controls .chrono-btn{padding:14px}
+
 /* ── MENU ── */
 .menu-ov{
   position:fixed;inset:0;background:rgba(0,0,0,.42);
@@ -1009,6 +1034,47 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <div class="pop-moves" id="pMoves"></div>
     </div>
     <div class="pop-tip" id="pTip"></div>
+  </div>
+</div>
+
+<!-- ══ MODE ENTRAÎNEMENT DÉDIÉ (OLL/PLL, avec indice → sans indice → chrono) ══ -->
+<div class="pop-ov" id="trainOv">
+  <div class="pop-panel">
+    <div class="pop-head">
+      <div class="pop-meta">
+        <div class="pop-name" id="trainCaseName"></div>
+        <div class="pop-badges">
+          <span class="pop-tag" id="trainProgressTag"></span>
+        </div>
+      </div>
+      <button class="pop-close" onclick="closeTraining()">✕</button>
+    </div>
+
+    <div class="train-stage-row">
+      <button class="train-stage-btn" data-stage="indice" onclick="setTrainStage('indice')">Indice</button>
+      <button class="train-stage-btn" data-stage="sans-indice" onclick="setTrainStage('sans-indice')">Sans indice</button>
+      <button class="train-stage-btn" data-stage="chrono" onclick="setTrainStage('chrono')">Chrono</button>
+    </div>
+
+    <div class="pop-cube" id="trainCube"></div>
+
+    <div id="trainTimerBlock" class="train-timer-block">
+      <div class="train-timer" id="trainTimer">0.00</div>
+      <div class="train-timer-state" id="trainTimerState"></div>
+    </div>
+
+    <div id="trainAlgBlock" class="pop-alg-card">
+      <div class="pop-alg" id="trainAlg"></div>
+      <div class="pop-moves" id="trainMoves"></div>
+    </div>
+    <div class="pop-tip" id="trainTip"></div>
+
+    <div id="trainHintRow" class="train-hint-row">
+      <label class="train-hint-label" for="trainHintToggle">Révéler l'indice</label>
+      <input type="checkbox" id="trainHintToggle" onchange="toggleTrainHint(this.checked)">
+    </div>
+
+    <div id="trainControls" class="train-controls"></div>
   </div>
 </div>
 
@@ -3154,15 +3220,17 @@ function computeRank(s){
 
 // Missions candidates par palier — le contenu précis (liées aux vraies
 // cases OLL/PLL de data.json) sera affiné avec le mode d'entraînement dédié.
+// trainable:'pll' → la mission ouvre le mode d'entraînement PLL déjà codé ;
+// les autres (Croix/F2L/OLL) suivront le même principe ensuite.
 const MISSIONS_BY_TIER = [
-  [ { title: 'Croix propre en 2s', sub: '10 croix résolues sans hésitation' },
-    { title: '2-look OLL sans hésiter', sub: 'Les 7 cas doivent être automatiques' } ],
-  [ { title: 'Look-ahead F2L', sub: '5 solves centrés sur la paire suivante' },
-    { title: 'Apprends le PLL complet', sub: '3 nouveaux algos cette semaine' } ],
-  [ { title: 'Maîtrise le PLL complet', sub: '21 cas sans hésitation' },
-    { title: "Croix pendant l'inspection", sub: '10 solves préparés en 15s' } ],
-  [ { title: 'Reconnaissance flash', sub: "OLL/PLL en moins d'1 seconde" },
-    { title: 'Neutralité de couleur', sub: 'Choisis ta meilleure croix' } ],
+  [ { title: 'Croix propre en 2s', sub: '10 croix résolues sans hésitation', trainable: null },
+    { title: '2-look OLL sans hésiter', sub: 'Les 7 cas doivent être automatiques', trainable: null } ],
+  [ { title: 'Look-ahead F2L', sub: '5 solves centrés sur la paire suivante', trainable: null },
+    { title: 'Apprends le PLL complet', sub: '3 nouveaux algos cette semaine', trainable: 'pll' } ],
+  [ { title: 'Maîtrise le PLL complet', sub: '21 cas sans hésitation', trainable: 'pll' },
+    { title: "Croix pendant l'inspection", sub: '10 solves préparés en 15s', trainable: null } ],
+  [ { title: 'Reconnaissance flash', sub: "OLL/PLL en moins d'1 seconde", trainable: 'pll' },
+    { title: 'Neutralité de couleur', sub: 'Choisis ta meilleure croix', trainable: null } ],
 ];
 
 const TITLE_STAR_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg>`;
@@ -3177,21 +3245,30 @@ function rankMissionsHTML(s){
   const labels = RANK_TIERS.map((t,i) => `<span class="${i===tierIndex?'current':''}">${t.label}</span>`).join('');
 
   const missionTierIdx = Math.max(0, Math.min(tierIndex + 1, MISSIONS_BY_TIER.length - 1));
-  const missionsHTML = MISSIONS_BY_TIER[missionTierIdx].map(m => `
+  const missionsHTML = MISSIONS_BY_TIER[missionTierIdx].map(m => {
+    const action = m.trainable === 'pll' ? 'openTraining()' : "alert('Ce mode d\\'entraînement arrive bientôt')";
+    return `
     <div class="mission-card">
       <div>
         <div class="mission-title">${m.title}</div>
         <div class="mission-sub">${m.sub}</div>
       </div>
-      <button class="mission-cta" onclick="alert('Mode entraînement dédié à venir')">S'entraîner</button>
-    </div>`).join('');
+      <button class="mission-cta" onclick="${action}">S'entraîner</button>
+    </div>`;
+  }).join('');
+
+  // Maîtrise PLL réelle, calculée depuis les résolutions sans indice sauvegardées
+  const mastery = loadMastery();
+  const pllList = DB.pll || [];
+  const masteredCount = pllList.filter(c => mastery[c.id] && mastery[c.id].mastered).length;
+  const pllTotal = pllList.length || 21;
 
   const titles = [
     { label: 'Sub-30 confirmé', earned: ref < 30000 },
     { label: 'Sub-20 confirmé', earned: ref < 20000 },
     { label: 'Sub-10 confirmé', earned: ref < 10000 },
     { label: 'Métronome', earned: s.streak >= 3 },
-    { label: 'Chasseur de PLL', earned: false },
+    { label: `Chasseur de PLL (${masteredCount}/${pllTotal})`, earned: masteredCount === pllTotal },
     { label: "Collection d'OLL", earned: false },
   ];
   const titlesHTML = titles.map(t => `
@@ -3202,7 +3279,7 @@ function rankMissionsHTML(s){
 
   // Points : première formule simple, à revoir une fois l'économie de
   // points par mission/record/régularité définie précisément.
-  const points = Math.round(s.n * 2 + s.streak * 5);
+  const points = Math.round(s.n * 2 + s.streak * 5 + masteredCount * 10);
 
   return `
     <div class="rank-card">
@@ -4394,6 +4471,196 @@ function openPopup(id){
 function popClose(){
   document.getElementById('popOv').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+// ══════════════════════════════════════════════════════
+// MODE ENTRAÎNEMENT DÉDIÉ — 3 étapes : Indice / Sans indice / Chrono
+// Sans indice : la reconnaissance reste libre (non chronométrée), le
+// chrono ne démarre qu'au premier contact ("Toucher, démarrer"), comme
+// une vraie inspection WCA — on mesure l'exécution pure.
+// Chrono : condition réaliste, le cas est masqué jusqu'au démarrage,
+// qui révèle le cube ET lance le chrono en même temps (reconnaissance +
+// exécution mesurées ensemble, comme un vrai solve).
+// Un cas ne compte pour la maîtrise que s'il est réussi SANS avoir
+// révélé l'indice — évite de tricher le système.
+// ══════════════════════════════════════════════════════
+let trainCases = [];
+let trainIndex = 0;
+let trainStage = 'sans-indice';
+let trainRunning = false;
+let trainStartTs = 0;
+let trainRAF = null;
+
+const MASTERY_KEY = 'fridrich_pll_mastery_v1';
+const MASTERY_THRESHOLD = 3; // succès consécutifs sans indice requis pour marquer un cas "maîtrisé"
+
+function loadMastery(){
+  try{ return JSON.parse(localStorage.getItem(MASTERY_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+function saveMastery(obj){
+  localStorage.setItem(MASTERY_KEY, JSON.stringify(obj));
+}
+
+function shuffleArr(arr){
+  const a = [...arr];
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function openTraining(){
+  if(!DB.pll || !DB.pll.length) return;
+  trainCases = shuffleArr(DB.pll);
+  trainIndex = 0;
+  trainStage = 'sans-indice';
+  document.getElementById('trainOv').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderTrainStageButtons();
+  renderTrainCase();
+}
+function closeTraining(){
+  stopTrainTimer();
+  document.getElementById('trainOv').classList.remove('open');
+  document.body.style.overflow = '';
+  if(curView === 'chrono' && chronoTab === 'progress') renderProgressPage();
+}
+function setTrainStage(stage){
+  stopTrainTimer();
+  trainStage = stage;
+  renderTrainStageButtons();
+  renderTrainCase();
+}
+function renderTrainStageButtons(){
+  document.querySelectorAll('.train-stage-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.stage === trainStage));
+}
+
+function renderTrainCase(){
+  if(!trainCases.length) return;
+  if(trainIndex >= trainCases.length) trainIndex = 0;
+  const cs = trainCases[trainIndex];
+
+  document.getElementById('trainProgressTag').textContent = `Cas ${trainIndex+1} / ${trainCases.length}`;
+  document.getElementById('trainAlg').innerHTML  = fmt(cs.alg);
+  document.getElementById('trainMoves').innerHTML = buildMovesHTML(cs.alg);
+  document.getElementById('trainTip').textContent = cs.tip || '';
+  document.getElementById('trainHintToggle').checked = false;
+
+  if(trainStage === 'indice'){
+    document.getElementById('trainCaseName').textContent = cs.name;
+    document.getElementById('trainHintRow').style.display = 'none';
+    document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
+    document.getElementById('trainAlgBlock').style.display = '';
+    document.getElementById('trainTip').style.display = cs.tip ? '' : 'none';
+    document.getElementById('trainTimerBlock').style.display = 'none';
+    document.getElementById('trainControls').innerHTML = `
+      <button class="chrono-btn chrono-btn-secondary" onclick="prevTrainCase()">← Précédent</button>
+      <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Suivant →</button>`;
+
+  } else if(trainStage === 'sans-indice'){
+    document.getElementById('trainCaseName').textContent = 'PLL — cas mystère';
+    document.getElementById('trainHintRow').style.display = '';
+    document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
+    document.getElementById('trainAlgBlock').style.display = 'none';
+    document.getElementById('trainTip').style.display = 'none';
+    document.getElementById('trainTimerBlock').style.display = '';
+    document.getElementById('trainTimer').textContent = '0.00';
+    document.getElementById('trainTimerState').textContent = 'reconnaissance libre, non chronométrée';
+    document.getElementById('trainControls').innerHTML = `
+      <button class="chrono-btn chrono-btn-primary" onclick="touchStartTrain()">Toucher, démarrer</button>`;
+
+  } else { // chrono
+    document.getElementById('trainCaseName').textContent = 'PLL — chrono';
+    document.getElementById('trainHintRow').style.display = 'none';
+    document.getElementById('trainCube').innerHTML = `<div class="train-hidden-cube">?</div>`;
+    document.getElementById('trainAlgBlock').style.display = 'none';
+    document.getElementById('trainTip').style.display = 'none';
+    document.getElementById('trainTimerBlock').style.display = '';
+    document.getElementById('trainTimer').textContent = '0.00';
+    document.getElementById('trainTimerState').textContent = 'cas masqué';
+    document.getElementById('trainControls').innerHTML = `
+      <button class="chrono-btn chrono-btn-primary" onclick="revealAndStartChronoStage()">Révéler, démarrer</button>`;
+  }
+}
+
+function toggleTrainHint(checked){
+  const cs = trainCases[trainIndex];
+  document.getElementById('trainAlgBlock').style.display = checked ? '' : 'none';
+  document.getElementById('trainTip').style.display = (checked && cs.tip) ? '' : 'none';
+}
+
+function startTrainTimer(){
+  trainRunning = true;
+  trainStartTs = performance.now();
+  const tick = () => {
+    if(!trainRunning) return;
+    const elapsed = performance.now() - trainStartTs;
+    document.getElementById('trainTimer').textContent = (elapsed / 1000).toFixed(2);
+    trainRAF = requestAnimationFrame(tick);
+  };
+  trainRAF = requestAnimationFrame(tick);
+}
+function stopTrainTimer(){
+  trainRunning = false;
+  if(trainRAF) cancelAnimationFrame(trainRAF);
+}
+
+function touchStartTrain(){
+  document.getElementById('trainTimerState').textContent = 'exécution en cours';
+  startTrainTimer();
+  document.getElementById('trainControls').innerHTML = `
+    <button class="chrono-btn chrono-btn-secondary" onclick="finishTrainCase(false)">Je ne sais plus</button>
+    <button class="chrono-btn chrono-btn-primary" onclick="finishTrainCase(true)">Résolu</button>`;
+}
+function revealAndStartChronoStage(){
+  const cs = trainCases[trainIndex];
+  document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
+  document.getElementById('trainTimerState').textContent = 'reconnaissance + exécution';
+  startTrainTimer();
+  document.getElementById('trainControls').innerHTML = `
+    <button class="chrono-btn chrono-btn-secondary" onclick="finishTrainCase(false)">Je ne sais plus</button>
+    <button class="chrono-btn chrono-btn-primary" onclick="finishTrainCase(true)">Résolu</button>`;
+}
+
+function finishTrainCase(success){
+  const elapsed = performance.now() - trainStartTs;
+  stopTrainTimer();
+  const cs = trainCases[trainIndex];
+  const hintUsed = document.getElementById('trainHintToggle').checked;
+  const countsAsMastery = success && !hintUsed;
+
+  const mastery = loadMastery();
+  const rec = mastery[cs.id] || { successCount: 0, mastered: false, bestMs: null };
+  if(countsAsMastery){
+    rec.successCount++;
+    if(rec.bestMs === null || elapsed < rec.bestMs) rec.bestMs = elapsed;
+    if(rec.successCount >= MASTERY_THRESHOLD) rec.mastered = true;
+  }
+  mastery[cs.id] = rec;
+  saveMastery(mastery);
+
+  document.getElementById('trainTimerState').textContent = countsAsMastery
+    ? 'temps validé ✓'
+    : (success ? 'validé, mais indice utilisé (non compté)' : 'indice révélé, non compté');
+
+  document.getElementById('trainControls').innerHTML = `
+    <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Cas suivant →</button>`;
+}
+
+function nextTrainCase(){
+  trainIndex++;
+  if(trainIndex >= trainCases.length){
+    trainCases = shuffleArr(DB.pll);
+    trainIndex = 0;
+  }
+  renderTrainCase();
+}
+function prevTrainCase(){
+  trainIndex = (trainIndex - 1 + trainCases.length) % trainCases.length;
+  renderTrainCase();
 }
 function menuOpen() { document.getElementById('menuOv').classList.add('open'); }
 function menuClose(){ document.getElementById('menuOv').classList.remove('open'); }
