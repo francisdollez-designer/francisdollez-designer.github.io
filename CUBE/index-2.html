@@ -297,6 +297,15 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .mv{display:flex;align-items:center;justify-content:center}
 .mv svg{width:50px;height:auto;display:block}
 
+.pop-actions{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.pop-toggle-row{display:flex;gap:8px}
+.pop-toggle{
+  flex:1;background:var(--bg);color:var(--mid);border:none;cursor:pointer;
+  border-radius:50px;padding:12px;font-size:13px;font-weight:800;
+  -webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;
+}
+.pop-toggle.active{background:var(--ref);color:var(--ref-text)}
+
 /* ── MODE ENTRAÎNEMENT DÉDIÉ ── */
 .train-stage-row{display:flex;gap:4px;background:#fff;border-radius:50px;padding:4px}
 .train-stage-btn{
@@ -1037,6 +1046,14 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       <div class="pop-moves" id="pMoves"></div>
     </div>
     <div class="pop-tip" id="pTip"></div>
+
+    <div class="pop-actions" id="pActions">
+      <button class="chrono-btn chrono-btn-primary" onclick="trainFromPopup()">M'entraîner sur ce cas</button>
+      <div class="pop-toggle-row">
+        <button class="pop-toggle" id="pMasterBtn" onclick="toggleMasterFromPopup()">✓ Maîtrisé</button>
+        <button class="pop-toggle" id="pLearnBtn" onclick="toggleLearnFromPopup()">★ À apprendre</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2066,6 +2083,7 @@ function setUserName(v){
 }
 let curTab = 'oll';
 let curFilter = 'all';
+let curMasteryFilter = 'all';
 let curView = 'app'; // 'app' | 'settings' | 'beginner' | 'chrono'
 
 // ── Chrono ──
@@ -2127,6 +2145,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function go(tab){
   curTab = tab;
   curFilter = 'all';
+  curMasteryFilter = 'all';
   curView = 'app';
   document.querySelectorAll('#fabNav .fab-item').forEach(b =>
     b.classList.toggle('active', b.dataset.tab === tab));
@@ -3263,18 +3282,27 @@ function computeRank(s){
 // les autres (Croix/F2L/OLL) suivront le même principe ensuite.
 const MISSIONS_BY_TIER = [
   [ { title: 'Croix propre en 2s', sub: '10 croix résolues sans hésitation', trainable: null },
-    { title: '2-look OLL sans hésiter', sub: 'Les 7 cas doivent être automatiques', trainable: null } ],
+    { title: '2-look OLL sans hésiter', sub: 'Les 7 cas doivent être automatiques', trainable: 'oll' } ],
   [ { title: 'Look-ahead F2L', sub: '5 solves centrés sur la paire suivante', trainable: null },
     { title: 'Apprends le PLL complet', sub: '3 nouveaux algos cette semaine', trainable: 'pll' } ],
   [ { title: 'Maîtrise le PLL complet', sub: '21 cas sans hésitation', trainable: 'pll' },
     { title: "Croix pendant l'inspection", sub: '10 solves préparés en 15s', trainable: null } ],
-  [ { title: 'Reconnaissance flash', sub: "OLL/PLL en moins d'1 seconde", trainable: 'pll' },
+  [ { title: 'Reconnaissance flash', sub: "OLL/PLL en moins d'1 seconde", trainable: 'oll-pll' },
     { title: 'Neutralité de couleur', sub: 'Choisis ta meilleure croix', trainable: null } ],
 ];
 
 const TITLE_STAR_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg>`;
 const TITLE_LOCK_SVG = `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="2"/></svg>`;
 const POINTS_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg>`;
+
+// Centralise le choix de l'action d'une mission — évite de dupliquer la
+// logique si on ajoute d'autres catégories entraînables plus tard.
+function missionAction(m){
+  if(m.trainable === 'pll')     return "openTraining(DB.pll, {categoryLabel:'PLL'})";
+  if(m.trainable === 'oll')     return "openTraining(DB.oll, {categoryLabel:'OLL'})";
+  if(m.trainable === 'oll-pll') return "openTraining([...DB.oll, ...DB.pll], {categoryLabel:'OLL/PLL'})";
+  return "alert('Ce mode d\\'entraînement arrive bientôt')";
+}
 
 function rankMissionsHTML(s){
   const { tierIndex, ref } = computeRank(s);
@@ -3285,7 +3313,7 @@ function rankMissionsHTML(s){
 
   const missionTierIdx = Math.max(0, Math.min(tierIndex + 1, MISSIONS_BY_TIER.length - 1));
   const missionsHTML = MISSIONS_BY_TIER[missionTierIdx].map(m => {
-    const action = m.trainable === 'pll' ? 'openTraining()' : "alert('Ce mode d\\'entraînement arrive bientôt')";
+    const action = missionAction(m);
     return `
     <div class="mission-card">
       <div>
@@ -3296,19 +3324,29 @@ function rankMissionsHTML(s){
     </div>`;
   }).join('');
 
-  // Maîtrise PLL réelle, calculée depuis les résolutions sans indice sauvegardées
+  // Maîtrise réelle OLL + PLL + F2L, calculée depuis la maîtrise sauvegardée
+  // (déclaration manuelle sur une carte OU 3 réussites en entraînement — les
+  // deux signaux sont fusionnés dans mastery[id].mastered).
   const mastery = loadMastery();
   const pllList = DB.pll || [];
-  const masteredCount = pllList.filter(c => mastery[c.id] && mastery[c.id].mastered).length;
+  const ollList = DB.oll || [];
+  const f2lList = DB.f2l || [];
+  const masteredPll = pllList.filter(c => mastery[c.id]?.mastered).length;
+  const masteredOll = ollList.filter(c => mastery[c.id]?.mastered).length;
+  const masteredF2l = f2lList.filter(c => mastery[c.id]?.mastered).length;
   const pllTotal = pllList.length || 21;
+  const ollTotal = ollList.length || 57;
+  const f2lTotal = f2lList.length || 30;
+  const totalMastered = masteredPll + masteredOll + masteredF2l;
 
   const titles = [
     { label: 'Sub-30 confirmé', earned: ref < 30000 },
     { label: 'Sub-20 confirmé', earned: ref < 20000 },
     { label: 'Sub-10 confirmé', earned: ref < 10000 },
     { label: 'Métronome', earned: s.streak >= 3 },
-    { label: `Chasseur de PLL (${masteredCount}/${pllTotal})`, earned: masteredCount === pllTotal },
-    { label: "Collection d'OLL", earned: false },
+    { label: `Chasseur de PLL (${masteredPll}/${pllTotal})`, earned: masteredPll === pllTotal && pllTotal > 0 },
+    { label: `Collection d'OLL (${masteredOll}/${ollTotal})`, earned: masteredOll === ollTotal && ollTotal > 0 },
+    { label: `Bibliothèque F2L (${masteredF2l}/${f2lTotal})`, earned: masteredF2l === f2lTotal && f2lTotal > 0 },
   ];
   const titlesHTML = titles.map(t => `
     <div class="title-badge${t.earned ? '' : ' locked'}">
@@ -3318,7 +3356,7 @@ function rankMissionsHTML(s){
 
   // Points : première formule simple, à revoir une fois l'économie de
   // points par mission/record/régularité définie précisément.
-  const points = Math.round(s.n * 2 + s.streak * 5 + masteredCount * 10);
+  const points = Math.round(s.n * 2 + s.streak * 5 + totalMastered * 10);
 
   return `
     <div class="rank-card">
@@ -3597,8 +3635,32 @@ function render(){
     </div>`;
   }
 
+  // ── Filtre statut (Tous / À apprendre / Maîtrisés) — les cas maîtrisés
+  // sont retirés de "Tous" pour désencombrer, uniquement visibles via leur
+  // propre filtre, comme demandé.
+  const statusChips = [
+    { key:'all',      label:'Tous' },
+    { key:'learning', label:'À apprendre' },
+    { key:'mastered', label:'Maîtrisés' },
+  ];
+  const statusFilterHTML = `<div class="filter-bar">
+    <span class="filter-label">Statut</span>
+    <div class="chips">
+      ${statusChips.map(f => `<button class="chip${f.key===curMasteryFilter?' active':''}" onclick="setMasteryFilter('${f.key}')">${f.label}</button>`).join('')}
+    </div>
+  </div>`;
+
   // ── Filtrage ──
-  const filtered = curFilter==='all' ? cases : cases.filter(c => c.shape===curFilter);
+  let filtered = curFilter==='all' ? cases : cases.filter(c => c.shape===curFilter);
+  const mastery = loadMastery();
+  const toLearn = loadToLearn();
+  if(curMasteryFilter === 'mastered'){
+    filtered = filtered.filter(c => mastery[c.id]?.mastered);
+  } else if(curMasteryFilter === 'learning'){
+    filtered = filtered.filter(c => toLearn[c.id]);
+  } else {
+    filtered = filtered.filter(c => !mastery[c.id]?.mastered);
+  }
 
   // ── Groupement (préserve l'ordre JSON) ──
   const groupOrder = [];
@@ -3624,13 +3686,28 @@ function render(){
   });
   grid += '</div>';
 
+  if(filtered.length === 0){
+    const emptyMsgs = {
+      mastered: 'Aucun cas maîtrisé pour l\'instant.',
+      learning: 'Aucun cas gardé en mémoire — ouvre une carte et coche "À apprendre".',
+      all: 'Tous les cas de cette catégorie sont déjà maîtrisés ✓',
+    };
+    grid = `<div class="empty-block">${emptyMsgs[curMasteryFilter] || 'Aucun cas.'}</div>`;
+  }
+
+  const trainAllHTML = `<div style="margin:4px 0 14px">
+    <button class="mission-cta" onclick="openTraining(DB.${curTab}, {categoryLabel:'${curTab.toUpperCase()}'})">S'entraîner sur tout ${curTab.toUpperCase()}</button>
+  </div>`;
+
   m.innerHTML = `
     <div class="section-wrap">
       <div class="section-head">
         <div class="section-title">${meta.title}</div>
         <div class="section-sub">${meta.sub}</div>
       </div>
+      ${trainAllHTML}
       ${filterHTML}
+      ${statusFilterHTML}
       <div style="height:10px"></div>
       ${grid}
     </div>`;
@@ -3638,6 +3715,11 @@ function render(){
   m.scrollTop = 0;
   m.querySelectorAll('.card').forEach(b =>
     b.addEventListener('click', () => openPopup(b.dataset.id)));
+}
+
+function setMasteryFilter(key){
+  curMasteryFilter = key;
+  render();
 }
 
 const CROIX_STEPS_SVG = [
@@ -4484,9 +4566,12 @@ function renderCroixPage(){
 // ══════════════════════════════════════════════════════
 //  POPUP
 // ══════════════════════════════════════════════════════
+let curPopupId = null;
+
 function openPopup(id){
   const c = (DB[curTab]||[]).find(x => x.id===id);
   if(!c) return;
+  curPopupId = id;
   const moves = parseMoves(c.alg).length;
   document.getElementById('pName').textContent  = c.name;
   document.getElementById('pTag').style.display = '';
@@ -4501,6 +4586,7 @@ function openPopup(id){
   tipEl.textContent = c.tip || '';
   tipEl.style.display = c.tip ? 'block' : 'none';
   document.getElementById('pMoves').innerHTML   = buildMovesHTML(c.alg);
+  updatePopupActionStates();
   document.getElementById('popOv').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -4509,16 +4595,51 @@ function popClose(){
   document.body.style.overflow = '';
 }
 
+function updatePopupActionStates(){
+  const mastery = loadMastery();
+  const toLearn = loadToLearn();
+  const rec = mastery[curPopupId];
+  document.getElementById('pMasterBtn').classList.toggle('active', !!(rec && rec.mastered));
+  document.getElementById('pLearnBtn').classList.toggle('active', !!toLearn[curPopupId]);
+}
+
+// Verrouille l'entraînement sur ce cas précis, en boucle, jusqu'à fermeture
+function trainFromPopup(){
+  const c = (DB[curTab]||[]).find(x => x.id===curPopupId);
+  if(!c) return;
+  popClose();
+  openTraining([c], { singleCase: c, categoryLabel: curTab.toUpperCase() });
+}
+
+// Déclaration manuelle — fusionne avec la maîtrise auto (l'une ou l'autre suffit)
+function toggleMasterFromPopup(){
+  const mastery = loadMastery();
+  const rec = getMasteryRecord(mastery, curPopupId);
+  rec.manual = !rec.manual;
+  recomputeMastered(rec);
+  mastery[curPopupId] = rec;
+  saveMastery(mastery);
+  updatePopupActionStates();
+}
+
+function toggleLearnFromPopup(){
+  toggleToLearn(curPopupId);
+  updatePopupActionStates();
+}
+
 // ══════════════════════════════════════════════════════
 // MODE ENTRAÎNEMENT DÉDIÉ — 3 étapes : Indice / Sans indice / Chrono
+// Fonctionne pour OLL, PLL et F2L (pas seulement PLL).
 // Sans indice : la reconnaissance reste libre (non chronométrée), le
 // chrono ne démarre qu'au premier contact ("Toucher, démarrer"), comme
 // une vraie inspection WCA — on mesure l'exécution pure.
 // Chrono : condition réaliste, le cas est masqué jusqu'au démarrage,
 // qui révèle le cube ET lance le chrono en même temps (reconnaissance +
 // exécution mesurées ensemble, comme un vrai solve).
-// Un cas ne compte pour la maîtrise que s'il est réussi SANS avoir
-// révélé l'indice — évite de tricher le système.
+// Un cas ne compte pour la maîtrise automatique que s'il est réussi SANS
+// avoir révélé l'indice — évite de tricher le système. La maîtrise peut
+// aussi être déclarée manuellement depuis une carte (voir plus bas) : les
+// deux signaux fusionnent dans un seul indicateur "mastered".
 // ══════════════════════════════════════════════════════
 let trainCases = [];
 let trainIndex = 0;
@@ -4526,9 +4647,13 @@ let trainStage = 'sans-indice';
 let trainRunning = false;
 let trainStartTs = 0;
 let trainRAF = null;
+let trainSourceList = [];
+let trainSingleCaseMode = false;
+let trainCategoryLabel = 'PLL';
 
-const MASTERY_KEY = 'fridrich_pll_mastery_v1';
-const MASTERY_THRESHOLD = 3; // succès consécutifs sans indice requis pour marquer un cas "maîtrisé"
+const MASTERY_KEY = 'fridrich_mastery_v2';
+const MASTERY_THRESHOLD = 3; // succès consécutifs sans indice requis pour marquer un cas "maîtrisé" automatiquement
+const TOLEARN_KEY = 'fridrich_tolearn_v1';
 
 function loadMastery(){
   try{ return JSON.parse(localStorage.getItem(MASTERY_KEY)) || {}; }
@@ -4536,6 +4661,29 @@ function loadMastery(){
 }
 function saveMastery(obj){
   localStorage.setItem(MASTERY_KEY, JSON.stringify(obj));
+}
+function getMasteryRecord(mastery, id){
+  return mastery[id] || { successCount: 0, manual: false, mastered: false, bestMs: null };
+}
+// Fusionne les deux signaux : déclaration manuelle OU seuil auto atteint
+function recomputeMastered(rec){
+  rec.mastered = rec.manual || rec.successCount >= MASTERY_THRESHOLD;
+  return rec;
+}
+
+function loadToLearn(){
+  try{ return JSON.parse(localStorage.getItem(TOLEARN_KEY)) || {}; }
+  catch(e){ return {}; }
+}
+function saveToLearn(obj){
+  localStorage.setItem(TOLEARN_KEY, JSON.stringify(obj));
+}
+function toggleToLearn(id){
+  const list = loadToLearn();
+  if(list[id]) delete list[id];
+  else list[id] = true;
+  saveToLearn(list);
+  return !!list[id];
 }
 
 function shuffleArr(arr){
@@ -4547,9 +4695,14 @@ function shuffleArr(arr){
   return a;
 }
 
-function openTraining(){
-  if(!DB.pll || !DB.pll.length) return;
-  trainCases = shuffleArr(DB.pll);
+// caseList : les cas disponibles (ex. DB.pll). opts.singleCase : verrouille
+// l'entraînement sur un seul cas (boucle dessus jusqu'à fermeture), utilisé
+// depuis le bouton "M'entraîner" d'une carte précise.
+function openTraining(caseList, opts = {}){
+  trainSourceList = (caseList && caseList.length) ? caseList : (DB.pll || []);
+  trainSingleCaseMode = !!opts.singleCase;
+  trainCategoryLabel = opts.categoryLabel || 'PLL';
+  trainCases = trainSingleCaseMode ? [opts.singleCase] : shuffleArr(trainSourceList);
   trainIndex = 0;
   trainStage = 'sans-indice';
   document.getElementById('trainOv').classList.add('open');
@@ -4562,6 +4715,7 @@ function closeTraining(){
   document.getElementById('trainOv').classList.remove('open');
   document.body.style.overflow = '';
   if(curView === 'missions') renderMissionsPage();
+  else if(curView === 'app') render();
 }
 function setTrainStage(stage){
   stopTrainTimer();
@@ -4579,7 +4733,9 @@ function renderTrainCase(){
   if(trainIndex >= trainCases.length) trainIndex = 0;
   const cs = trainCases[trainIndex];
 
-  document.getElementById('trainProgressTag').textContent = `Cas ${trainIndex+1} / ${trainCases.length}`;
+  document.getElementById('trainProgressTag').textContent = trainSingleCaseMode
+    ? 'Entraînement ciblé'
+    : `Cas ${trainIndex+1} / ${trainCases.length}`;
   document.getElementById('trainAlg').innerHTML  = fmt(cs.alg);
   document.getElementById('trainMoves').innerHTML = buildMovesHTML(cs.alg);
   document.getElementById('trainTip').textContent = cs.tip || '';
@@ -4592,12 +4748,13 @@ function renderTrainCase(){
     document.getElementById('trainAlgBlock').style.display = '';
     document.getElementById('trainTip').style.display = cs.tip ? '' : 'none';
     document.getElementById('trainTimerBlock').style.display = 'none';
-    document.getElementById('trainControls').innerHTML = `
-      <button class="chrono-btn chrono-btn-secondary" onclick="prevTrainCase()">← Précédent</button>
-      <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Suivant →</button>`;
+    document.getElementById('trainControls').innerHTML = trainSingleCaseMode
+      ? `<div class="mission-sub" style="text-align:center;width:100%">Étudie ce cas, puis passe à "Sans indice" quand tu es prêt</div>`
+      : `<button class="chrono-btn chrono-btn-secondary" onclick="prevTrainCase()">← Précédent</button>
+         <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Suivant →</button>`;
 
   } else if(trainStage === 'sans-indice'){
-    document.getElementById('trainCaseName').textContent = 'PLL — cas mystère';
+    document.getElementById('trainCaseName').textContent = `${trainCategoryLabel} — cas mystère`;
     document.getElementById('trainHintRow').style.display = '';
     document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
     document.getElementById('trainAlgBlock').style.display = 'none';
@@ -4609,7 +4766,7 @@ function renderTrainCase(){
       <button class="chrono-btn chrono-btn-primary" onclick="touchStartTrain()">Toucher, démarrer</button>`;
 
   } else { // chrono
-    document.getElementById('trainCaseName').textContent = 'PLL — chrono';
+    document.getElementById('trainCaseName').textContent = `${trainCategoryLabel} — chrono`;
     document.getElementById('trainHintRow').style.display = 'none';
     document.getElementById('trainCube').innerHTML = `<div class="train-hidden-cube">?</div>`;
     document.getElementById('trainAlgBlock').style.display = 'none';
@@ -4669,12 +4826,12 @@ function finishTrainCase(success){
   const countsAsMastery = success && !hintUsed;
 
   const mastery = loadMastery();
-  const rec = mastery[cs.id] || { successCount: 0, mastered: false, bestMs: null };
+  const rec = getMasteryRecord(mastery, cs.id);
   if(countsAsMastery){
     rec.successCount++;
     if(rec.bestMs === null || elapsed < rec.bestMs) rec.bestMs = elapsed;
-    if(rec.successCount >= MASTERY_THRESHOLD) rec.mastered = true;
   }
+  recomputeMastered(rec);
   mastery[cs.id] = rec;
   saveMastery(mastery);
 
@@ -4687,14 +4844,16 @@ function finishTrainCase(success){
 }
 
 function nextTrainCase(){
+  if(trainSingleCaseMode){ renderTrainCase(); return; }
   trainIndex++;
   if(trainIndex >= trainCases.length){
-    trainCases = shuffleArr(DB.pll);
+    trainCases = shuffleArr(trainSourceList);
     trainIndex = 0;
   }
   renderTrainCase();
 }
 function prevTrainCase(){
+  if(trainSingleCaseMode) return;
   trainIndex = (trainIndex - 1 + trainCases.length) % trainCases.length;
   renderTrainCase();
 }
