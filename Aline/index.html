@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aline</title>
+<style>
+  :root {
+    --cube-bleu: #0094fe;
+    --cube-jaune: #ffcc41;
+    --cube-vert: #08e326;
+    --text: #000;
+    --bg: #fff;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .section {
+    margin-bottom: 22px;
+  }
+
+  .section-label {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 6px;
+  }
+
+  .section-body {
+    display: flex;
+    align-items: stretch;
+    gap: 13px;
+  }
+
+  .bar {
+    flex: 0 0 5px;
+    width: 5px;
+    border-radius: 70px;
+  }
+
+  .bar--bleu   { background: var(--cube-bleu); }
+  .bar--jaune  { background: var(--cube-jaune); }
+  .bar--vert   { background: var(--cube-vert); }
+
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .lines p {
+    margin: 0;
+  }
+
+  @media (min-width: 480px) {
+    main { padding: 40px 32px 80px; }
+    h1 { font-size: 34px; }
+    .lines { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Aline</h1>
+
+  <div class="section">
+    <p class="section-label">Couplet</p>
+    <div class="section-body">
+      <div class="bar bar--bleu"></div>
+      <div class="lines">
+        <p>Aline c'est pas une légende</p>
+        <p>Plu d'50 ans avec Felix et tous vos souvenir</p>
+        <p>T'est la boss sans faire de bruit</p>
+        <p>La chef caché de l'a tribu</p>
+        <p>Tous compte sur toi dans leurs avenir</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Pré refrain</p>
+    <div class="section-body">
+      <div class="bar bar--jaune"></div>
+      <div class="lines">
+        <p>Quand tout part de travers, c'est toi qui gère l'affaire</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Refrain</p>
+    <div class="section-body">
+      <div class="bar bar--vert"></div>
+      <div class="lines">
+        <p>Oh Aline !</p>
+        <p>T'est increvable !</p>
+        <p>Ton énergie nous émerveille</p>
+        <p>Toujours debout, toujours debout ouh ouh</p>
+        <p>Oh Aline !</p>
+        <p>Même quand tout devient fou</p>
+        <p>Tu restera toujours debout ! toujours solide !</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Couplet</p>
+    <div class="section-body">
+      <div class="bar bar--bleu"></div>
+      <div class="lines">
+        <p>Anne, Paul, Marine on bien grandit !</p>
+        <p>Pour Léo et Andréa, tu suis maintenant chacun de leurs pas</p>
+        <p>Jaqueline, Christiane à tes côtés !</p>
+        <p>Des liens indéfectible</p>
+        <p>Que rien ne peux plus changer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Pré refrain</p>
+    <div class="section-body">
+      <div class="bar bar--jaune"></div>
+      <div class="lines">
+        <p>Et même avec Hugette, c'est toi qui gère la fête</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Refrain repet</p>
+    <div class="section-body">
+      <div class="bar bar--vert"></div>
+      <div class="lines">
+        <p>Oh Aline ! ( même que 1er refrain)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Couplet</p>
+    <div class="section-body">
+      <div class="bar bar--bleu"></div>
+      <div class="lines">
+        <p>Entre tes fil et tes couleurs, tu brodes la vie avec bonheur</p>
+        <p>Tes voyages, tes carnets le raconte bien mieux</p>
+        <p>Même dans les jours compliqué,</p>
+        <p>Tu reste a nos côté</p>
+        <p>Ta précence nous rend heureux !</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Pré refrain</p>
+    <div class="section-body">
+      <div class="bar bar--jaune"></div>
+      <div class="lines">
+        <p>Tes amis, tes passions, tu fait danser toutes les saisons</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-label">Refrain final</p>
+    <div class="section-body">
+      <div class="bar bar--vert"></div>
+      <div class="lines">
+        <p>Oh Aline !</p>
+        <p>On est la aujourd'hui</p>
+        <p>Pour fêter tout ce que tu as construit</p>
+        <p>Oh Aline !</p>
+        <p>C'est toi simplement</p>
+        <p>Simplement forte, simplement toi ah ah ah ah</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
