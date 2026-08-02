@@ -297,31 +297,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .mv{display:flex;align-items:center;justify-content:center}
 .mv svg{width:50px;height:auto;display:block}
 
-/* ── MODE ENTRAÎNEMENT DÉDIÉ ── */
-.train-stage-row{display:flex;gap:4px;background:#fff;border-radius:50px;padding:4px}
-.train-stage-btn{
-  flex:1;border:none;background:none;cursor:pointer;padding:8px 4px;
-  border-radius:50px;font-size:12px;font-weight:800;color:var(--mid);
-  -webkit-tap-highlight-color:transparent;transition:background .15s,color .15s;
-}
-.train-stage-btn.active{background:var(--ref);color:var(--ref-text)}
-
-.train-timer-block{text-align:center;padding:4px 0}
-.train-timer{font-size:44px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--dark);line-height:1.1}
-.train-timer-state{font-size:12px;color:var(--mid);font-weight:600;margin-top:2px}
-
-.train-hidden-cube{
-  width:130px;height:130px;border-radius:var(--r);background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
-  font-size:34px;font-weight:900;color:#ccc;
-}
-
-.train-hint-row{display:flex;align-items:center;justify-content:center;gap:8px}
-.train-hint-label{font-size:13px;color:var(--mid);font-weight:700}
-
-.train-controls{display:flex;gap:10px}
-.train-controls .chrono-btn{padding:14px}
-
 /* ── MENU ── */
 .menu-ov{
   position:fixed;inset:0;background:rgba(0,0,0,.42);
@@ -788,43 +763,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;
 }
 
-/* ── Rang, missions et titres — page Progression ── */
-.rank-card{background:var(--bg);border-radius:var(--r);padding:18px;width:100%;display:flex;flex-direction:column;gap:10px}
-.rank-head{display:flex;align-items:baseline;justify-content:space-between}
-.rank-head-label{font-size:14px;font-weight:800;color:var(--dark)}
-.rank-head-value{font-size:14px;font-weight:700;color:var(--mid);font-variant-numeric:tabular-nums}
-.rank-bar{display:flex;gap:4px}
-.rank-seg{flex:1;height:8px;border-radius:4px;background:#e2e2e2}
-.rank-seg.done{background:var(--ref)}
-.rank-labels{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--mid)}
-.rank-labels .current{color:var(--dark)}
-
-.mission-card{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  background:var(--bg);border-radius:var(--r);padding:14px 16px;
-}
-.mission-title{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:2px}
-.mission-sub{font-size:12px;color:var(--mid);font-weight:600}
-.mission-cta{
-  flex-shrink:0;background:var(--ref);color:var(--ref-text);border:none;cursor:pointer;
-  border-radius:50px;padding:9px 16px;font-size:13px;font-weight:800;white-space:nowrap;
-  -webkit-tap-highlight-color:transparent;transition:transform .1s;
-}
-.mission-cta:active{transform:scale(.96)}
-
-.title-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
-.title-badge{
-  display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;
-  background:var(--ref);color:var(--ref-text);border-radius:var(--r);padding:14px 8px;
-}
-.title-badge.locked{background:var(--bg);color:var(--mid)}
-.title-badge-icon{width:22px;height:22px}
-.title-badge-icon svg{width:100%;height:100%;display:block}
-.title-badge-label{font-size:12px;font-weight:800}
-
-.points-line{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mid);font-weight:600;padding:2px 2px 0}
-.points-line svg{width:14px;height:14px}
-
 /* ══════════════════════════════════════════════════════
    Écran Accueil
    ══════════════════════════════════════════════════════ */
@@ -992,7 +930,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 <div class="menu-ov" id="menuOv">
   <div class="menu-panel">
     <div class="menu-top">
-      <span class="menu-logo" id="menuLogo" onclick="goPage('home')" style="cursor:pointer"></span>
+      <span class="menu-logo" id="menuLogo"></span>
       <button class="menu-x" onclick="menuClose()">✕</button>
     </div>
     <nav class="menu-nav">
@@ -1001,9 +939,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       </button>
       <button class="menu-link" data-view="chrono" onclick="goPage('chrono')">
         <span class="menu-label"><span class="menu-icon" style="background:#FFCC4126;color:#B98A00"><svg viewBox="0 0 24 24" fill="none"><path d="M15 1H9V3H15V1ZM11 14H13V8H11V14ZM19.03 7.39L20.45 5.97C20.02 5.46 19.55 4.98 19.04 4.56L17.62 5.98C16.0273 4.69833 14.0443 3.99969 12 4C7.03 4 3 8.03 3 13C3 17.97 7.02 22 12 22C13.6943 22.0009 15.3544 21.5232 16.7891 20.622C18.2238 19.7207 19.3748 18.4325 20.1094 16.9057C20.8441 15.379 21.1325 13.6758 20.9415 11.9923C20.7506 10.3087 20.088 8.71341 19.03 7.39V7.39ZM12 20C8.13 20 5 16.87 5 13C5 9.13 8.13 6 12 6C15.87 6 19 9.13 19 13C19 16.87 15.87 20 12 20Z" fill="currentColor"/></svg></span>Chrono</span>
-      </button>
-      <button class="menu-link" data-view="missions" onclick="goPage('missions')">
-        <span class="menu-label"><span class="menu-icon" style="background:#9747FF26;color:#7A1FE0"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg></span>Missions</span>
       </button>
       <button class="menu-link" data-view="beginner" onclick="goPage('beginner')">
         <span class="menu-label"><span class="menu-icon" style="background:#58DB7426;color:#1E9A47"><svg viewBox="0 0 24 24" fill="none"><path d="M21.406 6.08601L12.406 2.08601C12.278 2.02914 12.1395 1.99976 11.9995 1.99976C11.8595 1.99976 11.721 2.02914 11.593 2.08601L2.593 6.08601C2.573 6.09501 2.559 6.11001 2.539 6.12101C2.511 6.13501 2.481 6.14401 2.455 6.16101C2.433 6.17601 2.416 6.19501 2.395 6.21101C2.3219 6.26533 2.25779 6.3308 2.205 6.40501C2.185 6.43301 2.164 6.45801 2.146 6.48601C2.11624 6.53886 2.09082 6.59404 2.07 6.65101C2.061 6.67801 2.047 6.70301 2.039 6.73001C2.01389 6.81784 2.00077 6.90866 2 7.00001V17C2 17.396 2.232 17.753 2.594 17.914L11.594 21.914C11.724 21.972 11.862 22 12 22C12.1392 21.9964 12.2762 21.9637 12.402 21.904L12.406 21.914L21.406 17.914C21.5829 17.8356 21.7332 17.7074 21.8386 17.5452C21.9441 17.3829 22.0002 17.1935 22 17V7.00001C22.0002 6.8065 21.9441 6.61711 21.8386 6.45485C21.7332 6.2926 21.5829 6.16446 21.406 6.08601V6.08601ZM12 4.09501L18.538 7.00001L12 9.90501L10.692 9.32401L5.463 7.00001L12 4.09501ZM4 16.351V8.53901L11 11.65V19.461L4 16.351ZM13 19.461V11.65L20 8.53901V16.351L13 19.461Z" fill="currentColor"/></svg></span>Méthode débutant</span><span class="menu-soon">Bientôt</span>
@@ -1040,52 +975,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   </div>
 </div>
 
-<!-- ══ MODE ENTRAÎNEMENT DÉDIÉ (OLL/PLL, avec indice → sans indice → chrono) ══ -->
-<div class="pop-ov" id="trainOv">
-  <div class="pop-panel">
-    <div class="pop-head">
-      <div class="pop-meta">
-        <div class="pop-name" id="trainCaseName"></div>
-        <div class="pop-badges">
-          <span class="pop-tag" id="trainProgressTag"></span>
-        </div>
-      </div>
-      <button class="pop-close" onclick="closeTraining()">✕</button>
-    </div>
-
-    <div class="train-stage-row">
-      <button class="train-stage-btn" data-stage="indice" onclick="setTrainStage('indice')">Indice</button>
-      <button class="train-stage-btn" data-stage="sans-indice" onclick="setTrainStage('sans-indice')">Sans indice</button>
-      <button class="train-stage-btn" data-stage="chrono" onclick="setTrainStage('chrono')">Chrono</button>
-    </div>
-
-    <div class="pop-cube" id="trainCube"></div>
-
-    <div id="trainTimerBlock" class="train-timer-block">
-      <div class="train-timer" id="trainTimer">0.00</div>
-      <div class="train-timer-state" id="trainTimerState"></div>
-    </div>
-
-    <div id="trainAlgBlock" class="pop-alg-card">
-      <div class="pop-alg" id="trainAlg"></div>
-      <div class="pop-moves" id="trainMoves"></div>
-    </div>
-    <div class="pop-tip" id="trainTip"></div>
-
-    <div id="trainHintRow" class="train-hint-row">
-      <label class="train-hint-label" for="trainHintToggle">Révéler l'indice</label>
-      <input type="checkbox" id="trainHintToggle" onchange="toggleTrainHint(this.checked)">
-    </div>
-
-    <div id="trainControls" class="train-controls"></div>
-  </div>
-</div>
-
 <!-- ══ APP ══ -->
 <div class="app">
   <header id="appHeader">
     <div class="header-left">
-      <span class="header-logo" id="headerLogo" onclick="goPage('home')" style="cursor:pointer"></span>
+      <span class="header-logo" id="headerLogo"></span>
       <h1 class="app-title" id="headerTitle">Méthode Fridrich</h1>
     </div>
     <nav class="header-nav" id="headerNav">
@@ -1094,9 +988,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
       </button>
       <button class="header-nav-link" data-view="chrono" onclick="goPage('chrono')">
         <span class="header-nav-icon" style="background:#FFCC4126;color:#B98A00"><svg viewBox="0 0 24 24" fill="none"><path d="M15 1H9V3H15V1ZM11 14H13V8H11V14ZM19.03 7.39L20.45 5.97C20.02 5.46 19.55 4.98 19.04 4.56L17.62 5.98C16.0273 4.69833 14.0443 3.99969 12 4C7.03 4 3 8.03 3 13C3 17.97 7.02 22 12 22C13.6943 22.0009 15.3544 21.5232 16.7891 20.622C18.2238 19.7207 19.3748 18.4325 20.1094 16.9057C20.8441 15.379 21.1325 13.6758 20.9415 11.9923C20.7506 10.3087 20.088 8.71341 19.03 7.39V7.39ZM12 20C8.13 20 5 16.87 5 13C5 9.13 8.13 6 12 6C15.87 6 19 9.13 19 13C19 16.87 15.87 20 12 20Z" fill="currentColor"/></svg></span>Chrono
-      </button>
-      <button class="header-nav-link" data-view="missions" onclick="goPage('missions')">
-        <span class="header-nav-icon" style="background:#9747FF26;color:#7A1FE0"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg></span>Missions
       </button>
       <button class="header-nav-link" data-view="app" onclick="goPage('app')">
         <span class="header-nav-icon" style="background:#5DA8FF26;color:#1D6FE0"><svg viewBox="0 0 24 24" fill="none"><path d="M17.895 3.553C17.8118 3.38684 17.6841 3.24711 17.526 3.14944C17.3679 3.05177 17.1858 3.00003 17 3H6.99998C6.62098 3 6.27498 3.214 6.10498 3.553L2.10498 11.553C2.03546 11.6919 1.99927 11.8451 1.99927 12.0005C1.99927 12.1559 2.03546 12.3091 2.10498 12.448L6.10498 20.448C6.27498 20.786 6.62098 21 6.99998 21H17C17.379 21 17.725 20.786 17.895 20.447L21.895 12.447C21.9645 12.3081 22.0007 12.1549 22.0007 11.9995C22.0007 11.8441 21.9645 11.6909 21.895 11.552L17.895 3.553ZM19.382 11H11.618L8.61798 5H16.382L19.382 11ZM4.11798 12L6.99998 6.236L9.88198 12L6.99998 17.764L4.11798 12ZM16.382 19H8.61798L11.618 13H19.382L16.382 19V19Z" fill="currentColor"/></svg></span>Méthode Fridrich
@@ -2178,20 +2069,17 @@ const ICON_GEAR = `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" 
 
 const ICON_HOME = `<svg viewBox="0 0 24 24" fill="none"><path d="M3 11l9-8 9 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v10a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-const ICON_TROPHY = `<svg viewBox="0 0 24 24" fill="none"><path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 0 1-10 0V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 5H4a1 1 0 0 0-1 1v1a4 4 0 0 0 4 4M17 5h3a1 1 0 0 1 1 1v1a4 4 0 0 1-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-
 const VIEW_ICONS = {
-  home:     { icon: ICON_HOME,   bg:'#FF9A1F26', fg:'#C56C00' },
-  chrono:   { icon: ICON_TIMER,  bg:'#FFCC4126', fg:'#B98A00' },
-  missions: { icon: ICON_TROPHY, bg:'#9747FF26', fg:'#7A1FE0' },
-  beginner: { icon: ICON_CUBE,   bg:'#58DB7426', fg:'#1E9A47' },
-  app:      { icon: ICON_CUBE,   bg:'#5DA8FF26', fg:'#1D6FE0' },
-  settings: { icon: ICON_GEAR,   bg:'#B3B3B326', fg:'#6B6B6B' },
+  home:     { icon: ICON_HOME,  bg:'#FF9A1F26', fg:'#C56C00' },
+  chrono:   { icon: ICON_TIMER, bg:'#FFCC4126', fg:'#B98A00' },
+  beginner: { icon: ICON_CUBE,  bg:'#58DB7426', fg:'#1E9A47' },
+  app:      { icon: ICON_CUBE,  bg:'#5DA8FF26', fg:'#1D6FE0' },
+  settings: { icon: ICON_GEAR,  bg:'#B3B3B326', fg:'#6B6B6B' },
 };
 
 function updateHeader(){
   const titles = {
-    home:'Accueil', app:'Méthode Fridrich', missions:'Missions',
+    home:'Accueil', app:'Méthode Fridrich',
     settings:'Paramètres', beginner:'Méthode débutant', chrono:'Chrono'
   };
   const t = titles[curView] || 'Méthode Fridrich';
@@ -2223,7 +2111,6 @@ function goPage(view){
   showChronoNav(view === 'chrono');
   if(view==='home') renderHomePage();
   else if(view==='app') renderAppTab();
-  else if(view==='missions') renderMissionsPage();
   else if(view==='settings') renderSettingsPage();
   else if(view==='beginner') renderBeginnerPage();
   else if(view==='chrono'){
@@ -3114,35 +3001,6 @@ function formatSci(n){
   return `${mantissa.toFixed(1)} × 10${toSuperscript(exp)}`;
 }
 
-// Page "Missions" — indépendante de la page Progression (stats), pour ne
-// pas surcharger cette dernière. Accessible depuis le menu et le header.
-function renderMissionsPage(){
-  const m = document.getElementById('main');
-  destroyActiveLotties();
-  const s = computeChronoStats();
-
-  if(!s){
-    m.innerHTML = `<div class="section-wrap" style="padding-top:6px">
-      <div class="section-head" style="padding-top:4px">
-        <div class="section-title">Missions</div>
-        <div class="section-sub">Progresse par palier, débloque tes titres</div>
-      </div>
-      <div class="empty-block">Lance quelques chronos pour débloquer tes premières missions.</div>
-    </div>`;
-    m.scrollTop = 0;
-    return;
-  }
-
-  m.innerHTML = `<div class="section-wrap" style="display:flex;flex-direction:column;gap:16px;padding-top:6px">
-    <div class="section-head" style="padding-top:4px">
-      <div class="section-title">Missions</div>
-      <div class="section-sub">Progresse par palier, débloque tes titres</div>
-    </div>
-    ${rankMissionsHTML(s)}
-  </div>`;
-  m.scrollTop = 0;
-}
-
 function computeChronoStats(){
   const all = [...CHRONO_RECORDS].sort((a,b) => new Date(a.date) - new Date(b.date));
   const n = all.length;
@@ -3236,108 +3094,6 @@ function tipsHTML(){
   return `<div class="tips-list">
     ${SPEEDCUBE_TIPS.map((t,i) => `<div class="tips-item"><span class="tips-num">${i+1}</span><span>${t}</span></div>`).join('')}
   </div>`;
-}
-
-// ══════════════════════════════════════════════════════
-// Rang, missions et titres — basés sur l'ao12 (pas un temps isolé)
-// Première passe : structure et affichage réels, contenu des missions
-// et mode d'entraînement dédié à enrichir ensuite.
-// ══════════════════════════════════════════════════════
-const RANK_TIERS = [
-  { max: 40000, label: 'Sub-40' },
-  { max: 30000, label: 'Sub-30' },
-  { max: 20000, label: 'Sub-20' },
-  { max: 10000, label: 'Sub-10' },
-];
-
-function computeRank(s){
-  const ref = s.ao12 || s.avg;
-  let tierIndex = -1;
-  RANK_TIERS.forEach((t,i) => { if(ref < t.max) tierIndex = i; });
-  return { tierIndex, ref };
-}
-
-// Missions candidates par palier — le contenu précis (liées aux vraies
-// cases OLL/PLL de data.json) sera affiné avec le mode d'entraînement dédié.
-// trainable:'pll' → la mission ouvre le mode d'entraînement PLL déjà codé ;
-// les autres (Croix/F2L/OLL) suivront le même principe ensuite.
-const MISSIONS_BY_TIER = [
-  [ { title: 'Croix propre en 2s', sub: '10 croix résolues sans hésitation', trainable: null },
-    { title: '2-look OLL sans hésiter', sub: 'Les 7 cas doivent être automatiques', trainable: null } ],
-  [ { title: 'Look-ahead F2L', sub: '5 solves centrés sur la paire suivante', trainable: null },
-    { title: 'Apprends le PLL complet', sub: '3 nouveaux algos cette semaine', trainable: 'pll' } ],
-  [ { title: 'Maîtrise le PLL complet', sub: '21 cas sans hésitation', trainable: 'pll' },
-    { title: "Croix pendant l'inspection", sub: '10 solves préparés en 15s', trainable: null } ],
-  [ { title: 'Reconnaissance flash', sub: "OLL/PLL en moins d'1 seconde", trainable: 'pll' },
-    { title: 'Neutralité de couleur', sub: 'Choisis ta meilleure croix', trainable: null } ],
-];
-
-const TITLE_STAR_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg>`;
-const TITLE_LOCK_SVG = `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="2"/></svg>`;
-const POINTS_SVG = `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8L6 21l1.6-7L2.2 9.2l7.1-.6L12 2z" fill="currentColor"/></svg>`;
-
-function rankMissionsHTML(s){
-  const { tierIndex, ref } = computeRank(s);
-  const currentLabel = RANK_TIERS[tierIndex] ? RANK_TIERS[tierIndex].label : 'Pas encore sub-40';
-
-  const bar = RANK_TIERS.map((t,i) => `<div class="rank-seg${i<=tierIndex?' done':''}"></div>`).join('');
-  const labels = RANK_TIERS.map((t,i) => `<span class="${i===tierIndex?'current':''}">${t.label}</span>`).join('');
-
-  const missionTierIdx = Math.max(0, Math.min(tierIndex + 1, MISSIONS_BY_TIER.length - 1));
-  const missionsHTML = MISSIONS_BY_TIER[missionTierIdx].map(m => {
-    const action = m.trainable === 'pll' ? 'openTraining()' : "alert('Ce mode d\\'entraînement arrive bientôt')";
-    return `
-    <div class="mission-card">
-      <div>
-        <div class="mission-title">${m.title}</div>
-        <div class="mission-sub">${m.sub}</div>
-      </div>
-      <button class="mission-cta" onclick="${action}">S'entraîner</button>
-    </div>`;
-  }).join('');
-
-  // Maîtrise PLL réelle, calculée depuis les résolutions sans indice sauvegardées
-  const mastery = loadMastery();
-  const pllList = DB.pll || [];
-  const masteredCount = pllList.filter(c => mastery[c.id] && mastery[c.id].mastered).length;
-  const pllTotal = pllList.length || 21;
-
-  const titles = [
-    { label: 'Sub-30 confirmé', earned: ref < 30000 },
-    { label: 'Sub-20 confirmé', earned: ref < 20000 },
-    { label: 'Sub-10 confirmé', earned: ref < 10000 },
-    { label: 'Métronome', earned: s.streak >= 3 },
-    { label: `Chasseur de PLL (${masteredCount}/${pllTotal})`, earned: masteredCount === pllTotal },
-    { label: "Collection d'OLL", earned: false },
-  ];
-  const titlesHTML = titles.map(t => `
-    <div class="title-badge${t.earned ? '' : ' locked'}">
-      <div class="title-badge-icon">${t.earned ? TITLE_STAR_SVG : TITLE_LOCK_SVG}</div>
-      <div class="title-badge-label">${t.label}</div>
-    </div>`).join('');
-
-  // Points : première formule simple, à revoir une fois l'économie de
-  // points par mission/record/régularité définie précisément.
-  const points = Math.round(s.n * 2 + s.streak * 5 + masteredCount * 10);
-
-  return `
-    <div class="rank-card">
-      <div class="rank-head">
-        <span class="rank-head-label">Ton rang · ${currentLabel}</span>
-        <span class="rank-head-value">ao12 ${s.ao12 ? formatTime(Math.round(s.ao12)) : '—'}</span>
-      </div>
-      <div class="rank-bar">${bar}</div>
-      <div class="rank-labels">${labels}</div>
-    </div>
-
-    <div class="moves-cat-h">Missions en cours</div>
-    <div class="tips-list">${missionsHTML}</div>
-
-    <div class="moves-cat-h">Tes titres</div>
-    <div class="title-grid">${titlesHTML}</div>
-
-    <div class="points-line">${POINTS_SVG}${points} points</div>
-  `;
 }
 
 // Pool de faits amusants — un tiré au hasard à chaque affichage de la page,
@@ -4507,196 +4263,6 @@ function openPopup(id){
 function popClose(){
   document.getElementById('popOv').classList.remove('open');
   document.body.style.overflow = '';
-}
-
-// ══════════════════════════════════════════════════════
-// MODE ENTRAÎNEMENT DÉDIÉ — 3 étapes : Indice / Sans indice / Chrono
-// Sans indice : la reconnaissance reste libre (non chronométrée), le
-// chrono ne démarre qu'au premier contact ("Toucher, démarrer"), comme
-// une vraie inspection WCA — on mesure l'exécution pure.
-// Chrono : condition réaliste, le cas est masqué jusqu'au démarrage,
-// qui révèle le cube ET lance le chrono en même temps (reconnaissance +
-// exécution mesurées ensemble, comme un vrai solve).
-// Un cas ne compte pour la maîtrise que s'il est réussi SANS avoir
-// révélé l'indice — évite de tricher le système.
-// ══════════════════════════════════════════════════════
-let trainCases = [];
-let trainIndex = 0;
-let trainStage = 'sans-indice';
-let trainRunning = false;
-let trainStartTs = 0;
-let trainRAF = null;
-
-const MASTERY_KEY = 'fridrich_pll_mastery_v1';
-const MASTERY_THRESHOLD = 3; // succès consécutifs sans indice requis pour marquer un cas "maîtrisé"
-
-function loadMastery(){
-  try{ return JSON.parse(localStorage.getItem(MASTERY_KEY)) || {}; }
-  catch(e){ return {}; }
-}
-function saveMastery(obj){
-  localStorage.setItem(MASTERY_KEY, JSON.stringify(obj));
-}
-
-function shuffleArr(arr){
-  const a = [...arr];
-  for(let i = a.length - 1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function openTraining(){
-  if(!DB.pll || !DB.pll.length) return;
-  trainCases = shuffleArr(DB.pll);
-  trainIndex = 0;
-  trainStage = 'sans-indice';
-  document.getElementById('trainOv').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  renderTrainStageButtons();
-  renderTrainCase();
-}
-function closeTraining(){
-  stopTrainTimer();
-  document.getElementById('trainOv').classList.remove('open');
-  document.body.style.overflow = '';
-  if(curView === 'missions') renderMissionsPage();
-}
-function setTrainStage(stage){
-  stopTrainTimer();
-  trainStage = stage;
-  renderTrainStageButtons();
-  renderTrainCase();
-}
-function renderTrainStageButtons(){
-  document.querySelectorAll('.train-stage-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.stage === trainStage));
-}
-
-function renderTrainCase(){
-  if(!trainCases.length) return;
-  if(trainIndex >= trainCases.length) trainIndex = 0;
-  const cs = trainCases[trainIndex];
-
-  document.getElementById('trainProgressTag').textContent = `Cas ${trainIndex+1} / ${trainCases.length}`;
-  document.getElementById('trainAlg').innerHTML  = fmt(cs.alg);
-  document.getElementById('trainMoves').innerHTML = buildMovesHTML(cs.alg);
-  document.getElementById('trainTip').textContent = cs.tip || '';
-  document.getElementById('trainHintToggle').checked = false;
-
-  if(trainStage === 'indice'){
-    document.getElementById('trainCaseName').textContent = cs.name;
-    document.getElementById('trainHintRow').style.display = 'none';
-    document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
-    document.getElementById('trainAlgBlock').style.display = '';
-    document.getElementById('trainTip').style.display = cs.tip ? '' : 'none';
-    document.getElementById('trainTimerBlock').style.display = 'none';
-    document.getElementById('trainControls').innerHTML = `
-      <button class="chrono-btn chrono-btn-secondary" onclick="prevTrainCase()">← Précédent</button>
-      <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Suivant →</button>`;
-
-  } else if(trainStage === 'sans-indice'){
-    document.getElementById('trainCaseName').textContent = 'PLL — cas mystère';
-    document.getElementById('trainHintRow').style.display = '';
-    document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
-    document.getElementById('trainAlgBlock').style.display = 'none';
-    document.getElementById('trainTip').style.display = 'none';
-    document.getElementById('trainTimerBlock').style.display = '';
-    document.getElementById('trainTimer').textContent = '0.00';
-    document.getElementById('trainTimerState').textContent = 'reconnaissance libre, non chronométrée';
-    document.getElementById('trainControls').innerHTML = `
-      <button class="chrono-btn chrono-btn-primary" onclick="touchStartTrain()">Toucher, démarrer</button>`;
-
-  } else { // chrono
-    document.getElementById('trainCaseName').textContent = 'PLL — chrono';
-    document.getElementById('trainHintRow').style.display = 'none';
-    document.getElementById('trainCube').innerHTML = `<div class="train-hidden-cube">?</div>`;
-    document.getElementById('trainAlgBlock').style.display = 'none';
-    document.getElementById('trainTip').style.display = 'none';
-    document.getElementById('trainTimerBlock').style.display = '';
-    document.getElementById('trainTimer').textContent = '0.00';
-    document.getElementById('trainTimerState').textContent = 'cas masqué';
-    document.getElementById('trainControls').innerHTML = `
-      <button class="chrono-btn chrono-btn-primary" onclick="revealAndStartChronoStage()">Révéler, démarrer</button>`;
-  }
-}
-
-function toggleTrainHint(checked){
-  const cs = trainCases[trainIndex];
-  document.getElementById('trainAlgBlock').style.display = checked ? '' : 'none';
-  document.getElementById('trainTip').style.display = (checked && cs.tip) ? '' : 'none';
-}
-
-function startTrainTimer(){
-  trainRunning = true;
-  trainStartTs = performance.now();
-  const tick = () => {
-    if(!trainRunning) return;
-    const elapsed = performance.now() - trainStartTs;
-    document.getElementById('trainTimer').textContent = (elapsed / 1000).toFixed(2);
-    trainRAF = requestAnimationFrame(tick);
-  };
-  trainRAF = requestAnimationFrame(tick);
-}
-function stopTrainTimer(){
-  trainRunning = false;
-  if(trainRAF) cancelAnimationFrame(trainRAF);
-}
-
-function touchStartTrain(){
-  document.getElementById('trainTimerState').textContent = 'exécution en cours';
-  startTrainTimer();
-  document.getElementById('trainControls').innerHTML = `
-    <button class="chrono-btn chrono-btn-secondary" onclick="finishTrainCase(false)">Je ne sais plus</button>
-    <button class="chrono-btn chrono-btn-primary" onclick="finishTrainCase(true)">Résolu</button>`;
-}
-function revealAndStartChronoStage(){
-  const cs = trainCases[trainIndex];
-  document.getElementById('trainCube').innerHTML = pieceSVG(cs, 130);
-  document.getElementById('trainTimerState').textContent = 'reconnaissance + exécution';
-  startTrainTimer();
-  document.getElementById('trainControls').innerHTML = `
-    <button class="chrono-btn chrono-btn-secondary" onclick="finishTrainCase(false)">Je ne sais plus</button>
-    <button class="chrono-btn chrono-btn-primary" onclick="finishTrainCase(true)">Résolu</button>`;
-}
-
-function finishTrainCase(success){
-  const elapsed = performance.now() - trainStartTs;
-  stopTrainTimer();
-  const cs = trainCases[trainIndex];
-  const hintUsed = document.getElementById('trainHintToggle').checked;
-  const countsAsMastery = success && !hintUsed;
-
-  const mastery = loadMastery();
-  const rec = mastery[cs.id] || { successCount: 0, mastered: false, bestMs: null };
-  if(countsAsMastery){
-    rec.successCount++;
-    if(rec.bestMs === null || elapsed < rec.bestMs) rec.bestMs = elapsed;
-    if(rec.successCount >= MASTERY_THRESHOLD) rec.mastered = true;
-  }
-  mastery[cs.id] = rec;
-  saveMastery(mastery);
-
-  document.getElementById('trainTimerState').textContent = countsAsMastery
-    ? 'temps validé ✓'
-    : (success ? 'validé, mais indice utilisé (non compté)' : 'indice révélé, non compté');
-
-  document.getElementById('trainControls').innerHTML = `
-    <button class="chrono-btn chrono-btn-primary" onclick="nextTrainCase()">Cas suivant →</button>`;
-}
-
-function nextTrainCase(){
-  trainIndex++;
-  if(trainIndex >= trainCases.length){
-    trainCases = shuffleArr(DB.pll);
-    trainIndex = 0;
-  }
-  renderTrainCase();
-}
-function prevTrainCase(){
-  trainIndex = (trainIndex - 1 + trainCases.length) % trainCases.length;
-  renderTrainCase();
 }
 function menuOpen() { document.getElementById('menuOv').classList.add('open'); }
 function menuClose(){ document.getElementById('menuOv').classList.remove('open'); }
