@@ -415,19 +415,19 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .rank-ladder-badge svg{width:100%;height:100%}
 .rank-ladder-label{font-size:10px;font-weight:700;color:var(--mid);text-align:center;line-height:1.2}
 
-.mission-family-list{display:flex;flex-direction:column;gap:10px}
-.mission-family{background:var(--bg);border-radius:14px;overflow:hidden}
-.mission-family-head{
-  width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;
-  background:none;border:none;cursor:pointer;text-align:left;
+.trophy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding: 10px 0px;}
+.trophy-card{
+  border-radius:16px;padding:22px 14px;display:flex;flex-direction:column;
+  align-items:center;text-align:center;gap:8px;
 }
-.mission-family-emoji{font-size:22px;flex-shrink:0}
-.mission-family-info{flex:1;min-width:0}
-.mission-family-title{font-size:15px;font-weight:800;color:var(--dark)}
-.mission-family-desc{font-size:12px;color:var(--mid);margin-top:2px}
-.mission-family-chevron{font-size:12px;color:var(--mid);flex-shrink:0}
-.mission-family-body{padding:0 16px 16px}
-.mission-family-next{font-size:12px;color:var(--mid);margin-top:8px;font-style:italic}
+.trophy-card.unlocked{background:color-mix(in srgb, var(--ref) 24%, #fff)}
+.trophy-card.locked{background:var(--bg);opacity:.75}
+.trophy-card-icon{width:38px;height:38px;color:var(--ref-text)}
+.trophy-card.locked .trophy-card-icon{color:#9a9a9a}
+.trophy-card-icon svg{width:100%;height:100%}
+.trophy-card-title{font-size:17px;font-weight:800;color:var(--dark)}
+.trophy-card.locked .trophy-card-title{color:#8a8a8a}
+.trophy-card-desc{font-size:12.5px;color:var(--mid);line-height:1.4}
 
 .mission-title-row{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
@@ -852,7 +852,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .stat-label{font-size:16px;font-weight:700;color:var(--mid)}
 .stat-note{font-size:16px;color:var(--mid);line-height:1.5;padding:2px 2px 0;text-align:left}
 
-.tips-list{display:flex;flex-direction:column;gap:10px;width:100%}
+.tips-list{display:flex;flex-direction:column;gap:10px;width:100%; padding: 10px 0px;}
 .tips-item{
   display:flex;align-items:flex-start;gap:12px;background:var(--bg);
   border-radius:var(--r);padding:14px 16px;font-size:14px;color:var(--dark);line-height:1.5;
@@ -979,6 +979,10 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 .fact-big{font-size:32px;font-weight:900;color:var(--dark)}
 .fact-text{font-size:14px;color:var(--mid);line-height:1.5}
 .fact-fun .fact-text{color:var(--dark)}
+.fact-divider{height:1px;background:rgba(0,0,0,.08);margin:4px 0}
+.stat-divider{border:none;height:3px;width:180px;max-width:60%;background:color-mix(in srgb, var(--ref) 55%, #fff);border-radius:3px;margin:32px auto 28px}
+.trophy-card-icon-emoji{font-size:34px;line-height:1}
+.mission-inline-link{color:var(--ref-text);font-weight:800;text-decoration:underline;cursor:pointer}
 .phrase-item{font-size:14px;font-style:italic;color:var(--mid);padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06)}
 .phrase-item:last-child{border-bottom:none;padding-bottom:0}
 
@@ -1157,6 +1161,21 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   <button class="fab-item" data-tab="pll">
     <div class="ncube" id="nc-pll"></div>
     <span class="fab-label">PLL</span>
+  </button>
+</nav>
+
+<nav class="fab-nav" id="statsNav" style="display:none">
+  <button class="fab-item" data-stab="stats" onclick="setStatsTab('stats')">
+    <div class="chrono-nav-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19h16M4 19V6M4 19l5-6 4 3 6-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <span class="fab-label">Stats</span>
+  </button>
+  <button class="fab-item" data-stab="results" onclick="setStatsTab('results')">
+    <div class="chrono-nav-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <span class="fab-label">Résultats</span>
+  </button>
+  <button class="fab-item" data-stab="date" onclick="setStatsTab('date')">
+    <div class="chrono-nav-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="M4 10h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <span class="fab-label">Date</span>
   </button>
 </nav>
 
@@ -4442,7 +4461,18 @@ let curView = 'app'; // 'app' | 'settings' | 'beginner' | 'chrono'
 // ── Chrono ──
 let chronoTab = 'timer';      // 'timer' | 'history'
 let chronoScreen = 'main';    // 'main' | 'result'
-let historyMode = 'best';     // 'best' | 'date'
+let statsTab = 'stats';       // 'stats' | 'results' | 'date'
+function setStatsTab(tab){
+  statsTab = tab;
+  renderStatsPage();
+}
+function showStatsNav(visible){
+  document.getElementById('statsNav').style.display = visible ? '' : 'none';
+}
+function updateStatsNavActive(){
+  document.querySelectorAll('#statsNav .fab-item').forEach(b =>
+    b.classList.toggle('active', b.dataset.stab === statsTab));
+}
 let curScramble = '';
 let chronoRunning = false;
 let chronoStartTs = 0;
@@ -4607,9 +4637,10 @@ function goPage(view){
   updateHeader();
   updateMenuActive();
   showFab(view === 'app');
+  showStatsNav(view === 'stats');
   if(view==='home') renderHomePage();
   else if(view==='mission'){ loadRecords(); renderMissionPage(); }
-  else if(view==='stats'){ loadRecords(); renderStatsPage(); }
+  else if(view==='stats'){ loadRecords(); statsTab = 'stats'; renderStatsPage(); }
   else if(view==='app') renderAppTab();
   else if(view==='settings') renderSettingsPage();
   else if(view==='beginner') renderBeginnerPage();
@@ -5656,78 +5687,107 @@ function showRankPopup(rank, onDone){
 // ══════════════════════════════════════════════════════
 //  ÉCRAN MISSIONS (page "mission")
 // ══════════════════════════════════════════════════════
-function trophyRowHTML(t){
-  return `<div class="mission-title-row">
-    <div class="mission-title-info">
-      <div class="mission-title-label">${t.label}</div>
-      <div class="mission-title-desc">${t.desc}</div>
-    </div>
-    <span class="mission-title-pts">+${t.points}</span>
+const LOCK_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+const ICON_TROPHY_BI = `<svg width="22" height="22" viewBox="0 0 30 30" fill="none" style="vertical-align:-4px"><path d="M26.25 5H22.5V3.75C22.5 3.41848 22.3683 3.10054 22.1339 2.86612C21.8995 2.6317 21.5815 2.5 21.25 2.5H8.75C8.41848 2.5 8.10054 2.6317 7.86612 2.86612C7.6317 3.10054 7.5 3.41848 7.5 3.75V5H3.75C3.41848 5 3.10054 5.1317 2.86612 5.36612C2.6317 5.60054 2.5 5.91848 2.5 6.25V10C2.5 15.3875 4.74875 18.6375 8.52375 18.765C9.07639 19.7147 9.83093 20.5315 10.734 21.1574C11.6371 21.7834 12.6667 22.2033 13.75 22.3875V25H11.25V27.5H18.75V25H16.25V22.3875C17.333 22.2026 18.3623 21.7824 19.2653 21.1565C20.1683 20.5306 20.923 19.7142 21.4762 18.765C25.2512 18.6375 27.5 15.3875 27.5 10V6.25C27.5 5.91848 27.3683 5.60054 27.1339 5.36612C26.8995 5.1317 26.5815 5 26.25 5ZM5 10V7.5H7.5V16.0375C5.27 15.0975 5 11.6237 5 10ZM15 20C12.2425 20 10 17.7575 10 15V5H20V15C20 17.7575 17.7575 20 15 20ZM22.5 16.0375V7.5H25V10C25 11.6237 24.73 15.0975 22.5 16.0375Z" fill="currentColor"/></svg>`;
+const ICON_ASTUCE = `<svg width="22" height="22" viewBox="0 0 30 30" fill="none" style="vertical-align:-4px"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 2.5C15.6904 2.5 16.25 3.05964 16.25 3.75V5C16.25 5.69036 15.6904 6.25 15 6.25C14.3096 6.25 13.75 5.69036 13.75 5V3.75C13.75 3.05964 14.3096 2.5 15 2.5ZM6.16112 6.16112C6.64927 5.67296 7.44073 5.67296 7.92888 6.16112L8.81263 7.04487C9.30079 7.53302 9.30079 8.32448 8.81263 8.81263C8.32448 9.30079 7.53302 9.30079 7.04487 8.81263L6.16112 7.92888C5.67296 7.44073 5.67296 6.64927 6.16112 6.16112ZM23.8389 6.16112C24.327 6.64927 24.327 7.44073 23.8389 7.92888L22.9551 8.81263C22.467 9.30079 21.6755 9.30079 21.1874 8.81263C20.6992 8.32448 20.6992 7.53302 21.1874 7.04487L22.0711 6.16112C22.5593 5.67296 23.3507 5.67296 23.8389 6.16112ZM15 10.0012C14.0111 10.0012 13.0445 10.2944 12.2223 10.8437C11.4001 11.3931 10.7592 12.1739 10.3807 13.0874C10.0023 14.001 9.90316 15.0063 10.096 15.9761C10.2888 16.9458 10.7646 17.8365 11.4635 18.5357C11.4633 18.5356 11.4637 18.5359 11.4635 18.5357L12.1481 19.2191C12.3891 19.4601 12.6062 19.7223 12.796 20H17.204C17.3946 19.7212 17.6111 19.4599 17.851 19.2199L18.536 18.5362C18.5359 18.5363 18.5361 18.5362 18.536 18.5362C19.235 17.837 19.7112 16.9459 19.904 15.9761C20.0968 15.0063 19.9977 14.001 19.6193 13.0874C19.2408 12.1739 18.5999 11.3931 17.7777 10.8437C16.9555 10.2944 15.9889 10.0012 15 10.0012ZM16.2815 22.5H13.7185C13.7394 22.6938 13.75 22.8895 13.75 23.0863V23.75C13.75 24.0815 13.8817 24.3995 14.1161 24.6339C14.3505 24.8683 14.6685 25 15 25C15.3315 25 15.6495 24.8683 15.8839 24.6339C16.1183 24.3995 16.25 24.0815 16.25 23.75V23.0864C16.25 23.0864 16.25 23.0865 16.25 23.0864C16.25 22.8902 16.2605 22.6943 16.2815 22.5ZM10.9367 21.759C10.9471 21.7823 10.9582 21.8052 10.9699 21.8277C11.1525 22.2179 11.25 22.6472 11.25 23.0863V23.75C11.25 24.7446 11.6451 25.6984 12.3484 26.4017C13.0516 27.1049 14.0054 27.5 15 27.5C15.9946 27.5 16.9484 27.1049 17.6516 26.4017C18.3549 25.6984 18.75 24.7446 18.75 23.75V23.0863C18.7499 22.6965 18.8267 22.3105 18.9758 21.9504C19.1248 21.5904 19.3433 21.2633 19.6188 20.9878C19.6187 20.9878 19.6188 20.9877 19.6188 20.9878L20.304 20.3038C21.3527 19.2548 22.0668 17.9184 22.356 16.4636C22.6453 15.0088 22.4966 13.5009 21.9289 12.1306C21.3612 10.7603 20.3999 9.58903 19.1666 8.76501C17.9332 7.94098 16.4833 7.50117 15 7.50117C13.5167 7.50117 12.0668 7.94098 10.8334 8.76501C9.6001 9.58903 8.63881 10.7603 8.07109 12.1306C7.50338 13.5009 7.35474 15.0088 7.64397 16.4636C7.93319 17.9184 8.6473 19.2548 9.696 20.3038L10.3811 20.9876C10.381 20.9875 10.3813 20.9878 10.3811 20.9876C10.6083 21.2149 10.7955 21.4762 10.9367 21.759ZM2.5 15C2.5 14.3096 3.05964 13.75 3.75 13.75H5C5.69036 13.75 6.25 14.3096 6.25 15C6.25 15.6904 5.69036 16.25 5 16.25H3.75C3.05964 16.25 2.5 15.6904 2.5 15ZM23.75 15C23.75 14.3096 24.3096 13.75 25 13.75H26.25C26.9404 13.75 27.5 14.3096 27.5 15C27.5 15.6904 26.9404 16.25 26.25 16.25H25C24.3096 16.25 23.75 15.6904 23.75 15Z" fill="currentColor"/></svg>`;
+
+// Emojis par famille de trophée (couleur, pour les cartes de la grille)
+const TROPHY_FAMILY_EMOJI = {
+  assiduite:    '⏱️',
+  vitesse:      '⚡',
+  regularite:   '🔁',
+  connaissance: '🧠',
+};
+
+function trophyCardHTML(t){
+  return `<div class="trophy-card unlocked">
+    <div class="trophy-card-icon trophy-card-icon-emoji">${TROPHY_FAMILY_EMOJI[t.family] || '🏆'}</div>
+    <div class="trophy-card-title">${t.label}</div>
+    <div class="trophy-card-desc">${t.desc}</div>
   </div>`;
 }
-function nextStepHTML(next, unit){
-  if(!next) return `<div class="mission-family-next">Tous les paliers de cette famille sont débloqués 🎉</div>`;
-  return `<div class="mission-family-next">Prochain palier : <strong>${next.label}</strong> — ${next.cur}/${next.target}${unit||''}</div>`;
+function lockedTrophyCardHTML(hint){
+  return `<div class="trophy-card locked">
+    <div class="trophy-card-icon">${LOCK_ICON_SVG}</div>
+    <div class="trophy-card-title">À venir</div>
+    <div class="trophy-card-desc">${hint}</div>
+  </div>`;
 }
 
-let missionOpenFamily = null;
-function toggleFamily(fam){
-  missionOpenFamily = (missionOpenFamily === fam) ? null : fam;
-  renderMissionPage();
+// 2 indices sur les prochains trophées à portée — jamais les paliers de
+// Rang, qui restent une surprise. Priorité fixe entre familles pour varier
+// naturellement le type d'indice affiché.
+function nextTrophyHints(limit = 2){
+  const hints = [];
+
+  const vUnlocked = new Set(vitesseUnlocked().map(t => t.id));
+  const vNext = VITESSE_STEPS.find(s => !vUnlocked.has('vit_' + s.ms));
+  if(vNext) hints.push(`Réalise une résolution en moins de ${formatTime(vNext.ms)}.`);
+
+  const an = assiduiteNext();
+  if(an) hints.push(`Encore ${an.target - an.cur} résolution${an.target-an.cur>1?'s':''} chronométrée${an.target-an.cur>1?'s':''}.`);
+
+  for(const cat of ['oll','pll','f2l']){
+    const n = connaissanceNext(cat);
+    if(n) hints.push(`Marque encore ${n.target - n.cur} cas ${cat.toUpperCase()} comme appris.`);
+  }
+
+  const rUnlocked = new Set(regulariteUnlocked().map(t => t.id));
+  const rNext = REGULARITE_STEPS.find(s => !rUnlocked.has('reg_' + s.ms));
+  if(rNext) hints.push(`Passe 10 de tes 12 dernières résolutions sous ${formatTime(rNext.ms)}.`);
+
+  return hints.slice(0, limit);
 }
 
 function renderMissionPage(){
   const m = document.getElementById('main');
+
+  const unlocked = allUnlockedTrophies();
+  const totalPossible = ASSIDUITE_STEPS.length + VITESSE_STEPS.length + REGULARITE_STEPS.length
+    + CONNAISSANCE_STEPS.oll.length + CONNAISSANCE_STEPS.pll.length + CONNAISSANCE_STEPS.f2l.length;
+
+  const cardsHTML = unlocked.map(trophyCardHTML).join('')
+    + nextTrophyHints(2).map(lockedTrophyCardHTML).join('');
+
+  m.innerHTML = `<div class="section-wrap" style="padding-top:0">
+    ${rankBannerHTML()}
+
+    <div class="section-head" style="padding-left:0;padding-right:0">
+      <div class="section-title">Récompense et trophés</div>
+    </div>
+    <div class="section-sub" style="font-size:15px;line-height:1.5;margin-top:2px">
+      Tu peux gagner plusieurs récompenses et trophées.<br>
+      Il te suffit de battre tes records, d'être régulier et d'apprendre les algorithmes <a href="javascript:void(0)" class="mission-inline-link" onclick="goToTab('oll')">OLL</a> et <a href="javascript:void(0)" class="mission-inline-link" onclick="goToTab('pll')">PLL</a> pour tout débloquer.
+    </div>
+
+    <hr class="stat-divider"/>
+
+    <div class="section-head" style="padding-left:0;padding-right:0">
+      <div class="section-title">${ICON_TROPHY_BI} Mes trophées</div>
+    </div>
+    <div class="section-sub" style="margin-top:-4px">${unlocked.length}/${totalPossible} récompenses débloquées</div>
+    <div class="trophy-grid">${cardsHTML}</div>
+
+
+
+    <hr class="stat-divider"/>
+
+    <div class="section-head" style="padding-left:0;padding-right:0">
+      <div class="section-title">${ICON_ASTUCE} Astuces</div>
+    </div>
+    <div class="section-sub" style="margin-top:-4px">Conseils et astuces pour progresser rapidement</div>
+    ${tipsHTML()}
+  </div>`;
+  m.scrollTop = 0;
+}
+
+function rankBannerHTML(clickable){
   const rank = getCurrentRank();
   const points = computeTotalPoints();
   const stats = computeChronoStats();
   const bestLabel = stats ? formatTime(stats.best) : '—';
-
-  const unlockedByFamily = {
-    assiduite: assiduiteUnlocked(),
-    vitesse: vitesseUnlocked(),
-    regularite: regulariteUnlocked(),
-    connaissance: connaissanceUnlocked(),
-  };
-
-  const familiesHTML = Object.keys(FAMILY_META).map(fam => {
-    const meta = FAMILY_META[fam];
-    const list = unlockedByFamily[fam];
-    const open = missionOpenFamily === fam;
-    let nextHTML = '';
-    if(fam === 'assiduite') nextHTML = nextStepHTML(assiduiteNext());
-    if(fam === 'connaissance'){
-      nextHTML = ['oll','pll','f2l'].map(cat => {
-        const n = connaissanceNext(cat);
-        return n ? `<div class="mission-family-next">${cat.toUpperCase()} — prochain palier : <strong>${n.label}</strong> (${n.cur}/${n.target})</div>` : '';
-      }).join('');
-    }
-    return `<div class="mission-family ${open ? 'open' : ''}">
-      <button class="mission-family-head" onclick="toggleFamily('${fam}')">
-        <span class="mission-family-emoji">${meta.emoji}</span>
-        <div class="mission-family-info">
-          <div class="mission-family-title">${meta.label}</div>
-          <div class="mission-family-desc">${meta.desc} · ${list.length} trophée${list.length>1?'s':''} débloqué${list.length>1?'s':''}</div>
-        </div>
-        <span class="mission-family-chevron">${open ? '︿' : '﹀'}</span>
-      </button>
-      ${open ? `<div class="mission-family-body">
-        ${list.length ? list.map(trophyRowHTML).join('') : `<div class="empty-block" style="min-height:100px">Aucun trophée débloqué pour l'instant.</div>`}
-        ${nextHTML}
-      </div>` : ''}
-    </div>`;
-  }).join('');
-
-  const rankLadderHTML = RANKS.map((r, i) => {
-    const reached = i <= getCurrentRankIndex();
-    return `<div class="rank-ladder-item ${reached ? 'reached' : ''}">
-      <span class="rank-ladder-badge">${rankBadgeSVG(r)}</span>
-      <span class="rank-ladder-label">${r.label}</span>
-    </div>`;
-  }).join('');
-
-  m.innerHTML = `<div class="section-wrap" style="padding-top:0">
-    <div class="mission-banner">
+  const attrs = clickable ? `onclick="goPage('mission')" style="cursor:pointer"` : '';
+  return `<div class="mission-banner" ${attrs}>
       <div class="mission-banner-left">
         <span class="mission-rank-badge">${rankBadgeSVG(rank)}</span>
         <div class="mission-banner-info">
@@ -5739,17 +5799,7 @@ function renderMissionPage(){
         <div class="mission-best-value">${bestLabel}</div>
         <div class="mission-best-label">Meilleurs temps</div>
       </div>
-    </div>
-
-    <div class="rank-ladder">${rankLadderHTML}</div>
-
-    <div class="section-head" style="padding-left:0;padding-right:0">
-      <div class="section-title">Mes trophées</div>
-    </div>
-    <div class="mission-family-list">${familiesHTML}</div>
-  </div>`;
-  setPageBg('color-mix(in srgb, var(--ref) 12%, #ffffff)', '#ffffff');
-  m.scrollTop = 0;
+    </div>`;
 }
 
 
@@ -5802,22 +5852,15 @@ function renderHomePage(){
 
   const topFlop = topFlopHTML(3);
 
-  const homeRank = getCurrentRank();
-  const rankBadgeHTML = `
-    <button class="home-rank-pill" onclick="goPage('mission')">
-      <span class="home-rank-pill-badge">${rankBadgeSVG(homeRank)}</span>
-      <span class="home-rank-pill-info">
-        <span class="home-rank-pill-title">${homeRank.title}</span>
-        <span class="home-rank-pill-rank">${homeRank.label}</span>
-      </span>
-    </button>`;
+  const rankBanner = rankBannerHTML(true);
 
   m.innerHTML = `<div class="section-wrap">
     <div class="home-hero">
       <div class="home-hello">${hello}</div>
       <div class="home-quote">${quote}</div>
-      ${rankBadgeHTML}
     </div>
+
+    ${rankBanner}
 
     ${lastCardHTML}
 
@@ -5978,44 +6021,52 @@ function funFactHTML(s, TOTAL_PERMS, yearsToExhaust, universeRatio, totalMin){
 function renderStatsPage(){
   const m = document.getElementById('main');
   destroyActiveLotties();
-  const s = computeChronoStats();
+  updateStatsNavActive();
 
+  let content;
+  if(statsTab === 'results'){
+    content = `<div class="moves-cat-h" style="margin-top:0">Meilleures performances</div>
+      <div class="history-list">${historyBestRowsHTML()}</div>`;
+  } else if(statsTab === 'date'){
+    content = `<div class="moves-cat-h" style="margin-top:0">Par date</div>
+      ${historyPeriodFilterHTML()}
+      <div class="history-list">${historyDateRowsHTML()}</div>`;
+  } else {
+    content = statsMainContentHTML();
+  }
+
+  m.innerHTML = `<div class="chrono-wrap dash-wrap">
+    ${rankBannerHTML()}
+    ${content}
+  </div>`;
+  mountTopFlopLotties();
+  m.scrollTop = 0;
+}
+
+function statsMainContentHTML(){
+  const s = computeChronoStats();
   if(!s){
-    m.innerHTML = `<div class="chrono-wrap dash-wrap">
-      <div class="section-head" style="padding-top:4px">
-        <div class="section-title">Stats</div>
-      </div>
-      <div class="empty-block">Lance quelques chronos pour voir tes stats apparaître ici.</div>
-    </div>`;
-    m.scrollTop = 0;
-    return;
+    return `<div class="empty-block">Lance quelques chronos pour voir tes stats apparaître ici.</div>`;
   }
 
   const chronological = [...CHRONO_RECORDS].sort((a,b) => new Date(a.date) - new Date(b.date));
   const recentTimes = chronological.slice(-30).map(r => r.ms);
+  const totalMin = s.totalMs / 60000;
+  const totalHours = totalMin / 60;
 
-  // Fait amusant : nombre de combinaisons possibles d'un Rubik's Cube 3x3
+  // Fait amusant / phrase de vertige — un tiré au hasard, sous "Temps investi"
   const TOTAL_PERMS = 43252003274489856000;
   const yearsToExhaust = TOTAL_PERMS * (s.avg / 1000) / (365.25 * 86400);
   const universeAge = 13.8e9;
   const universeRatio = yearsToExhaust / universeAge;
 
-  const totalMin = s.totalMs / 60000;
-  const totalHours = totalMin / 60;
-  const episodeEquiv = Math.round(totalMin / 45);
-
-  m.innerHTML = `<div class="chrono-wrap dash-wrap">
-
-    <div class="section-head" style="padding-top:4px">
-      <div class="section-title">Stats</div>
+  return `
+    <div class="section-head" style="padding-top:4px;padding-left:0;padding-right:0">
+      <div class="section-title">Progression</div>
       <div class="section-sub">${s.n} résolution${s.n>1?'s':''} enregistrée${s.n>1?'s':''}</div>
     </div>
 
     <div class="stat-grid">
-      <div class="stat-card">
-        <div class="stat-value">${formatTime(s.best)}</div>
-        <div class="stat-label">🏆 Meilleur temps</div>
-      </div>
       <div class="stat-card">
         <div class="stat-value">${formatTime(Math.round(s.avg))}</div>
         <div class="stat-label">Temps moyen</div>
@@ -6035,7 +6086,7 @@ function renderStatsPage(){
       <div class="progress-chart-head">
         <span>Derniers temps</span>
         <span class="progress-chart-legend">
-          <span class="dot" style="background:#08E326"></span>Meilleur
+          <span class="dot" style="background:#08E326"></span>Best
           <span class="dot" style="background:#B71234"></span>Pire
         </span>
       </div>
@@ -6051,7 +6102,19 @@ function renderStatsPage(){
         : `Continue, ta courbe va bientôt s'inverser 💪`}
     </div>` : ''}
 
-    <div class="moves-cat-h">Régularité</div>
+    <hr class="stat-divider"/>
+
+    <div class="moves-cat-h" style="margin-top:0">Temps investi</div>
+    <div class="fact-card">
+      <div class="fact-big">${totalHours >= 1 ? totalHours.toFixed(1) + ' h' : Math.round(totalMin) + ' min'}</div>
+      <div class="fact-text">Passés à résoudre le cube</div>
+      <div class="fact-divider"></div>
+      <div class="fact-text">${funFactHTML(s, TOTAL_PERMS, yearsToExhaust, universeRatio, totalMin)}</div>
+    </div>
+
+    <hr class="stat-divider"/>
+
+    <div class="moves-cat-h" style="margin-top:0">Régularité</div>
     <div class="stat-grid">
       <div class="stat-card">
         <div class="stat-value">${s.streak}</div>
@@ -6059,7 +6122,7 @@ function renderStatsPage(){
       </div>
       <div class="stat-card">
         <div class="stat-value">${s.todayCount}</div>
-        <div class="stat-label">Résolutions aujourd'hui</div>
+        <div class="stat-label">Résolution${s.todayCount>1?'s':''} aujourd'hui</div>
       </div>
       <div class="stat-card">
         <div class="stat-value">${s.weekCount}</div>
@@ -6071,37 +6134,11 @@ function renderStatsPage(){
       </div>
     </div>
 
-    <div class="moves-cat-h">Top / Flop</div>
+    <hr class="stat-divider"/>
+
+    <div class="moves-cat-h" style="margin-top:0">Top / Flop</div>
     ${topFlopHTML(3)}
-
-    <div class="moves-cat-h">Conseils pour t'améliorer</div>
-    ${tipsHTML()}
-
-    <div class="moves-cat-h">Temps investi</div>
-    <div class="fact-card">
-      <div class="fact-big">${totalHours >= 1 ? totalHours.toFixed(1) + ' h' : Math.round(totalMin) + ' min'}</div>
-      <div class="fact-text">passées à résoudre le cube${episodeEquiv > 0 ? ` — l'équivalent d'environ <strong>${episodeEquiv} épisode${episodeEquiv>1?'s':''}</strong> de série (45 min).` : '.'}</div>
-    </div>
-
-    <div class="moves-cat-h">Un peu de vertige 🌀</div>
-    <div class="fact-card fact-fun">
-      <div class="fact-text">${funFactHTML(s, TOTAL_PERMS, yearsToExhaust, universeRatio, totalMin)}</div>
-    </div>
-
-    ${s.lastMessages.length ? `
-    <div class="moves-cat-h">Tes dernières phrases</div>
-    <div class="fact-card">
-      ${s.lastMessages.map(msg => `<div class="phrase-item">"${msg}"</div>`).join('')}
-    </div>` : ''}
-
-    <div class="moves-cat-h">Historique des résolutions</div>
-    ${historyTabsHTML()}
-    ${historyMode === 'date' ? historyPeriodFilterHTML() : ''}
-    <div class="history-list">${historyMode === 'best' ? historyBestRowsHTML() : historyDateRowsHTML()}</div>
-
-  </div>`;
-  mountTopFlopLotties();
-  m.scrollTop = 0;
+  `;
 }
 
 // ── Historique — lignes triées par performance ──
@@ -6150,19 +6187,7 @@ function historyDateRowsHTML(){
     : `<div class="empty-block">Aucun résultat pour cette période.</div>`;
 }
 
-function historyTabsHTML(){
-  return `<div class="filter-bar" style="padding:0;width:100%;justify-content:center">
-    <div class="chips">
-      <button class="chip${historyMode==='best'?' active':''}" onclick="setHistoryMode('best')">Meilleures performances</button>
-      <button class="chip${historyMode==='date'?' active':''}" onclick="setHistoryMode('date')">Par date</button>
-    </div>
-  </div>`;
-}
 
-function setHistoryMode(mode){
-  historyMode = mode;
-  renderStatsPage();
-}
 
 function setChronoTab(tab){
   chronoTab = tab;
