@@ -374,6 +374,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   text-transform:uppercase;letter-spacing:.08em;margin:22px 2px 10px;
 }
 .moves-cat-h:first-child{margin-top:0}
+.moves-cat-desc{font-size:12.5px;color:var(--mid);line-height:1.4;margin:-4px 2px 12px}
+/* Dans Paramètres, "Faces"/"Tranches centrales"/etc. sont des sous-titres
+   à l'intérieur d'une section "Liste de mouvements" — ils ne doivent pas
+   être plus gros que le titre de section ("Ton prénom" etc., .menu-sec-h). */
+.menu-sec .moves-cat-h{font-size:13px;color:var(--dark);margin:18px 2px 6px}
+.menu-sec .moves-cat-h:first-child{margin-top:4px}
 .moves-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px}
 .mv-item{
   display:flex;align-items:center;justify-content:center;
@@ -4667,13 +4673,14 @@ function goToChronoTab(tab){
 
 function movesGroupsHTML(){
   const groups = [
-    {h:'Faces', toks:['L',"L'",'L2','R',"R'",'R2','U',"U'",'U2','D',"D'",'D2','F',"F'",'F2','B',"B'",'B2']},
-    {h:'Tranches centrales', toks:['M',"M'",'M2','E',"E'",'E2']},
-    {h:'Tranches larges', toks:['l',"l'",'l2','r',"r'",'r2','u',"u'",'u2','d',"d'",'d2','f',"f'",'f2','b',"b'",'b2']},
-    {h:'Rotations du cube', toks:['x',"x'",'x2','y',"y'",'y2','z',"z'",'z2']},
+    {h:'Faces', d:'Fait tourner une face entière du cube (haut, bas, gauche, droite, avant, arrière).', toks:['L',"L'",'L2','R',"R'",'R2','U',"U'",'U2','D',"D'",'D2','F',"F'",'F2','B',"B'",'B2']},
+    {h:'Tranches centrales', d:'Fait tourner uniquement la couche du milieu, entre deux faces opposées.', toks:['M',"M'",'M2','E',"E'",'E2']},
+    {h:'Tranches larges', d:'Fait tourner une face ET la couche du milieu juste derrière, en même temps.', toks:['l',"l'",'l2','r',"r'",'r2','u',"u'",'u2','d',"d'",'d2','f',"f'",'f2','b',"b'",'b2']},
+    {h:'Rotations du cube', d:'Fait pivoter le cube entier dans ta main, sans bouger ses pièces entre elles.', toks:['x',"x'",'x2','y',"y'",'y2','z',"z'",'z2']},
   ];
   return groups.map(g => `
     <div class="moves-cat-h">${g.h}</div>
+    <div class="moves-cat-desc">${g.d}</div>
     <div class="moves-grid">
       ${g.toks.map(t => `<div class="mv-item">${moveSVG(t)}</div>`).join('')}
     </div>`).join('');
@@ -5369,6 +5376,7 @@ function closeReplay(){
   resultViewMode = false;
   pendingResult = null;
   chronoScreen = 'main';
+  closeChronoResultOv();
   returnFromReplay();
 }
 
@@ -5414,49 +5422,84 @@ function buildResultImageBlob(result){
       const ctx = canvas.getContext('2d');
       if(!ctx){ resolve(null); return; }
 
-      const grad = ctx.createLinearGradient(0, 0, 0, H);
-      grad.addColorStop(0, '#FFCC41');
-      grad.addColorStop(1, '#FFE18A');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, W, H);
+      const accent = uiAccent();
+      const textOnAccent = textColorFor(accent);
 
-      ctx.fillStyle = '#2a2a2a';
-      ctx.textAlign = 'center';
-      ctx.font = '800 56px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-      ctx.fillText('CubiKs', W/2, 150);
+      const draw = (logoImg) => {
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, accent);
+        grad.addColorStop(1, shadeColor(accent, 25));
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
 
-      const cardX = 90, cardY = 330, cardW = W - 180, cardH = 430;
-      ctx.fillStyle = '#ffffff';
-      roundRectPath(ctx, cardX, cardY, cardW, cardH, 40);
-      ctx.fill();
+        ctx.textAlign = 'center';
+        if(logoImg){
+          const logoH = 70, logoW = logoImg.width * (logoH / logoImg.height);
+          ctx.drawImage(logoImg, W/2 - logoW/2, 90, logoW, logoH);
+        } else {
+          ctx.fillStyle = textOnAccent;
+          ctx.font = '800 56px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+          ctx.fillText('CubiKs', W/2, 150);
+        }
 
-      ctx.fillStyle = '#111111';
-      ctx.font = '900 160px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-      ctx.fillText(formatTime(result.ms), W/2, cardY + 220);
+        const nameLabel = USER_NAME ? `${USER_NAME} a fait ce temps :` : 'Voici mon temps :';
+        ctx.fillStyle = textOnAccent;
+        ctx.font = '700 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+        ctx.fillText(nameLabel, W/2, 230);
 
-      ctx.font = '600 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-      ctx.fillStyle = '#8a8a8a';
-      ctx.fillText("Mon temps sur le Rubik's Cube", W/2, cardY + 285);
+        const cardX = 90, cardY = 280, cardW = W - 180, cardH = 430;
+        ctx.fillStyle = '#ffffff';
+        roundRectPath(ctx, cardX, cardY, cardW, cardH, 40);
+        ctx.fill();
 
-      if(result.msg){
-        ctx.font = 'italic 500 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#555555';
-        wrapCanvasText(ctx, result.msg, W/2, cardY + 350, cardW - 100, 40);
-      }
+        ctx.fillStyle = '#111111';
+        ctx.font = '900 160px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+        ctx.fillText(formatTime(result.ms), W/2, cardY + 220);
 
-      const rank = getCurrentRank ? getCurrentRank() : null;
-      if(rank){
-        ctx.font = '700 32px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-        ctx.fillStyle = '#2a2a2a';
-        ctx.fillText(`${rank.title} · ${rank.label}`, W/2, H - 110);
-      }
-      ctx.font = '600 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-      ctx.fillStyle = '#4a4a4a';
-      ctx.fillText('Méthode Fridrich · CFOP', W/2, H - 60);
+        ctx.font = '600 34px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+        ctx.fillStyle = '#8a8a8a';
+        ctx.fillText("Sur le Rubik's Cube", W/2, cardY + 285);
 
-      canvas.toBlob((blob) => resolve(blob), 'image/png');
+        if(result.msg){
+          ctx.font = 'italic 500 30px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+          ctx.fillStyle = '#555555';
+          wrapCanvasText(ctx, result.msg, W/2, cardY + 350, cardW - 100, 40);
+        }
+
+        const rank = getCurrentRank ? getCurrentRank() : null;
+        if(rank){
+          ctx.font = '700 32px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+          ctx.fillStyle = textOnAccent;
+          ctx.fillText(`${rank.title} · ${rank.label}`, W/2, H - 110);
+        }
+        ctx.font = '600 28px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+        ctx.fillStyle = textOnAccent;
+        ctx.globalAlpha = 0.85;
+        ctx.fillText('Méthode Fridrich · CFOP', W/2, H - 60);
+        ctx.globalAlpha = 1;
+
+        canvas.toBlob((blob) => resolve(blob), 'image/png');
+      };
+
+      const logoImg = new Image();
+      logoImg.onload = () => draw(logoImg);
+      logoImg.onerror = () => draw(null);
+      logoImg.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(LOGO_CUBIKS_SVG)));
     }catch(e){ resolve(null); }
   });
+}
+// Assombrit une couleur hex de `percent`% (pour un dégradé cohérent avec
+// n'importe quelle couleur de référence choisie par l'utilisateur).
+function shadeColor(hex, percent){
+  hex = hex.replace('#', '');
+  if(hex.length === 3) hex = hex.split('').map(c => c+c).join('');
+  let r = parseInt(hex.substr(0,2), 16);
+  let g = parseInt(hex.substr(2,2), 16);
+  let b = parseInt(hex.substr(4,2), 16);
+  r = Math.max(0, Math.round(r * (1 - percent/100)));
+  g = Math.max(0, Math.round(g * (1 - percent/100)));
+  b = Math.max(0, Math.round(b * (1 - percent/100)));
+  return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
 }
 function roundRectPath(ctx, x, y, w, h, r){
   ctx.beginPath();
