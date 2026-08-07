@@ -9,7 +9,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ref:#FFCC41;--ref-text:#2a2a2a;--bg:#eff1f2;--page:#ffffff;
-  --dark:#2a2a2a;--mid:#777777;--r:12px;
+  --dark:#2a2a2a;--mid:#777;--r:12px;
   --safe:env(safe-area-inset-bottom,0px);
   --cL:#5da8ff;--cR:#58db74;--cU:#fab06b;
   --cD:#f0c040;--cF:#32C0CC;--cB:#B3B3B3;--cW:#F25D7B;
@@ -205,11 +205,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   position:relative;
 }
 .card-mastered-badge{
-  position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;
-  background:var(--ref);color:var(--ref-text);display:flex;align-items:center;justify-content:center;
-  box-shadow:0 1px 3px rgba(0,0,0,.15);
+  position:absolute;top:8px;right:8px;width:22px;height:22px;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.15));
 }
-.card-mastered-badge svg{width:60%;height:60%;display:block}
 .card svg{width:78px;height:78px;flex-shrink:0}
 .card:active{transform:scale(.95)}
 .card:hover{
@@ -512,9 +510,6 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 /* Pages tableau de bord (Progression) : contenu pleine largeur et aligné
    à gauche, homogène avec Accueil/OLL/PLL plutôt que centré comme le chrono */
 .chrono-wrap.dash-wrap{align-items:stretch;text-align:left}
-@media{
-  .chrono-wrap.dash-wrap{padding-left:16;padding-right:16}
-}
 .chrono-wrap.chrono-center{
   min-height:calc(100dvh - 54px);
   justify-content:center;
@@ -7351,7 +7346,7 @@ function render(){
       const short = c.alg.length > 24 ? c.alg.slice(0,22)+'…' : c.alg;
       const mastered = ['oll','pll','f2l'].includes(curTab) && isMastered(curTab, c.id);
       grid += `<button class="card" data-id="${c.id}">
-        ${mastered ? `<span class="card-mastered-badge" title="Appris"><svg viewBox="0 0 52 52" fill="none"><path d="M36.6668 18L22.0002 32.6667L15.3335 26" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>` : ''}
+        ${mastered ? `<svg class="card-mastered-badge" width="22" height="22" viewBox="0 0 52 52" fill="none" title="Appris"><rect width="52" height="52" rx="26" style="fill:var(--ref)"/><path d="M36.6668 18L22.0002 32.6667L15.3335 26" style="stroke:var(--ref-text)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>` : ''}
         <div class="card-name">${c.name}</div>
         ${pieceSVG(c, 78)}
         <div class="card-alg">${fmt(short)}</div>
