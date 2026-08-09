@@ -969,14 +969,31 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
 }
 
 .progress-chart-card{background:var(--bg);border-radius:var(--r);padding:16px;width:100%}
-.progress-chart-head{
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:13px;font-weight:800;color:var(--dark);margin-bottom:10px;
+.progress-chart-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.progress-chart-title{font-size:13px;font-weight:800;color:var(--dark)}
+.chart-mode-toggle{display:flex;background:var(--page);border-radius:20px;padding:3px}
+.chart-mode-btn{
+  border:none;background:transparent;color:var(--mid);
+  padding:7px 12px;border-radius:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);
 }
-.progress-chart-legend{display:flex;align-items:center;font-size:11px;font-weight:600;color:var(--mid)}
-.progress-chart-legend .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px;margin-left:10px}
-.progress-chart-legend .dot:first-child{margin-left:0}
-.progress-chart-svg{width:100%;height:130px;display:block}
+.chart-mode-btn svg{width:17px;height:17px;display:block;stroke:currentColor}
+.chart-mode-btn.active{background:#5DA8FF;color:#fff}
+.progress-chart-sub{font-size:12px;color:var(--mid);margin:6px 0 8px}
+.progress-chart-sub strong{color:var(--dark);font-weight:800}
+.progress-chart-svg{width:100%;height:150px;display:block}
+.progress-chart-svg .chart-grid-line{stroke:var(--mid);stroke-opacity:.18;stroke-width:1}
+.progress-chart-svg .chart-grid-label{fill:var(--mid);font-size:11px}
+.progress-chart-svg .chart-axis-label{fill:var(--mid);font-size:10px}
+/* Motion inspirée Material Design data-viz : peu d'éléments animés à la fois, tracé progressif, easing standard */
+.progress-chart-svg .chart-area{opacity:0}
+.progress-chart-svg .chart-end-dot{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:center}
+.progress-chart-svg .chart-bar{transform:scaleY(0);transform-box:fill-box;transform-origin:center}
+@media (prefers-reduced-motion: reduce){
+  .progress-chart-svg .chart-area{opacity:1}
+  .progress-chart-svg .chart-end-dot{opacity:1;transform:scale(1)}
+  .progress-chart-svg .chart-bar{transform:scaleY(1)}
+}
 
 .progress-banner{
   background:color-mix(in srgb,var(--ref) 20%,transparent);
@@ -7055,35 +7072,149 @@ function computeChronoStats(){
   return { n, avg, best, worst, ao5, ao12, streak, todayCount, weekCount, bestDayCount, improvementPct, totalMs: sum, lastMessages };
 }
 
-// Petite courbe SVG (sparkline) des derniers temps — plus haut = plus rapide
+// Mode d'affichage du graphique de tendance (persisté) : 'line' (courbe) ou 'bar' (barres)
+let progressChartMode = localStorage.getItem('cfop_chart_mode') || 'line';
+function setProgressChartMode(mode){
+  if(mode === progressChartMode) return;
+  progressChartMode = mode;
+  localStorage.setItem('cfop_chart_mode', mode);
+  renderStatsPage();
+}
+
+const CHART_ACCENT = '#5DA8FF';
+
+const ICON_TRENDING_UP = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M23 6L13.5 15.5L8.5 10.5L1 18M23 12V6H17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const ICON_BAR_CHART = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+// 3 lignes de repère horizontales + libellés de temps flottants à droite — seule échelle du graphique, Material Design (data-viz épuré : peu d'encre, l'essentiel)
+function chartGridlinesSVG(min, max, w, padTop, plotH, rightPad){
+  const vals = [min, (min+max)/2, max]; // haut = plus rapide, bas = plus lent
+  return vals.map((v,i) => {
+    const y = padTop + (i/2) * plotH;
+    return `<line class="chart-grid-line" x1="0" x2="${w-rightPad}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/>
+      <text class="chart-grid-label" x="${w-rightPad+8}" y="${(y+4).toFixed(1)}">${formatTime(v)}</text>`;
+  }).join('');
+}
+
+// Courbe épurée des derniers temps — une seule teinte, une seule ligne, un seul repère (le point le plus récent).
+// Inspirée de l'exemple "Day view" de Material Design 2 (data-visualization#behavior) : tracé fin, aplat léger sous la courbe, axe minimal.
 function progressChartSVG(times){
-  const w = 600, h = 150, pad = 10;
+  const w = 600, h = 170, padTop = 10, padBottom = 10, rightPad = 46;
+  const plotW = w - rightPad, plotH = h - padTop - padBottom;
   const n = times.length;
   const min = Math.min(...times), max = Math.max(...times);
   const range = Math.max(1, max - min);
-  const stepX = (w - pad * 2) / (n - 1);
-  const pts = times.map((t,i) => [
-    pad + i * stepX,
-    pad + ((t - min) / range) * (h - pad * 2),
-  ]);
+  const stepX = plotW / (n - 1);
+  const yOf = t => padTop + ((t - min) / range) * plotH;
+  const pts = times.map((t,i) => [i * stepX, yOf(t)]);
   const path = pts.map((p,i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
-  const areaPath = `${path} L${pts[pts.length-1][0].toFixed(1)},${h-pad} L${pts[0][0].toFixed(1)},${h-pad} Z`;
-  const bestIdx = times.indexOf(min), worstIdx = times.lastIndexOf(max);
-  const dots = pts.map((p,i) => {
-    const isBest = i === bestIdx, isWorst = i === worstIdx;
-    const c = isBest ? '#08E326' : isWorst ? '#B71234' : '#5DA8FF';
-    const r = (isBest || isWorst) ? 4.5 : 2.5;
-    return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${r}" fill="${c}"/>`;
-  }).join('');
+  const areaPath = `${path} L${pts[pts.length-1][0].toFixed(1)},${h-padBottom} L0,${h-padBottom} Z`;
+  const last = pts[pts.length-1];
+
   return `<svg viewBox="0 0 ${w} ${h}" class="progress-chart-svg" preserveAspectRatio="none">
-    <defs><linearGradient id="progGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#5DA8FF" stop-opacity=".35"/>
-      <stop offset="100%" stop-color="#5DA8FF" stop-opacity="0"/>
-    </linearGradient></defs>
-    <path d="${areaPath}" fill="url(#progGrad)"/>
-    <path d="${path}" fill="none" stroke="#5DA8FF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-    ${dots}
+    ${chartGridlinesSVG(min, max, w, padTop, plotH, rightPad)}
+    <path class="chart-area" d="${areaPath}" fill="${CHART_ACCENT}" fill-opacity=".1"/>
+    <path class="chart-line" d="${path}" fill="none" stroke="${CHART_ACCENT}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle class="chart-end-dot" cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="5" fill="${CHART_ACCENT}" stroke="var(--bg)" stroke-width="2.5"/>
   </svg>`;
+}
+
+// Regroupe les résolutions par jour (jusqu'à 7 derniers jours actifs) : min/max du jour → une barre "plage", comme l'exemple "Week view" de Material Design
+function buildDayBuckets(chronologicalRecords){
+  const byDay = new Map();
+  chronologicalRecords.forEach(r => {
+    const d = new Date(r.date);
+    const key = d.toISOString().slice(0,10);
+    if(!byDay.has(key)) byDay.set(key, { key, date: d, times: [] });
+    byDay.get(key).times.push(r.ms);
+  });
+  const days = [...byDay.values()].sort((a,b) => a.date - b.date).slice(-7);
+  const WD = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  return days.map(d => ({
+    label: WD[d.date.getDay()],
+    min: Math.min(...d.times),
+    max: Math.max(...d.times),
+    avg: d.times.reduce((a,b)=>a+b,0) / d.times.length,
+  }));
+}
+
+// Barres épurées façon Material Design : plage min/max du jour, extrémités arrondies (trait épais à bouts ronds, pas un rectangle)
+function progressBarSVG(buckets){
+  const w = 600, h = 170, padTop = 10, padBottom = 26, rightPad = 46;
+  const plotW = w - rightPad, plotH = h - padTop - padBottom;
+  const n = buckets.length;
+  const min = Math.min(...buckets.map(b => b.min)), max = Math.max(...buckets.map(b => b.max));
+  const range = Math.max(1, max - min);
+  const yOf = t => padTop + ((t - min) / range) * plotH;
+  const slot = plotW / n;
+
+  const bars = buckets.map((b,i) => {
+    const x = slot * i + slot / 2;
+    let yTop = yOf(b.min), yBottom = yOf(b.max);
+    if(yBottom - yTop < 8){ const mid = (yTop+yBottom)/2; yTop = mid - 4; yBottom = mid + 4; } // garde une barre visible même pour un seul temps dans la journée
+    return `<line class="chart-bar" x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${yTop.toFixed(1)}" y2="${yBottom.toFixed(1)}"
+      stroke="${CHART_ACCENT}" stroke-width="14" stroke-linecap="round"/>
+      <text class="chart-axis-label" x="${x.toFixed(1)}" y="${h-8}" text-anchor="middle">${b.label}</text>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${w} ${h}" class="progress-chart-svg" preserveAspectRatio="none">
+    ${chartGridlinesSVG(min, max, w, padTop, plotH, rightPad)}
+    ${bars}
+  </svg>`;
+}
+
+// Anime le graphique à l'affichage — Material Design (data-viz / motion) : peu d'éléments animés à la fois, easing standard, jamais de mouvement mécanique/linéaire
+function animateProgressChart(){
+  const svg = document.querySelector('.progress-chart-svg');
+  if(!svg) return;
+  const EASE = 'cubic-bezier(.4,0,.2,1)';
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if(progressChartMode === 'bar'){
+    const bars = svg.querySelectorAll('.chart-bar');
+    if(reduceMotion){ bars.forEach(b => b.style.transform = 'scaleY(1)'); return; }
+    const n = bars.length || 1;
+    const totalStagger = 250;
+    bars.forEach((b,i) => {
+      b.style.transition = `transform 350ms ${EASE}`;
+      const delay = i * totalStagger / n;
+      setTimeout(() => { b.style.transform = 'scaleY(1)'; }, delay);
+    });
+    return;
+  }
+
+  const line = svg.querySelector('.chart-line');
+  const area = svg.querySelector('.chart-area');
+  const endDot = svg.querySelector('.chart-end-dot');
+
+  if(reduceMotion){
+    if(line){ line.style.strokeDasharray = 'none'; line.style.strokeDashoffset = '0'; }
+    return;
+  }
+
+  // 1. La ligne se dessine (~600ms) — c'est l'unique élément qui porte le sens des données
+  let lineDuration = 0;
+  if(line){
+    const len = line.getTotalLength();
+    line.style.strokeDasharray = len;
+    line.style.strokeDashoffset = len;
+    line.getBoundingClientRect();
+    lineDuration = 600;
+    line.style.transition = `stroke-dashoffset ${lineDuration}ms ${EASE}`;
+    requestAnimationFrame(() => requestAnimationFrame(() => { line.style.strokeDashoffset = '0'; }));
+  }
+
+  // 2. L'aplat arrive ensuite, jamais en même temps que le tracé
+  if(area){
+    area.style.transition = `opacity 300ms ${EASE}`;
+    setTimeout(() => { area.style.opacity = '1'; }, lineDuration - 100);
+  }
+
+  // 3. Un seul repère : le point le plus récent, en dernier
+  if(endDot){
+    endDot.style.transition = `opacity 200ms ${EASE}, transform 200ms ${EASE}`;
+    setTimeout(() => { endDot.style.opacity = '1'; endDot.style.transform = 'scale(1)'; }, lineDuration - 100);
+  }
 }
 
 // Conseils statiques pour progresser — affichés sur la page Progression
@@ -7145,6 +7276,7 @@ function renderStatsPage(){
     ${content}
   </div>`;
   mountTopFlopLotties();
+  animateProgressChart();
   m.scrollTop = 0;
 }
 
@@ -7156,6 +7288,7 @@ function statsMainContentHTML(){
 
   const chronological = [...CHRONO_RECORDS].sort((a,b) => new Date(a.date) - new Date(b.date));
   const recentTimes = chronological.slice(-30).map(r => r.ms);
+  const dayBuckets = buildDayBuckets(chronological);
   const totalMin = s.totalMs / 60000;
   const totalHours = totalMin / 60;
 
@@ -7188,16 +7321,20 @@ function statsMainContentHTML(){
     <div class="stat-note">Ao5 : moyenne de tes 5 derniers temps. Ao12 : moyenne de tes 12 derniers temps — plus stable pour juger ta régularité que ton meilleur temps isolé.</div>
 
     <div class="progress-chart-card">
-      <div class="progress-chart-head">
-        <span>Derniers temps</span>
-        <span class="progress-chart-legend">
-          <span class="dot" style="background:#08E326"></span>Best
-          <span class="dot" style="background:#B71234"></span>Pire
-        </span>
+      <div class="progress-chart-top">
+        <span class="progress-chart-title">Tendance</span>
+        <div class="chart-mode-toggle">
+          <button class="chart-mode-btn ${progressChartMode === 'line' ? 'active' : ''}" onclick="setProgressChartMode('line')" aria-label="Vue courbe">${ICON_TRENDING_UP}</button>
+          <button class="chart-mode-btn ${progressChartMode === 'bar' ? 'active' : ''}" onclick="setProgressChartMode('bar')" aria-label="Vue barres">${ICON_BAR_CHART}</button>
+        </div>
       </div>
-      ${recentTimes.length >= 2
-        ? progressChartSVG(recentTimes)
-        : `<div class="empty-block" style="padding:20px 0">Encore quelques chronos pour voir la courbe se dessiner.</div>`}
+      ${progressChartMode === 'line'
+        ? (recentTimes.length >= 2
+            ? `<div class="progress-chart-sub">${recentTimes.length} derniers temps · <strong>${formatTime(recentTimes.reduce((a,b)=>a+b,0)/recentTimes.length)}</strong> en moyenne</div>${progressChartSVG(recentTimes)}`
+            : `<div class="empty-block" style="padding:20px 0">Encore quelques chronos pour voir la courbe se dessiner.</div>`)
+        : (dayBuckets.length >= 2
+            ? `<div class="progress-chart-sub">${dayBuckets.length} derniers jours · <strong>${formatTime(dayBuckets.reduce((a,b)=>a+b.avg,0)/dayBuckets.length)}</strong> en moyenne</div>${progressBarSVG(dayBuckets)}`
+            : `<div class="empty-block" style="padding:20px 0">Résous sur au moins 2 jours différents pour voir la tendance en barres.</div>`)}
     </div>
 
     ${s.improvementPct !== null ? `
