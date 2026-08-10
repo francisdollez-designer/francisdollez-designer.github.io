@@ -2917,7 +2917,7 @@
       "num": 11,
       "name": "F-Perm",
       "group": "Permutations mixtes",
-      "alg": "R' U' F' R U R' U' R' F R2 U' R' U' R U R' U R",
+      "alg": "R' U2 R' d' R' F' R2 U' R' U R' F R U' F",
       "tip": "",
       "svg": "svg/pll/f.svg",
       "state": {
@@ -2959,7 +2959,7 @@
       "num": 12,
       "name": "R-Perm A",
       "group": "Permutations mixtes",
-      "alg": "R U' R' U' R U R D R' U' R D' R' U2 R'",
+      "alg": "L U2 L' U2 L F' L' U' L U L F L2 U",
       "tip": "",
       "svg": "svg/pll/ra.svg",
       "state": {
@@ -3001,7 +3001,7 @@
       "num": 13,
       "name": "R-Perm B",
       "group": "Permutations mixtes",
-      "alg": "R2 F R U R U' R' F' R U2 R' U2 R",
+      "alg": "R'U2 R U2 R' F R U R' U' R' F' R2 U'",
       "tip": "Symétrique du R-Perm A",
       "svg": "svg/pll/rb.svg",
       "state": {
@@ -3043,7 +3043,7 @@
       "num": 14,
       "name": "V-Perm",
       "group": "Permutations mixtes",
-      "alg": "R' U R' U' y R' F' R2 U' R' U R' F R F",
+      "alg": "R' U R' d' R' F' R2 U' R' U R' F R F",
       "tip": "",
       "svg": "svg/pll/v.svg",
       "state": {
@@ -3127,7 +3127,7 @@
       "num": 16,
       "name": "G-Perm A",
       "group": "G-Perms",
-      "alg": "R2 U R' U R' U' R U' R2 U' D R' U R D'",
+      "alg": "R2 u R' U R' U' R u' R2 y' R' U R",
       "tip": "",
       "svg": "svg/pll/ga.svg",
       "state": {
@@ -3295,7 +3295,7 @@
       "num": 20,
       "name": "N-Perm A",
       "group": "N-Perms",
-      "alg": "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'",
+      "alg": "L U' R U2 L' U R' L U' R U2 L' U R' U",
       "tip": "Le plus long PLL",
       "svg": "svg/pll/na.svg",
       "state": {
