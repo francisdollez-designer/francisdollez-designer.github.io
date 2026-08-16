@@ -1,0 +1,28 @@
+{
+  "_a_propos": "Journal des mises à jour de Cubiks. Ajoute une entrée en haut du tableau 'entrees' pour qu'elle apparaisse en premier dans la page Nouveautés. Types possibles : 'feature' (nouveauté), 'fix' (correction), 'amelioration' (amélioration).",
+
+  "entrees": [
+        {
+      "id": "2026-08-F2L",
+      "date": "2026-08-16",
+      "titre": "Correction de mauvais shéma F2L",
+      "description": "Certain shéma F2L faisait apparître des PLL au lieux de F2L",
+      "type": "fix"
+    },
+    
+    {
+      "id": "2026-08-b-fix",
+      "date": "2026-08-16",
+      "titre": "Correction des icônes de mouvement B, B' et B2",
+      "description": "Les schémas de rotation de la face arrière (B, B' et B2, ainsi que les tranches larges b, b' et b2) affichaient un sens de rotation incorrect. Ils sont désormais fidèles au vrai mouvement.",
+      "type": "fix"
+    },
+    {
+      "id": "2026-08-nouveautes-page",
+      "date": "2026-08-16",
+      "titre": "Nouvel onglet Nouveautés",
+      "description": "Un nouvel onglet permet de suivre l'historique des mises à jour de l'application, directement dans l'app.",
+      "type": "feature"
+    }
+  ]
+}
