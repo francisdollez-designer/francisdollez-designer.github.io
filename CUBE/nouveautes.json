@@ -2,6 +2,13 @@
   "_a_propos": "Journal des mises à jour de Cubiks. Ajoute une entrée en haut du tableau 'entrees' pour qu'elle apparaisse en premier dans la page Nouveautés. Types possibles : 'feature' (nouveauté), 'fix' (correction), 'amelioration' (amélioration).",
 
   "entrees": [
+           {
+      "id": "2026-08-icones mouvement",
+      "date": "2026-08-16",
+      "titre": "icones de mouvement plus grand",
+      "description": "Les icones de mouvement apparaisse plus grand pour plus de lisibilité",
+      "type": "amelioration"
+    },
         {
       "id": "2026-08-F2L",
       "date": "2026-08-16",
