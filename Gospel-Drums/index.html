@@ -6,7 +6,7 @@
 <title>Set Gospel de Noël — Répétition batterie</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #10142A;
@@ -18,11 +18,12 @@
     --muted: #8B90B5;
     --line: #2A3166;
     --done: #86A583;
+    --silence: #6B6F95;
     --radius: 10px;
+    --maxw: 640px;
   }
 
   *{ box-sizing: border-box; }
-
   html{ scroll-behavior: smooth; }
 
   body{
@@ -38,35 +39,59 @@
     font-family: 'Work Sans', -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     padding-bottom: 80px;
+    font-size: 17px;
   }
 
   h1, h2, .song-title{ font-family: 'Fraunces', Georgia, serif; }
 
+  /* ---------- Header photo ---------- */
+  .hero-photo{
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(160deg, #1A2047 0%, #10142A 70%);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.85;
+  }
+  .hero-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(16,20,42,0.1) 0%, rgba(16,20,42,0.95) 100%);
+  }
+
   /* ---------- Hero ---------- */
   .hero{
-    padding: 44px 20px 28px;
-    max-width: 640px;
+    padding: 36px 24px 28px;
+    max-width: var(--maxw);
     margin: 0 auto;
     text-align: left;
   }
   .hero .eyebrow{
     color: var(--gold);
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing: 0.02em;
     margin: 0 0 10px;
+    font-weight: 600;
   }
   .hero h1{
-    font-size: clamp(28px, 6vw, 40px);
+    font-size: clamp(30px, 6vw, 46px);
     font-weight: 500;
     line-height: 1.15;
-    margin: 0 0 12px;
+    margin: 0 0 14px;
   }
   .hero p{
     color: var(--muted);
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.6;
     margin: 0;
-    max-width: 46ch;
+    max-width: 50ch;
   }
 
   /* ---------- Sticky nav ---------- */
@@ -74,28 +99,25 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(16,20,42,0.92);
+    background: rgba(16,20,42,0.94);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
-    padding: 10px 20px;
+    padding: 12px 24px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    max-width: 680px;
+    gap: 12px;
+    max-width: var(--maxw);
     margin: 0 auto;
   }
-  .nav-tabs{
-    display: flex;
-    gap: 6px;
-    flex: 1;
-  }
+  .nav-tabs{ display: flex; gap: 8px; flex: 1; }
   .nav-tab{
     background: transparent;
     border: 1px solid var(--line);
     color: var(--muted);
     font-family: inherit;
-    font-size: 13px;
-    padding: 8px 14px;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 10px 18px;
     border-radius: 999px;
     cursor: pointer;
     transition: color 0.15s, border-color 0.15s;
@@ -104,101 +126,116 @@
     color: var(--bg);
     background: var(--gold);
     border-color: var(--gold);
-    font-weight: 600;
+    font-weight: 700;
   }
-  .nav-progress{
-    font-size: 12px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-  .nav-progress strong{ color: var(--gold); }
+  .nav-progress{ font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .nav-progress strong{ color: var(--done); font-size: 15px; }
 
   /* ---------- Sections ---------- */
   .part{
-    max-width: 640px;
+    max-width: var(--maxw);
     margin: 0 auto;
-    padding: 28px 20px 10px;
+    padding: 30px 24px 10px;
   }
   .part-title{
-    font-size: 13px;
-    text-transform: none;
+    font-size: 15px;
     color: var(--gold);
     margin: 0 0 4px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.01em;
   }
-  .part-sub{
-    color: var(--muted);
-    font-size: 13px;
-    margin: 0 0 18px;
-  }
+  .part-sub{ color: var(--muted); font-size: 14px; margin: 0 0 20px; }
 
   /* ---------- Song row ---------- */
   .song{
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     overflow: hidden;
     background: var(--panel);
     transition: border-color 0.15s;
   }
-  .song.done{ border-color: rgba(134,165,131,0.45); }
+  .song.status-cours{ border-color: rgba(212,166,87,0.5); }
+  .song.status-acquis{ border-color: rgba(134,165,131,0.5); }
+  .song.status-sans{ border-color: rgba(107,111,149,0.5); }
 
   .song-head{
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 12px;
-    padding: 14px 14px;
+    padding: 16px;
     cursor: pointer;
+  }
+  .song-head-top{
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
   }
   .song-num{
     font-family: 'Fraunces', serif;
     color: var(--gold-dim);
-    font-size: 14px;
-    width: 22px;
+    font-size: 16px;
+    width: 26px;
     flex-shrink: 0;
+    padding-top: 2px;
   }
-  .song.done .song-num{ color: var(--done); }
+  .song.status-acquis .song-num{ color: var(--done); }
+  .song.status-cours .song-num{ color: var(--gold); }
+  .song.status-sans .song-num{ color: var(--silence); }
 
   .song-main{ flex: 1; min-width: 0; }
   .song-title{
-    font-size: 16px;
+    font-size: 19px;
     font-weight: 500;
     line-height: 1.3;
-    margin: 0 0 2px;
+    margin: 0 0 4px;
   }
   .song-meta{
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .song-check{
-    flex-shrink: 0;
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    border: 1.5px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: transparent;
     font-size: 14px;
-    transition: all 0.15s;
-  }
-  .song.done .song-check{
-    background: var(--done);
-    border-color: var(--done);
-    color: var(--bg);
+    color: var(--muted);
+    line-height: 1.45;
   }
 
   .song-chevron{
     flex-shrink: 0;
     color: var(--muted);
-    font-size: 12px;
+    font-size: 13px;
+    padding-top: 4px;
     transition: transform 0.2s;
   }
   .song.open .song-chevron{ transform: rotate(180deg); }
+
+  /* ---------- Status selector ---------- */
+  .status-group{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-left: 40px;
+  }
+  .status-btn{
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+  }
+  .status-btn .dot{
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+  }
+  .status-btn[data-status="cours"].active{ background: rgba(212,166,87,0.18); border-color: var(--gold); color: var(--gold); }
+  .status-btn[data-status="acquis"].active{ background: rgba(134,165,131,0.18); border-color: var(--done); color: var(--done); }
+  .status-btn[data-status="sans"].active{ background: rgba(107,111,149,0.22); border-color: var(--silence); color: #C7C9E0; }
+  .status-btn[data-status="neuf"].active{ background: var(--panel-hi); border-color: var(--muted); color: var(--text); }
 
   .song-body{
     max-height: 0;
@@ -206,11 +243,9 @@
     transition: max-height 0.25s ease;
     border-top: 1px solid transparent;
   }
-  .song.open .song-body{
-    border-top: 1px solid var(--line);
-  }
+  .song.open .song-body{ border-top: 1px solid var(--line); }
 
-  .song-media{ padding: 14px; }
+  .song-media{ padding: 16px; }
 
   .video-wrap{
     position: relative;
@@ -220,52 +255,65 @@
     overflow: hidden;
     background: #000;
   }
-  .video-wrap iframe{
-    position: absolute;
-    top:0; left:0; width:100%; height:100%;
-    border: 0;
-  }
+  .video-wrap iframe{ position: absolute; top:0; left:0; width:100%; height:100%; border: 0; }
 
-  audio{
-    width: 100%;
-    height: 40px;
-  }
-  audio::-webkit-media-controls-panel{
-    background: var(--panel-hi);
-  }
+  audio{ width: 100%; height: 44px; }
+  audio::-webkit-media-controls-panel{ background: var(--panel-hi); }
 
   .media-tag{
     display: inline-block;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--gold);
     border: 1px solid var(--gold-dim);
     border-radius: 4px;
-    padding: 2px 7px;
-    margin-bottom: 10px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
   }
 
   /* ---------- Transition rows (no media) ---------- */
   .song.plain{ background: transparent; border-style: dashed; }
-  .song.plain .song-head{ cursor: default; }
-  .song.plain .song-title{ color: var(--muted); font-style: italic; font-weight: 400; }
-  .song.plain .song-chevron{ display: none; }
+  .song.plain .song-head{ cursor: default; padding: 14px 16px; }
+  .song.plain .song-head-top{ align-items: center; }
+  .song.plain .song-title{ color: var(--muted); font-style: italic; font-weight: 400; font-size: 16px; }
 
   footer{
-    max-width: 640px;
+    max-width: var(--maxw);
     margin: 30px auto 0;
-    padding: 0 20px;
+    padding: 0 24px;
     color: var(--muted);
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
+  }
+
+  /* ---------- Wide layout: iPad landscape and up ---------- */
+  @media (min-width: 900px){
+    :root{ --maxw: 1080px; }
+    body{ font-size: 18px; }
+    .hero-photo{ height: 320px; }
+    .hero{ padding: 48px 32px 34px; }
+    .hero h1{ font-size: 52px; }
+    .hero p{ font-size: 18px; max-width: 60ch; }
+    .nav{ padding: 14px 32px; }
+    .nav-tab{ font-size: 16px; padding: 11px 22px; }
+    .part{ padding: 34px 32px 10px; }
+    .song-title{ font-size: 22px; }
+    .song-meta{ font-size: 15px; }
+    .status-btn{ font-size: 14px; padding: 8px 14px; }
+    .status-group{ padding-left: 44px; }
+    .video-wrap{ padding-top: 42%; }
   }
 </style>
 </head>
 <body>
 
+<div class="hero-photo">
+  <img id="heroImg" src="header.jpg" alt="" onerror="this.style.display='none'">
+</div>
+
 <header class="hero">
   <p class="eyebrow">Concert de Noël · programme gospel</p>
   <h1>Le set, dans l'ordre.</h1>
-  <p>20 morceaux, deux parties. Touche un titre pour écouter la version de référence, coche-le une fois travaillé à la batterie.</p>
+  <p>20 morceaux, deux parties. Touche un titre pour écouter la version de référence, choisis un niveau une fois travaillé à la batterie.</p>
 </header>
 
 <nav class="nav">
@@ -273,7 +321,7 @@
     <button class="nav-tab active" data-target="#partie1">Partie 1</button>
     <button class="nav-tab" data-target="#partie2">Partie 2</button>
   </div>
-  <div class="nav-progress"><strong id="doneCount">0</strong>/20</div>
+  <div class="nav-progress"><strong id="doneCount">0</strong>/17 acquis</div>
 </nav>
 
 <section class="part" id="partie1">
@@ -317,12 +365,19 @@ const DATA2 = [
   { id:20, title:"Oh happy day", meta:"version Gospel Faith · C maj", audio:"happyday.mp3" },
 ];
 
-const STORAGE_KEY = "gospel-set-progress";
-function getProgress(){
+const STATUSES = [
+  { key:"neuf",   label:"À travailler" },
+  { key:"cours",  label:"En cours" },
+  { key:"acquis", label:"Acquis" },
+  { key:"sans",   label:"Pas de batterie" },
+];
+
+const STORAGE_KEY = "gospel-set-status";
+function getStatuses(){
   try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
   catch(e){ return {}; }
 }
-function saveProgress(p){ localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+function saveStatuses(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
 function renderSong(song){
   const el = document.createElement('div');
@@ -342,48 +397,64 @@ function renderSong(song){
     </div>`;
   }
 
+  const statusButtons = STATUSES.map(s =>
+    `<button class="status-btn" data-status="${s.key}"><span class="dot"></span>${s.label}</button>`
+  ).join('');
+
   el.innerHTML = `
     <div class="song-head">
-      <span class="song-num">${song.id}</span>
-      <div class="song-main">
-        <p class="song-title">${song.title}</p>
-        ${song.meta ? `<p class="song-meta">${song.meta}</p>` : ''}
+      <div class="song-head-top">
+        <span class="song-num">${song.id}</span>
+        <div class="song-main">
+          <p class="song-title">${song.title}</p>
+          ${song.meta ? `<p class="song-meta">${song.meta}</p>` : ''}
+        </div>
+        ${!song.plain ? `<span class="song-chevron">▾</span>` : ''}
       </div>
-      ${!song.plain ? `<span class="song-chevron">▾</span>` : ''}
-      <span class="song-check" data-id="${song.id}">✓</span>
+      ${!song.plain ? `<div class="status-group">${statusButtons}</div>` : ''}
     </div>
     ${!song.plain ? `<div class="song-body">${mediaHtml}</div>` : ''}
   `;
 
   if(!song.plain){
-    el.querySelector('.song-head').addEventListener('click', (e) => {
-      if(e.target.classList.contains('song-check')) return;
+    el.querySelector('.song-head-top').addEventListener('click', () => {
       el.classList.toggle('open');
       const body = el.querySelector('.song-body');
       body.style.maxHeight = el.classList.contains('open') ? body.scrollHeight + 'px' : '0px';
     });
-  }
 
-  el.querySelector('.song-check').addEventListener('click', (e) => {
-    e.stopPropagation();
-    const progress = getProgress();
-    progress[song.id] = !progress[song.id];
-    saveProgress(progress);
-    applyDoneState(song.id, progress[song.id]);
-    updateCounter();
-  });
+    el.querySelectorAll('.status-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const statuses = getStatuses();
+        const current = statuses[song.id];
+        const clicked = btn.dataset.status;
+        statuses[song.id] = (current === clicked) ? null : clicked;
+        saveStatuses(statuses);
+        applyStatus(song.id, statuses[song.id]);
+        updateCounter();
+      });
+    });
+  }
 
   return el;
 }
 
-function applyDoneState(id, done){
+function applyStatus(id, statusKey){
   const el = document.getElementById('song-' + id);
-  if(el) el.classList.toggle('done', !!done);
+  if(!el) return;
+  STATUSES.forEach(s => el.classList.remove('status-' + s.key));
+  el.querySelectorAll('.status-btn').forEach(b => b.classList.remove('active'));
+  if(statusKey){
+    el.classList.add('status-' + statusKey);
+    const activeBtn = el.querySelector('.status-btn[data-status="' + statusKey + '"]');
+    if(activeBtn) activeBtn.classList.add('active');
+  }
 }
 
 function updateCounter(){
-  const progress = getProgress();
-  const count = Object.values(progress).filter(Boolean).length;
+  const statuses = getStatuses();
+  const count = Object.values(statuses).filter(v => v === 'acquis').length;
   document.getElementById('doneCount').textContent = count;
 }
 
@@ -392,8 +463,8 @@ const songs2El = document.getElementById('songs2');
 DATA1.forEach(s => songs1El.appendChild(renderSong(s)));
 DATA2.forEach(s => songs2El.appendChild(renderSong(s)));
 
-const progress = getProgress();
-[...DATA1, ...DATA2].forEach(s => { if(progress[s.id]) applyDoneState(s.id, true); });
+const statuses = getStatuses();
+[...DATA1, ...DATA2].forEach(s => { if(statuses[s.id]) applyStatus(s.id, statuses[s.id]); });
 updateCounter();
 
 // Nav tabs
@@ -406,7 +477,6 @@ tabs.forEach(tab => {
   });
 });
 
-// Highlight active tab on scroll
 const sections = [document.getElementById('partie1'), document.getElementById('partie2')];
 window.addEventListener('scroll', () => {
   const pos = window.scrollY + 100;
